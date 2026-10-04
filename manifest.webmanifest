@@ -1,10 +1,10 @@
 {
-  "name": "SOL Meme Radar v5.2",
+  "name": "SOL Meme Radar v5.3",
   "short_name": "Meme Radar",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#05070b",
   "theme_color": "#05070b",
-  "description": "Rustige Solana memecoin-assistent met Wallet Watch en Trade Guardian."
+  "description": "Solana memecoin radar in validation/paper mode met strengere safety- en entrybevestiging."
 }
