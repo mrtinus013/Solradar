@@ -1,13 +1,15 @@
-SOL Meme Radar v5
-=================
-Open index.html for a local preview.
+SOL Meme Radar v5.2 — Simple Mode
 
-For best iPhone behavior:
-1. Host this folder over HTTPS (for example GitHub Pages).
-2. Open it in Safari.
-3. Add it to the Home Screen.
-4. In Wallet, enter ONLY your public Solana receive address.
-5. Enable notifications.
+Upload index.html, manifest.webmanifest en sw.js naar dezelfde GitHub Pages map.
 
-Wallet Watch is read-only. Never enter a seed phrase/private key.
-Background push while the app is fully closed requires a server-side push monitor; this package prepares the PWA shell but does not contain credentials or a push backend.
+Nieuw:
+- eerste start vraagt éénmalig om je publieke Solana-walletadres;
+- lokaal opgeslagen in localStorage;
+- hoofdscherm: Kansen / Mijn trades / Historie;
+- maximaal 3 relevante coins;
+- TOO HOT en AVOID zijn verborgen;
+- WATCH heeft geen geblokkeerde koopknop;
+- wallet/sync/meldingen zitten achter ⚙️;
+- koopknop opent Trust Wallet direct.
+
+Nooit seed phrase of private key invoeren.

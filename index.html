@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>SOL Meme Radar v5 · Guardian AI</title>
+<title>SOL Meme Radar v5.2.1 · Guardian AI</title>
 <style>
 :root{--bg:#050609;--panel:#0b0e14;--panel2:#10141d;--text:#f5f7fb;--muted:#8993a4;--line:#20283a;--green:#50f6a4;--amber:#ffd36d;--red:#ff657b;--cyan:#52d8ff;--purple:#a982ff;--shadow:0 20px 70px rgba(0,0,0,.45)}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% -10%,rgba(82,216,255,.12),transparent 28%),radial-gradient(circle at 0 20%,rgba(169,130,255,.10),transparent 25%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
@@ -58,24 +58,76 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 
 @media(max-width:820px){.pickCounts{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.filters{grid-template-columns:repeat(2,1fr)}.status{display:none}.top{align-items:center}.actions{grid-template-columns:1.5fr 1fr 1fr auto}.toolbar{top:4px}}
 @media(max-width:460px){.tradeAlertTop{align-items:flex-start}.tradeAlertActions{flex-direction:column}.positionStats{grid-template-columns:repeat(2,1fr)}.positionActions{grid-template-columns:1fr 1fr}.positionActions .sellNow{grid-column:1/-1}.planline{grid-template-columns:1fr 1fr 1fr}.picksPanel{padding:11px}.app{padding:16px 10px 55px}.logo{width:42px;height:42px}.hero{gap:7px}.metric{padding:11px 12px}.metric strong{font-size:18px}.filters{gap:6px}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr 1fr 1fr auto}.actions a,.actions button{padding:10px 5px}.hide-mobile{display:none}.toolbar{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}.toolbar::-webkit-scrollbar{display:none}.refresh{margin-left:0}}
+
+/* v5.2 Simple Mode */
+body{background:#05070b}
+.app{max-width:760px}
+.top{margin-bottom:14px;align-items:center}
+.title h1{font-size:22px}.title p{font-size:10px;max-width:420px}
+.hero{display:none!important}
+.picksPanel{padding:16px;border-radius:20px;margin-bottom:12px}
+.picksHead h2{font-size:18px}.picksHead p{font-size:10px;line-height:1.45}
+.pickCounts{display:none!important}
+.pickBanner{margin-top:10px;background:#090d14;border-color:#222d40;font-size:10px}
+.toolbar{display:grid;grid-template-columns:repeat(3,1fr) 42px;gap:7px;overflow:visible;padding:6px;margin-bottom:12px}
+.toolbar .pill{min-width:0;border-radius:12px;padding:10px 7px;font-size:10px;line-height:1.15}
+.toolbar .pill.active{background:#16201c;border-color:#315c48;color:#74f6b2}
+.toolbar .refresh{display:none!important}
+.toolbar .simpleSettings{display:flex;align-items:center;justify-content:center;border:1px solid #27344b;background:#0d121a;color:#dce5f2;border-radius:12px;font-size:16px;cursor:pointer}
+.filters{display:none!important}.notice{display:none!important}
+.grid{grid-template-columns:1fr;gap:10px}
+.card{border-radius:18px;padding:14px}
+.card .stats{grid-template-columns:repeat(3,1fr)}
+.card .riskline,.card .planline,.card .barline{display:none}
+.card .actions{grid-template-columns:1fr!important}
+.card .actions>a,.card .actions>button:not(.trade){display:none!important}
+.card .trade{font-size:12px;padding:13px 10px;border-radius:12px}
+.simpleWait{margin-top:12px;border:1px solid #293448;background:#0a0e15;color:#9aa7b8;border-radius:12px;padding:11px;text-align:center;font-size:10px;font-weight:750}
+.simpleDetails{margin-top:10px;border-top:1px solid #1e2736;padding-top:9px}
+.simpleDetails summary{cursor:pointer;color:#8390a3;font-size:9px;list-style:none}
+.simpleDetails summary::-webkit-details-marker{display:none}
+.simpleDetails .inside{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.simpleDetails a,.simpleDetails button{border:1px solid #29364d;background:#0c1119;color:#cbd5e4;border-radius:9px;padding:8px 10px;font-size:9px;text-decoration:none}
+.verdict{margin-top:11px;border-radius:12px;padding:10px}.verdictReason{font-size:10px;line-height:1.42}
+.foot{font-size:8px;opacity:.65;padding:14px 4px}
+.walletMini{display:flex;align-items:center;gap:6px;margin-left:auto;border:1px solid #253149;background:#0b1018;border-radius:999px;padding:7px 9px;font-size:9px;color:#aeb9ca;cursor:pointer}
+.walletMini .ok{width:7px;height:7px;border-radius:50%;background:#50f6a4;box-shadow:0 0 10px rgba(80,246,164,.6)}
+.walletMini b{color:#fff;font-weight:850}
+.onboard{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 0%,#121b27 0,#070a10 42%,#040609 100%);display:none;align-items:center;justify-content:center;padding:22px}
+.onboard.show{display:flex}
+.onboardCard{width:min(480px,100%);border:1px solid #27334a;background:rgba(8,12,18,.98);border-radius:26px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,.55)}
+.onboardLogo{width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,#50f6a4,#52d8ff);color:#05110c;display:grid;place-items:center;font-weight:950;font-size:18px;margin-bottom:18px}
+.onboardCard h1{margin:0 0 8px;font-size:27px}.onboardCard p{color:#98a5b7;line-height:1.5;font-size:12px;margin:0}
+.onboardSafe{margin:16px 0;border:1px solid #223047;background:#0a0f17;border-radius:14px;padding:11px;font-size:10px;color:#9ba8ba;line-height:1.45}.onboardSafe b{color:#fff}
+.onboardInput{display:flex;gap:8px;margin-top:16px}.onboardInput input{width:100%;min-width:0;border:1px solid #30405a;background:#05080d;color:#fff;border-radius:13px;padding:14px;font-size:13px}
+.onboardInput button{border:1px solid #30405a;background:#111825;color:#fff;border-radius:13px;padding:0 13px;font-weight:850}
+.onboardContinue{width:100%;margin-top:10px;border:0;border-radius:14px;padding:14px;background:linear-gradient(135deg,#50f6a4,#67eec6);color:#04120d;font-weight:950;font-size:13px}
+.onboardError{min-height:18px;color:#ff7e90;font-size:10px;margin-top:7px}
+.settingsOverlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.62);display:none;align-items:flex-end;justify-content:center}
+.settingsOverlay.show{display:flex}
+.settingsSheet{width:min(620px,100%);max-height:82vh;overflow:auto;background:#090d14;border:1px solid #29364b;border-radius:24px 24px 0 0;padding:18px 18px 28px}
+.settingsHead{display:flex;align-items:center;justify-content:space-between}.settingsHead h2{font-size:18px;margin:0}.settingsHead button{border:0;background:#151c28;color:#fff;border-radius:10px;width:34px;height:34px}
+.settingsSection{margin-top:16px;border:1px solid #222e41;border-radius:14px;padding:12px;background:#080b11}.settingsSection h3{font-size:11px;margin:0 0 7px}.settingsSection p{font-size:9px;color:#8e9bad;line-height:1.45;margin:0 0 10px}
+.settingsActions{display:flex;gap:7px;flex-wrap:wrap}.settingsActions button{border:1px solid #30405a;background:#101722;color:#fff;border-radius:10px;padding:9px 11px;font-size:9px;font-weight:800}.settingsActions button.primary{background:#50f6a4;color:#05130d;border-color:#50f6a4}
+.settingsWalletInput{width:100%;box-sizing:border-box;border:1px solid #30405a;background:#05080d;color:#fff;border-radius:10px;padding:10px;font-size:10px;margin-bottom:8px}
+.calmEmpty{border:1px solid #263249;background:#090d14;border-radius:18px;padding:24px 17px;text-align:center;color:#99a6b7;font-size:11px;line-height:1.55}.calmEmpty b{display:block;color:#fff;font-size:15px;margin-bottom:5px}
+@media(max-width:520px){
+  .app{padding:14px 10px 46px}.top{gap:8px}.logo{width:38px;height:38px;font-size:12px}.title h1{font-size:19px}.title p{display:none}
+  .walletMini{padding:6px 8px}.toolbar{grid-template-columns:repeat(3,1fr) 40px}
+  .picksHead .badge{display:none}.card .stats{grid-template-columns:repeat(2,1fr)}.onboardCard{padding:20px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div class="logo">S◎L</div><div class="title"><h1>Meme Radar <span style="font-size:.42em;color:#52d8ff;vertical-align:middle">v5</span></h1><p>Solana memecoin radar · Wallet Watch · Dynamic Exit · Trade Journal</p></div></div>
-    <div class="status"><span class="dot"></span><span id="liveText">Live scanner</span></div>
+    <div class="brand"><div class="logo">S◎L</div><div class="title"><h1>Meme Radar <span style="font-size:.42em;color:#52d8ff;vertical-align:middle">v5.2</span></h1><p>Rustige memecoin-assistent · vinden → kopen → bewaken → verkopen</p></div></div>
+    <div class="walletMini" id="walletMini"><span class="ok"></span><b id="walletMiniText">Wallet</b></div>
   </header>
 
-  <section class="hero">
-    <div class="metric"><small>Gevonden</small><strong id="mFound">—</strong><div class="sub">SOL-pairs in scan</div></div>
-    <div class="metric"><small>Kans ≥ 70</small><strong id="mStrong">—</strong><div class="sub">na risk heuristics</div></div>
-    <div class="metric"><small>Nieuwe pools</small><strong id="mEarly">—</strong><div class="sub">jonger dan 60 min</div></div>
-    <div class="metric"><small>Laatste scan</small><strong id="mScan">—</strong><div class="sub" id="mSource">DEX + new pools</div></div>
-  </section>
-
   <section class="picksPanel" id="picksPanel">
-    <div class="picksHead"><div><h2>🎯 CHAT'S TOP PICKS</h2><p>Automatische marktstructuur-classificatie. BUY ZONE vereist nog steeds contract/safety controle.</p></div><span class="badge">LIVE</span></div>
+    <div class="picksHead"><div><h2>Beste kansen nu</h2><p>De radar verbergt bewust coins die te heet of te riskant zijn.</p></div><span class="badge">LIVE</span></div>
     <div class="pickCounts">
       <div class="pickCount buy"><small>Buy zone</small><b id="pcBuy">—</b></div>
       <div class="pickCount watch"><small>Watch</small><b id="pcWatch">—</b></div>
@@ -88,28 +140,56 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
   <section class="tradeAlert" id="tradeAlert"></section>
 
   <nav class="toolbar">
-    <button class="pill active" data-view="picks">🎯 Top Picks</button>
-    <button class="pill" data-view="trades">🛡️ Mijn Trades <span id="tradeCount"></span></button>
-    <button class="pill" data-view="wallet">👛 Wallet</button>
-    <button class="pill" data-view="journal">📒 Tradeboek</button>
-    <button class="pill" data-view="live">⚡ Live</button>
-    <button class="pill" data-view="early">🌱 Early</button>
-    <button class="pill" data-view="hot">🔥 Hot</button>
-    <button class="pill" data-view="watch">★ Watchlist</button>
-    <button class="btn refresh" id="refreshBtn">↻ Scan nu</button>
+    <button class="pill active" data-view="picks">Kansen</button>
+    <button class="pill" data-view="trades">Mijn trades <span id="tradeCount"></span></button>
+    <button class="pill" data-view="journal">Historie</button>
+    <button class="simpleSettings" id="settingsBtn" aria-label="Instellingen">⚙️</button>
+    <button class="btn refresh" id="refreshBtn">↻</button>
   </nav>
 
-  <section class="filters">
-    <div class="field"><label>Min. liquiditeit</label><select id="minLiq"><option value="3000" selected>$3k</option><option value="10000">$10k</option><option value="20000">$20k</option><option value="50000">$50k</option></select></div>
+  <section class="filters" aria-hidden="true">
+    <div class="field"><label>Min. liquiditeit</label><select id="minLiq"><option value="3000">$3k</option><option value="10000" selected>$10k</option><option value="20000">$20k</option><option value="50000">$50k</option></select></div>
     <div class="field"><label>Max. leeftijd</label><select id="maxAge"><option value="60">1 uur</option><option value="360">6 uur</option><option value="1440" selected>24 uur</option><option value="10080">7 dagen</option></select></div>
     <div class="field"><label>Min. radar score</label><select id="minScore"><option value="0" selected>Alles</option><option value="45">45+</option><option value="60">60+</option><option value="70">70+</option><option value="80">80+</option></select></div>
     <div class="field"><label>Sorteren</label><select id="sortBy"><option value="score">Beste score</option><option value="age">Nieuwste</option><option value="vol">Meeste volume</option><option value="liq">Liquiditeit</option></select></div>
   </section>
 
-  <div class="notice"><b>Guardian v5.</b> Met een optioneel publiek Solana-walletadres kan de app aankopen en verkopen read-only herkennen. De exit-engine gebruikt een dynamische trailing-top, orderflow en liquiditeitsverlies. Geen enkel signaal kan een top of rug garanderen.</div>
+  <div class="notice"></div>
 
   <main class="grid" id="grid"><div class="empty"><div class="loader"></div>Live feeds verbinden…</div></main>
   <div class="foot">De app vraagt uitsluitend om een <b>publiek Solana-adres</b> als je Wallet Watch gebruikt. Nooit seed phrase of private key invoeren. Alle swaps bevestig jij zelf in Trust Wallet. Lokale meldingen werken als de app actief is; echte achtergrond-push op iPhone vereist de gehoste PWA/backend-versie.</div>
+</div>
+
+<div class="onboard" id="onboard">
+  <div class="onboardCard">
+    <div class="onboardLogo">S◎L</div>
+    <h1>Eenmalig je wallet instellen</h1>
+    <p>Plak je <b>publieke Solana-walletadres</b>. Daarna onthoudt deze app het lokaal op dit apparaat.</p>
+    <div class="onboardSafe"><b>Alleen read-only.</b> De radar kan hiermee je balans en trades herkennen, maar nooit crypto versturen. Vul hier nooit een seed phrase of private key in.</div>
+    <div class="onboardInput"><input id="onboardWallet" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Solana walletadres"><button id="pasteWalletBtn">Plak</button></div>
+    <div class="onboardError" id="onboardError"></div>
+    <button class="onboardContinue" id="onboardContinue">Opslaan & doorgaan</button>
+  </div>
+</div>
+
+<div class="settingsOverlay" id="settingsOverlay">
+  <div class="settingsSheet">
+    <div class="settingsHead"><h2>Instellingen</h2><button id="settingsClose">✕</button></div>
+    <div class="settingsSection">
+      <h3>Wallet</h3><p>Je publieke adres is lokaal opgeslagen. Alleen wijzigen als je een andere wallet wilt volgen.</p>
+      <input class="settingsWalletInput" id="settingsWalletInput" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <div class="settingsActions"><button class="primary" id="saveWalletSettings">Wallet opslaan</button><button id="syncWalletSettings">Nu synchroniseren</button></div>
+      <div class="walletHint" id="settingsWalletStatus"></div>
+    </div>
+    <div class="settingsSection">
+      <h3>Meldingen</h3><p>Voor iPhone-meldingen moet de site als webapp op het beginscherm staan.</p>
+      <div class="settingsActions"><button id="notificationSettings">Meldingen inschakelen</button></div>
+    </div>
+    <div class="settingsSection">
+      <h3>Geavanceerd</h3><p>De scanner ververst automatisch. Deze knoppen heb je normaal niet nodig.</p>
+      <div class="settingsActions"><button id="manualScanSettings">Scan nu</button><button id="openWalletPageSettings">Walletdetails</button></div>
+    </div>
+  </div>
 </div>
 
 <div class="modal" id="modal"><div class="sheet"><div class="sheethead"><div><div class="small">RugCheck safety scan</div><h2 id="modalTitle">Token</h2></div><button class="close" id="closeModal">Sluiten</button></div><div id="modalBody" class="riskbox"><div class="loader"></div></div></div></div>
@@ -132,7 +212,7 @@ function safeSavePositions(a){safeSet('solRadarPositions',a)}
 const state={
   tokens:[],view:'picks',loading:false,last:0,watch:safeLoadWatch(),positions:safeLoadPositions(),
   journal:safeJson('solRadarJournal',[]),samples:safeJson('solRadarSamples',[]),
-  walletAddress:safeJson('solRadarWallet',''),walletBalances:{},walletSOL:0,walletLast:0,walletSyncing:false,walletError:'',
+  walletAddress:safeJson('solRadarWallet',''),walletBalances:{},walletKnown:{},walletSOL:0,walletLast:0,walletSyncing:false,walletError:'',walletRpcName:'',
   errors:[],sources:new Set(),safetyRunning:false,monitoring:false,lastMonitor:0,promptOpen:false
 };
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -243,55 +323,110 @@ function gtToken(pool,j){
 function saveJournal(){safeSet('solRadarJournal',state.journal)}
 function saveWallet(){safeSet('solRadarWallet',state.walletAddress)}
 function isSolAddress(s){return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(String(s||'').trim())}
-async function rpc(method,params,timeout=9000){
-  const c=new AbortController(), timer=setTimeout(()=>c.abort(),timeout);
-  try{
-    const r=await fetch(SOLRPC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params}),signal:c.signal});
-    if(!r.ok)throw new Error(`RPC ${r.status}`);
-    const j=await r.json();if(j.error)throw new Error(j.error.message||'RPC error');return j.result;
-  }finally{clearTimeout(timer)}
-}
-async function ownerProgramBalances(address,programId){
-  const r=await rpc('getTokenAccountsByOwner',[address,{programId},{encoding:'jsonParsed',commitment:'confirmed'}]);
-  const out={};
-  for(const x of (r?.value||[])){
-    const info=x?.account?.data?.parsed?.info, mint=info?.mint, amt=n(info?.tokenAmount?.uiAmountString??info?.tokenAmount?.uiAmount);
-    if(mint)out[mint]=(out[mint]||0)+amt;
+async function rpc(method,params,timeout=7000){
+  const order=[...RPC_ENDPOINTS.keys()].sort((a,b)=>a===rpcPreferred?-1:b===rpcPreferred?1:a-b);
+  const errors=[];
+  for(const idx of order){
+    const ep=RPC_ENDPOINTS[idx], c=new AbortController(), timer=setTimeout(()=>c.abort(),timeout);
+    try{
+      const r=await fetch(ep.url,{
+        method:'POST',
+        mode:'cors',
+        cache:'no-store',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({jsonrpc:'2.0',id:Date.now(),method,params}),
+        signal:c.signal
+      });
+      if(!r.ok)throw new Error(`HTTP ${r.status}`);
+      const j=await r.json();
+      if(j.error)throw new Error(j.error.message||'RPC error');
+      rpcPreferred=idx;state.walletRpcName=ep.name;
+      clearTimeout(timer);
+      return j.result;
+    }catch(e){
+      clearTimeout(timer);
+      errors.push(`${ep.name}: ${e?.name==='AbortError'?'timeout':(e?.message||'network')}`);
+    }
   }
-  return out;
+  throw new Error(`Alle RPC's faalden · ${errors.join(' · ')}`);
+}
+async function ownerMintBalance(address,mint,timeout=7000){
+  const r=await rpc('getTokenAccountsByOwner',[address,{mint},{encoding:'jsonParsed',commitment:'confirmed'}],timeout);
+  let total=0;
+  for(const x of (r?.value||[])){
+    const info=x?.account?.data?.parsed?.info;
+    total+=n(info?.tokenAmount?.uiAmountString??info?.tokenAmount?.uiAmount);
+  }
+  return total;
+}
+function trackedWalletMints(){
+  return [...new Set(activePositions().map(p=>p.mint).filter(Boolean))];
+}
+async function syncOneMint(mint,timeout=6500){
+  try{
+    const amount=await ownerMintBalance(state.walletAddress,mint,timeout);
+    state.walletBalances[mint]=amount;
+    state.walletKnown[mint]=true;
+    return true;
+  }catch(e){
+    return false;
+  }
 }
 async function syncWallet(force=false){
   if(!state.walletAddress||state.walletSyncing)return false;
   if(!force&&Date.now()-state.walletLast<12000)return true;
   state.walletSyncing=true;state.walletError='';
+  let anyOk=false;
   try{
-    const [classic,t22,sol]=await Promise.allSettled([
-      ownerProgramBalances(state.walletAddress,TOKEN_PROGRAM),
-      ownerProgramBalances(state.walletAddress,TOKEN2022_PROGRAM),
-      rpc('getBalance',[state.walletAddress,{commitment:'confirmed'}])
-    ]);
-    if(classic.status!=='fulfilled'&&t22.status!=='fulfilled')throw new Error('Tokenbalansen konden niet worden opgehaald');
-    const completeTokenSnapshot=classic.status==='fulfilled'&&t22.status==='fulfilled';
-    const balances={};
-    for(const src of [classic,t22])if(src.status==='fulfilled')for(const [m,a] of Object.entries(src.value))balances[m]=(balances[m]||0)+n(a);
-    state.walletBalances=balances;
-    if(sol.status==='fulfilled')state.walletSOL=n(sol.value?.value)/1e9;
-    state.walletLast=Date.now();
-    if(completeTokenSnapshot)reconcileWalletPositions(); else state.walletError='Wallet deels gesynchroniseerd; automatische trade-detectie wacht op een complete RPC-snapshot.';
-    if(state.view==='wallet')renderWallet();if(state.view==='trades')renderTrades();
+    // SOL balance is deliberately fetched independently so a token-RPC failure
+    // can never hide a perfectly valid SOL balance.
+    try{
+      const sol=await rpc('getBalance',[state.walletAddress,{commitment:'confirmed'}],6500);
+      state.walletSOL=n(sol?.value)/1e9;
+      anyOk=true;
+    }catch(e){
+      state.walletError='SOL-balans kon via de beschikbare RPC’s niet worden opgehaald.';
+    }
+
+    // Only query token mints that are actually being traded. This is much lighter
+    // than downloading every SPL token account and avoids public-RPC rate limits.
+    const mints=trackedWalletMints();
+    if(mints.length){
+      const results=await Promise.allSettled(mints.map(m=>syncOneMint(m,6000)));
+      const tokenOk=results.some(x=>x.status==='fulfilled'&&x.value===true);
+      if(tokenOk)anyOk=true;
+      if(!tokenOk&&mints.length){
+        state.walletError+=(state.walletError?' ':'')+'Trade-tokenbalansen konden nog niet worden opgehaald; handmatige bevestiging blijft beschikbaar.';
+      }
+    }
+
+    if(anyOk){
+      state.walletLast=Date.now();
+      reconcileWalletPositions();
+    }else{
+      throw new Error(state.walletError||'Wallet RPC mislukt');
+    }
+
+    if(state.view==='wallet')renderWallet();
+    if(state.view==='trades')renderTrades();
     return true;
-  }catch(e){state.walletError=e?.message||'Wallet RPC mislukt';if(state.view==='wallet')renderWallet();return false}
-  finally{state.walletSyncing=false}
+  }catch(e){
+    state.walletError=e?.message||'Wallet RPC mislukt';
+    if(state.view==='wallet')renderWallet();
+    return false;
+  }finally{
+    state.walletSyncing=false;
+  }
 }
 function walletAmount(mint){return n(state.walletBalances[mint])}
 function setWalletAddress(){
   const v=String($('#walletAddressInput')?.value||'').trim();
   if(v&&!isSolAddress(v)){alert('Dit lijkt geen geldig Solana-adres. Gebruik alleen je publieke ontvangstadres.');return}
-  state.walletAddress=v;saveWallet();state.walletBalances={};state.walletLast=0;renderWallet();if(v)syncWallet(true)
+  state.walletAddress=v;saveWallet();state.walletBalances={};state.walletKnown={};state.walletSOL=0;state.walletLast=0;state.walletRpcName='';renderWallet();if(v)syncWallet(true)
 }
-function clearWallet(){state.walletAddress='';state.walletBalances={};state.walletSOL=0;state.walletLast=0;saveWallet();renderWallet()}
+function clearWallet(){state.walletAddress='';state.walletBalances={};state.walletKnown={};state.walletSOL=0;state.walletLast=0;state.walletRpcName='';saveWallet();renderWallet()}
 async function enableNotifications(){
-  if(!('Notification'in window)){alert('Deze browser ondersteunt geen webmeldingen.');return}
+  if(!('Notification'in window)){alert('Op iPhone werken webmeldingen pas nadat je deze site via Safari aan je beginscherm hebt toegevoegd en van daaruit opent.');return}
   try{await Notification.requestPermission()}catch(e){}
   renderWallet()
 }
@@ -319,6 +454,7 @@ function closeAndJournal(p,reason='Verkocht',exitPrice=null){
 function reconcileWalletPositions(){
   if(!state.walletAddress)return;
   for(const p of activePositions()){
+    if(!state.walletKnown?.[p.mint])continue;
     const current=walletAmount(p.mint);
     if(p.status==='pending_buy'&&p.walletBefore!=null&&current>n(p.walletBefore)+1e-9){
       p.status='active';p.confirmedAt=Date.now();p.walletDetected=true;p.tokenAmount=current-n(p.walletBefore);
@@ -347,12 +483,12 @@ function journalSummary(){
 }
 function renderWallet(){
   const status=state.walletAddress?(state.walletError?'⚠️ RPC probleem':state.walletLast?'🟢 Read-only verbonden':'🟡 Nog synchroniseren'):'Niet ingesteld';
-  const notif=('Notification'in window)?Notification.permission:'niet ondersteund';
-  $('#grid').innerHTML=`<section class="walletPanel"><div class="panelTitle"><div><h2>👛 Wallet Watch</h2><p>Alleen je publieke Solana-adres. Hiermee kan v5 tokenbalansen read-only volgen en een koop/verkoop automatisch herkennen.</p></div><span class="badge">${status}</span></div>
-  <div class="walletGrid"><div class="walletBox"><small>Publiek walletadres</small><b>${state.walletAddress?escapeHtml(short(state.walletAddress)):'Nog niet gekoppeld'}</b></div><div class="walletBox"><small>SOL balans</small><b>${state.walletAddress?state.walletSOL.toFixed(4)+' SOL':'—'}</b></div><div class="walletBox"><small>Laatste sync</small><b>${state.walletLast?new Date(state.walletLast).toLocaleTimeString('nl-NL'):'—'}</b></div></div>
+  const notif=('Notification'in window)?Notification.permission:'installeer als app';
+  $('#grid').innerHTML=`<section class="walletPanel"><div class="panelTitle"><div><h2>👛 Wallet Watch</h2><p>Alleen je publieke Solana-adres. Hiermee kan v5.2 tokenbalansen read-only volgen en een koop/verkoop automatisch herkennen.</p></div><span class="badge">${status}</span></div>
+  <div class="walletGrid"><div class="walletBox"><small>Publiek walletadres</small><b>${state.walletAddress?escapeHtml(short(state.walletAddress)):'Nog niet gekoppeld'}</b></div><div class="walletBox"><small>SOL balans</small><b>${state.walletAddress&&state.walletLast?state.walletSOL.toFixed(4)+' SOL':'—'}</b></div><div class="walletBox"><small>RPC / laatste sync</small><b>${state.walletLast?`${escapeHtml(state.walletRpcName||'RPC')} · ${new Date(state.walletLast).toLocaleTimeString('nl-NL')}`:'—'}</b></div></div>
   <div class="walletInput"><input id="walletAddressInput" autocomplete="off" spellcheck="false" placeholder="Plak hier je publieke Solana ontvangstadres" value="${escapeHtml(state.walletAddress)}"><button onclick="setWalletAddress()">Opslaan & sync</button></div>
   <div class="settingsRow"><button class="primary" onclick="syncWallet(true)">↻ Wallet sync</button><button onclick="enableNotifications()">🔔 Meldingen: ${escapeHtml(notif)}</button>${state.walletAddress?'<button onclick="clearWallet()">Wallet vergeten</button>':''}</div>
-  <div class="walletHint"><b>Veilig:</b> dit adres is openbaar blockchain-data en geeft de app geen recht om crypto te versturen. Voer hier <b>nooit</b> een seed phrase of private key in. Als RPC-detectie faalt, blijft de handmatige koop/verkoopbevestiging beschikbaar.${state.walletError?`<br><b>RPC:</b> ${escapeHtml(state.walletError)}`:''}</div></section>`;
+  <div class="walletHint"><b>Veilig:</b> dit adres is openbaar blockchain-data en geeft de app geen recht om crypto te versturen. Voer hier <b>nooit</b> een seed phrase of private key in. v5.2 probeert automatisch meerdere publieke RPC’s en vraagt alleen tokenbalansen op van coins die je daadwerkelijk volgt.${state.walletError?`<br><b>RPC:</b> ${escapeHtml(state.walletError)}`:''}</div></section>`;
 }
 function renderJournal(){
   const s=journalSummary(), mature=state.samples.filter(x=>x.outcome60!=null).length;
@@ -360,7 +496,7 @@ function renderJournal(){
   $('#grid').innerHTML=`<section class="journalPanel"><div class="panelTitle"><div><h2>📒 Tradeboek & Learning Engine</h2><p>Gesloten trades en geobserveerde setups worden lokaal gebruikt om toekomstige Moonshot Scores licht bij te sturen.</p></div><button class="btn" onclick="exportJournal()">Export CSV</button></div>
   <div class="journalStats"><div class="journalStat"><small>Trades</small><b>${s.n}</b></div><div class="journalStat"><small>Winrate</small><b>${s.win.toFixed(0)}%</b></div><div class="journalStat"><small>Gem. return</small><b class="${s.avg>=0?'positive':'negative'}">${s.avg>=0?'+':''}${s.avg.toFixed(1)}%</b></div><div class="journalStat"><small>Beste</small><b class="positive">+${s.best.toFixed(1)}%</b></div><div class="journalStat"><small>1u samples</small><b>${mature}</b></div></div>
   <div style="overflow:auto"><table class="journalTable"><thead><tr><th>Coin</th><th>Entry</th><th>Entryprijs</th><th>Resultaat</th><th>Max winst</th><th>Exitreden</th></tr></thead><tbody>${rows||'<tr><td colspan="6">Nog geen gesloten trades.</td></tr>'}</tbody></table></div>
-  <div class="learnBox"><b>Zelflerend:</b> v5 bewaart maximaal 7 dagen aan top-setups en meet hun koers na 15 en 60 minuten. Vanaf 8 volwassen samples kan een vergelijkbare nieuwe setup maximaal <b>±10 punten</b> aan de Moonshot Score krijgen. Dit is eenvoudige lokale patroonmatching, geen garantie of voorspellend AI-model.</div></section>`;
+  <div class="learnBox"><b>Zelflerend:</b> v5.2 bewaart maximaal 7 dagen aan top-setups en meet hun koers na 15 en 60 minuten. Vanaf 8 volwassen samples kan een vergelijkbare nieuwe setup maximaal <b>±10 punten</b> aan de Moonshot Score krijgen. Dit is eenvoudige lokale patroonmatching, geen garantie of voorspellend AI-model.</div></section>`;
 }
 function exportJournal(){
   const head=['symbol','entryTime','exitTime','entryPrice','exitPrice','returnPct','maxPnl','maxDrawdown','reason'];
@@ -375,14 +511,14 @@ function getPosition(mint){return state.positions.find(p=>p.mint===mint&&!['clos
 function signalRank(s){return ({PENDING:0,STRONG_HOLD:1,HOLD:1,PROTECT_PROFIT:2,TAKE_PROFIT:3,EXIT_NOW:4,EMERGENCY_EXIT:5}[s]??0)}
 function trustBuyUrl(mint){return `https://link.trustwallet.com/swap?from=c501&to=c501_t${encodeURIComponent(mint)}`}
 function trustSellUrl(mint){return `https://link.trustwallet.com/swap?from=c501_t${encodeURIComponent(mint)}&to=c501`}
-function startBuy(mint){
+async function startBuy(mint){
   const t=state.tokens.find(x=>x.mint===mint); if(!t)return;
   let p=getPosition(mint);
   if(!p){
     p={mint,name:t.name,symbol:t.symbol,pair:t.pair,url:t.url,image:t.image||'',status:'pending_buy',
        clickedAt:Date.now(),buyClickPrice:t.price||0,entryPrice:0,baselineLiquidity:t.liq||0,highPrice:t.price||0,
        lastPrice:t.price||0,lastLiquidity:t.liq||0,pnl:0,drawdown:0,risk:0,signal:'PENDING',
-       walletBefore:(state.walletAddress&&state.walletLast&&Date.now()-state.walletLast<60000)?walletAmount(mint):null,entryFeatures:sampleFeature(t),
+       walletBefore:(state.walletAddress&&state.walletKnown?.[mint])?walletAmount(mint):null,entryFeatures:sampleFeature(t),
        signalReason:state.walletAddress?'Trust Wallet geopend. Wallet Watch probeert de aankoop bij terugkeer automatisch te herkennen.':'Trust Wallet geopend. Bevestig na terugkeer of de swap gelukt is.',
        history:[],lastAlertRank:0,maxPnl:0,maxObservedDrawdown:0};
     state.positions.push(p);
@@ -515,11 +651,11 @@ function renderTradeAlert(){
   const box=$('#tradeAlert');if(!box)return;
   const active=activePositions().filter(p=>p.status==='active');
   $('#tradeCount').textContent=activePositions().length?`(${activePositions().length})`:'';
-  if(!active.length){box.className='tradeAlert';box.innerHTML='';document.title='SOL Meme Radar v5 · Guardian AI';return}
+  if(!active.length){box.className='tradeAlert';box.innerHTML='';document.title='SOL Meme Radar v5.2.1 · Guardian AI';return}
   const p=[...active].sort((a,b)=>signalRank(b.signal)-signalRank(a.signal)||n(b.risk)-n(a.risk))[0];
   const cls=signalClass(p.signal);box.className=`tradeAlert show ${cls==='emergency'||cls==='sell'?'sell':cls==='take'?'take':'hold'}`;
   box.innerHTML=`<div class="tradeAlertTop"><div><div class="tradeAlertTitle">${signalLabel(p.signal)} · ${escapeHtml(p.symbol)} ${p.pnl>=0?'+':''}${n(p.pnl).toFixed(1)}%</div><div class="tradeAlertText">${escapeHtml(p.signalReason||'Trade Guardian actief.')}</div></div><div class="tradeAlertActions"><button onclick="goTrades()">Mijn Trades</button>${['TAKE_PROFIT','EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal)?`<button class="sellBtn" onclick="beginSell('${p.mint}')">SELL → SOL</button>`:''}</div></div>`;
-  if(['EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal))document.title=`🚨 EXIT ${p.symbol} · Meme Radar`;else if(p.signal==='TAKE_PROFIT')document.title=`🟠 Profit ${p.symbol} · Meme Radar`;else document.title='SOL Meme Radar v5 · Guardian AI';
+  if(['EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal))document.title=`🚨 EXIT ${p.symbol} · Meme Radar`;else if(p.signal==='TAKE_PROFIT')document.title=`🟠 Profit ${p.symbol} · Meme Radar`;else document.title='SOL Meme Radar v5.2.1 · Guardian AI';
 }
 function positionCard(p){
   const cls=signalClass(p.signal),entry=p.entryPrice||p.buyClickPrice||0,price=p.lastPrice||0,flow=Math.round(n(p.lastData?.flow)*100);
@@ -622,17 +758,17 @@ function scoreToken(t){let s=20, flags=[];
   t.pick=classifyToken(t);
 }
 
-async function scan(){if(state.loading)return;state.loading=true;$('#refreshBtn').textContent='Scanning…';$('#liveText').textContent='Feeds verbinden';$('#grid').innerHTML='<div class="empty"><div class="loader"></div>Solana-pools ophalen…<br><span class="small">maximaal enkele seconden per databron</span></div>';
+async function scan(){if(state.loading)return;state.loading=true;$('#refreshBtn').textContent='Scanning…';$('#grid').innerHTML='<div class="empty"><div class="loader"></div>Solana-pools ophalen…<br><span class="small">maximaal enkele seconden per databron</span></div>';
   try{
-    const pack=await discover(); $('#liveText').textContent='Tokens analyseren';
+    const pack=await discover();
     const tokens=await enrich(pack); state.tokens=tokens; state.last=Date.now();updateLearningSamples(tokens);
     if(!tokens.length){
       const err=state.errors.slice(0,5).map(x=>`<div style="margin-top:6px">• ${escapeHtml(x)}</div>`).join('');
       $('#grid').innerHTML=`<div class="empty"><b>Geen live data ontvangen</b><br><br>De scanner zelf draait, maar deze browser blokkeert de externe feeds of de feeds antwoorden niet.<div class="small" style="margin-top:12px;text-align:left;display:inline-block">${err||'Geen details beschikbaar'}</div><br><br><button class="btn" onclick="scan()">Opnieuw testen</button></div>`;
-      $('#mFound').textContent='0';$('#mScan').textContent=new Date().toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});$('#mSource').textContent='feeds geblokkeerd';
+      
     }else {render(); autoSafetyShortlist();}
   }catch(e){$('#grid').innerHTML=`<div class="empty"><b>Scan mislukt</b><br><br>${escapeHtml(e.message)}<br><br><button class="btn" onclick="scan()">Opnieuw proberen</button></div>`}
-  finally{state.loading=false;$('#refreshBtn').textContent='↻ Scan nu';$('#liveText').textContent=state.tokens.length?`${state.tokens.length} live tokens`:'Scanner gereed'}
+  finally{state.loading=false;$('#refreshBtn').textContent='↻'}
 }
 
 function filtered(){const minL=n($('#minLiq').value),maxA=n($('#maxAge').value),minS=n($('#minScore').value),sort=$('#sortBy').value;let a=state.tokens.filter(t=>t.liq>=minL&&t.age<=maxA&&t.score>=minS);
@@ -643,11 +779,39 @@ function renderPickPanel(){
   state.tokens.forEach(t=>t.pick=classifyToken(t));
   const counts={buy:0,watch:0,hot:0,avoid:0};state.tokens.forEach(t=>counts[t.pick.type]++);
   $('#pcBuy').textContent=counts.buy;$('#pcWatch').textContent=counts.watch;$('#pcHot').textContent=counts.hot;$('#pcAvoid').textContent=counts.avoid;
-  const best=state.tokens.filter(t=>t.pick.type!=='avoid').sort((a,b)=>{const r={buy:0,watch:1,hot:2};return r[a.pick.type]-r[b.pick.type]||b.pick.moon-a.pick.moon}).slice(0,4);
-  $('#pickBanner').innerHTML=best.length?`<b>Beste signalen nu:</b> ${best.map(t=>`<span class="pickchip ${t.pick.type}">${escapeHtml(t.symbol)} · ${t.pick.label} · 🚀 ${t.pick.moon}</span>`).join('')}`:'<b>Geen overtuigende signalen in deze scan.</b>';
+  const best=state.tokens.filter(t=>['buy','watch'].includes(t.pick.type)).sort((a,b)=>(a.pick.type==='buy'?0:1)-(b.pick.type==='buy'?0:1)||b.pick.moon-a.pick.moon);
+  const buy=best.find(t=>t.pick.type==='buy');
+  $('#pickBanner').innerHTML=buy
+    ? `<b>🟢 Er is een koopkans.</b> ${escapeHtml(buy.symbol)} scoort nu ${buy.pick.moon}/100.`
+    : best.length
+      ? `<b>Rustig blijven.</b> Er zijn interessante coins, maar nog geen duidelijke BUY ZONE.`
+      : `<b>Geen goede instap nu.</b> De radar forceert liever geen trade.`;
 }
-function render(){renderPickPanel();renderTradeAlert();const aux=['trades','wallet','journal'].includes(state.view);$('#picksPanel').style.display=aux?'none':'';document.querySelector('.filters').style.display=aux?'none':'';if(state.view==='trades'){renderTrades();return}if(state.view==='wallet'){renderWallet();return}if(state.view==='journal'){renderJournal();return}const a=filtered();$('#mFound').textContent=state.tokens.length;$('#mStrong').textContent=state.tokens.filter(t=>t.score>=70).length;$('#mEarly').textContent=state.tokens.filter(t=>t.age<60).length;$('#mScan').textContent=state.last?new Date(state.last).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}):'—';$('#mSource').textContent=`${[...state.sources].join(' + ')||'Live feeds'} · ${state.tokens.length} SOL pairs`;
-  if(!a.length){$('#grid').innerHTML='<div class="empty">Geen tokens binnen deze selectie. Bij <b>Top Picks</b> betekent dit dat de radar momenteel liever niets forceert.</div>';return}
+function updateWalletMini(){
+  const el=$('#walletMiniText');if(!el)return;
+  if(!state.walletAddress){el.textContent='Wallet instellen';return}
+  const bal=state.walletLast?`${state.walletSOL.toFixed(2)} SOL · `:'';
+  el.textContent=`${bal}${short(state.walletAddress)}`;
+}
+function render(){
+  renderPickPanel();renderTradeAlert();updateWalletMini();
+  const aux=['trades','wallet','journal'].includes(state.view);
+  $('#picksPanel').style.display=aux?'none':'';
+  if(state.view==='trades'){renderTrades();return}
+  if(state.view==='wallet'){renderWallet();return}
+  if(state.view==='journal'){renderJournal();return}
+
+  const a=state.tokens
+    .map(t=>{t.pick=classifyToken(t);return t})
+    .filter(t=>['buy','watch'].includes(t.pick.type))
+    .filter(t=>t.liq>=10000)
+    .sort((a,b)=>(a.pick.type==='buy'?0:1)-(b.pick.type==='buy'?0:1)||b.pick.moon-a.pick.moon)
+    .slice(0,3);
+
+  if(!a.length){
+    $('#grid').innerHTML='<div class="calmEmpty"><b>Geen goede instap gevonden</b>De scanner blijft automatisch zoeken. Zodra een coin interessant genoeg wordt verschijnt hij hier.</div>';
+    return;
+  }
   $('#grid').innerHTML=a.map(card).join('');
 }
 async function autoSafetyShortlist(){
@@ -659,18 +823,25 @@ async function autoSafetyShortlist(){
   }finally{state.safetyRunning=false}
 }
 function escapeHtml(s){return String(s||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function card(t){t.pick=classifyToken(t);const c=color(t.score), buy=Math.round(t.flow*100), isFav=state.watch.has(t.mint);const buyBtn=t.pick.type==='buy'?`<button class="trade" onclick="startBuy('${t.mint}')">BUY NOW → Trust Wallet</button>`:t.pick.type==='watch'?`<button class="trade" style="opacity:.55" disabled>WACHT OP BUY ZONE</button>`:t.pick.type==='hot'?`<button class="trade" style="opacity:.55" disabled>TOO HOT · NIET NAJAGEN</button>`:`<button class="trade" style="opacity:.45" disabled>AVOID · GEBLOKKEERD</button>`;const img=t.image?`<img class="coin" src="${escapeHtml(t.image)}" onerror="this.outerHTML='<div class=\'coin fallback\'>${escapeHtml(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${escapeHtml(t.symbol.slice(0,2))}</div>`;
-  const badges=[t.age<60?'<span class="badge early">EARLY</span>':'',t.score>=70?'<span class="badge hot">HOT</span>':'',t.boost?'<span class="badge">BOOST</span>':'',securityBadge(t)].join('');
-  const flags=(t.flags||[]).slice(0,4).map(f=>`<span class="flag ${f[1]}">${escapeHtml(f[0])}</span>`).join('')||'<span class="flag">Geen harde heuristische flag</span>';
-  const twDex=`https://link.trustwallet.com/open_url?coin_id=501&url=${encodeURIComponent(t.url)}`;
-  return `<article class="card" style="--score:${c}"><div class="row">${img}<div class="name"><h3>${escapeHtml(t.name)}</h3><div class="sym"><b>${escapeHtml(t.symbol)}</b> · ${ageText(t.age)} · ${escapeHtml(t.dex)} ${badges}</div></div><div class="score" title="Opportunity score">${t.score}</div></div>
-  <div class="stats"><div class="stat"><small>Liquidity</small><b>${money(t.liq)}</b></div><div class="stat"><small>Market cap</small><b>${money(t.mc)}</b></div><div class="stat"><small>Vol. 1u</small><b>${money(t.v1)}</b></div><div class="stat"><small>5m</small><b class="${t.p5>=0?'positive':'negative'}">${pct(t.p5)}</b></div></div>
-  <div class="barline"><span>Buys ${t.buys5||t.buys1}</span><div class="bar"><i style="width:${buy}%"></i></div><span>${buy}% buy-flow</span></div>
-  <div class="verdict"><span class="verdictTag ${t.pick.type}">${t.pick.label}</span><div><div class="verdictTitle">Moonshot Score <span class="moon">${t.pick.moon}/100</span> ${t.pick.learned?.adj?`<span class="notifBadge">learn ${t.pick.learned.adj>0?'+':''}${t.pick.learned.adj}</span>`:''}</div><div class="verdictReason">${escapeHtml(t.pick.reason)}</div></div></div>
-  <div class="planline"><div class="planbox"><small>Entry plan</small><b>${escapeHtml(t.pick.entry)}</b></div><div class="planbox"><small>Risk line</small><b>${escapeHtml(t.pick.invalid)}</b></div><div class="planbox"><small>Prijs nu</small><b>${fmtPrice(t.price)}</b></div></div>
-  <div class="riskline">${flags}</div>
-  <div class="actions">${buyBtn}<a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">DexScreener</a><button onclick="safety('${t.mint}','${escapeHtml(t.symbol).replace(/'/g,'&#39;')}')">Safety scan</button><button class="fav ${isFav?'on':''}" onclick="toggleWatch('${t.mint}')">★</button></div>
-  <div class="row" style="margin-top:8px"><button class="btn" style="padding:6px 8px;font-size:9px" onclick="copyMint('${t.mint}',this)">CA ${short(t.mint)}</button><a class="small" style="margin-left:auto;color:#7f8ca1;text-decoration:none" href="${twDex}">Open DexScreener in Trust Wallet ↗</a></div></article>`}
+function card(t){
+  t.pick=classifyToken(t);
+  const c=color(t.score),isFav=state.watch.has(t.mint);
+  const img=t.image?`<img class="coin" src="${escapeHtml(t.image)}" onerror="this.outerHTML='<div class=\'coin fallback\'>${escapeHtml(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${escapeHtml(t.symbol.slice(0,2))}</div>`;
+  const action=t.pick.type==='buy'
+    ? `<button class="trade" onclick="startBuy('${t.mint}')">Kopen in Trust Wallet</button>`
+    : `<div class="simpleWait">Nog wachten · de radar bewaakt deze coin verder</div>`;
+  return `<article class="card" style="--score:${c}">
+    <div class="row">${img}<div class="name"><h3>${escapeHtml(t.name)}</h3><div class="sym"><b>${escapeHtml(t.symbol)}</b> · ${ageText(t.age)}</div></div><div class="score">${t.pick.moon}</div></div>
+    <div class="stats"><div class="stat"><small>Liquiditeit</small><b>${money(t.liq)}</b></div><div class="stat"><small>5 min</small><b class="${t.p5>=0?'positive':'negative'}">${pct(t.p5)}</b></div><div class="stat"><small>Volume 1u</small><b>${money(t.v1)}</b></div></div>
+    <div class="verdict"><span class="verdictTag ${t.pick.type}">${t.pick.type==='buy'?'BUY ZONE':'WATCH'}</span><div><div class="verdictTitle">Score <span class="moon">${t.pick.moon}/100</span></div><div class="verdictReason">${escapeHtml(t.pick.reason)}</div></div></div>
+    ${action}
+    <details class="simpleDetails"><summary>Details bekijken</summary><div class="inside">
+      <a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">DexScreener</a>
+      <button onclick="safety('${t.mint}','${escapeHtml(t.symbol).replace(/'/g,'&#39;')}')">Safety details</button>
+      <button onclick="toggleWatch('${t.mint}')">${isFav?'★ Volgend':'☆ Volgen'}</button>
+    </div></details>
+  </article>`;
+}
 
 function toggleWatch(m){state.watch.has(m)?state.watch.delete(m):state.watch.add(m);saveWatch();render()}
 async function copyMint(m,b){try{await navigator.clipboard.writeText(m);const old=b.textContent;b.textContent='Gekopieerd ✓';setTimeout(()=>b.textContent=old,1200)}catch(e){prompt('Kopieer contractadres:',m)}}
@@ -679,11 +850,79 @@ async function safety(mint,sym){$('#modal').classList.add('show');$('#modalTitle
 function renderSafety(r,mint){const risks=Array.isArray(r.risks)?r.risks:[];const score=n(r.score_normalised??r.scoreNormalized??r.score);const bad=risks.filter(x=>String(x.level||'').toLowerCase().match(/danger|warn/));const rows=risks.length?risks.map(x=>`<div class="riskitem"><b style="color:${String(x.level).toLowerCase()==='danger'?'var(--red)':'var(--amber)'}">${escapeHtml(x.name||'Risk')}</b><div class="small">${escapeHtml(x.description||x.value||'')}</div></div>`).join(''):'<div class="riskitem"><b class="positive">Geen risico-items gerapporteerd</b><div class="small">Dit is geen garantie dat een token veilig is.</div></div>';
   $('#modalBody').innerHTML=`<h4>RugCheck score: ${score||'—'} ${bad.length?'· '+bad.length+' waarschuwing(en)':''}</h4><div class="small">Hogere RugCheck-risicoscore = meer rode vlaggen. Controleer vooral mint/freeze authority, LP en holderconcentratie.</div>${rows}<div style="margin-top:12px"><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://rugcheck.xyz/tokens/${mint}?network=sol">Volledig rapport ↗</a></div>`}
 
-$$('.pill').forEach(b=>b.onclick=()=>{setActiveViewButton(b.dataset.view);state.view=b.dataset.view;render();if(state.view==='trades')monitorPositions(true);if(state.view==='wallet')syncWallet(true)});
-['minLiq','maxAge','minScore','sortBy'].forEach(id=>$('#'+id).onchange=render);$('#refreshBtn').onclick=scan;$('#closeModal').onclick=()=>{state.promptOpen=false;$('#modal').classList.remove('show')};$('#modal').onclick=e=>{if(e.target.id==='modal'){state.promptOpen=false;$('#modal').classList.remove('show')}};
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){if(state.walletAddress)syncWallet(true);monitorPositions(true);setTimeout(showReturnPrompt,900)}});
-window.addEventListener('pageshow',()=>{if(state.walletAddress)syncWallet(true);monitorPositions(true);setTimeout(showReturnPrompt,1100)});
-renderTradeAlert();if(state.walletAddress)syncWallet(true);scan();
+
+function showOnboardingIfNeeded(){
+  if(state.walletAddress){$('#onboard').classList.remove('show');return}
+  $('#onboard').classList.add('show');
+  setTimeout(()=>$('#onboardWallet')?.focus(),250);
+}
+async function pasteWallet(){
+  try{const txt=(await navigator.clipboard.readText()).trim();if(txt)$('#onboardWallet').value=txt}
+  catch(e){$('#onboardError').textContent='Houd het invoerveld ingedrukt en kies Plak.'}
+}
+function completeOnboarding(){
+  const v=String($('#onboardWallet').value||'').trim();
+  if(!isSolAddress(v)){$('#onboardError').textContent='Dit lijkt geen geldig Solana-walletadres.';return}
+  state.walletAddress=v;saveWallet();safeSet('solRadarOnboarded',true);
+  state.walletBalances={};state.walletKnown={};state.walletSOL=0;state.walletLast=0;state.walletRpcName='';
+  $('#onboard').classList.remove('show');updateWalletMini();syncWallet(true);
+}
+function openSimpleSettings(){
+  $('#settingsWalletInput').value=state.walletAddress||'';updateSettingsStatus();$('#settingsOverlay').classList.add('show');
+}
+function closeSimpleSettings(){$('#settingsOverlay').classList.remove('show')}
+function updateSettingsStatus(){
+  const el=$('#settingsWalletStatus');if(!el)return;
+  const sync=state.walletLast?new Date(state.walletLast).toLocaleTimeString('nl-NL'):'nog niet';
+  el.innerHTML=state.walletAddress
+    ? `Actief: <b>${escapeHtml(short(state.walletAddress))}</b>${state.walletLast?` · ${state.walletSOL.toFixed(4)} SOL · sync ${sync}`:''}${state.walletError?`<br>⚠️ ${escapeHtml(state.walletError)}`:''}`
+    : 'Geen wallet ingesteld.';
+}
+function saveWalletFromSettings(){
+  const v=String($('#settingsWalletInput').value||'').trim();
+  if(!isSolAddress(v)){alert('Dit lijkt geen geldig Solana-adres.');return}
+  state.walletAddress=v;saveWallet();safeSet('solRadarOnboarded',true);
+  state.walletBalances={};state.walletKnown={};state.walletSOL=0;state.walletLast=0;state.walletRpcName='';
+  updateWalletMini();updateSettingsStatus();syncWallet(true);
+}
+
+$$('.pill').forEach(b=>b.onclick=()=>{
+  setActiveViewButton(b.dataset.view);state.view=b.dataset.view;render();
+  if(state.view==='trades')monitorPositions(true);
+});
+['minLiq','maxAge','minScore','sortBy'].forEach(id=>{const el=$('#'+id);if(el)el.onchange=render});
+$('#refreshBtn').onclick=scan;
+$('#settingsBtn').onclick=openSimpleSettings;
+$('#settingsClose').onclick=closeSimpleSettings;
+$('#settingsOverlay').onclick=e=>{if(e.target.id==='settingsOverlay')closeSimpleSettings()};
+$('#pasteWalletBtn').onclick=pasteWallet;
+$('#onboardContinue').onclick=completeOnboarding;
+$('#onboardWallet').addEventListener('keydown',e=>{if(e.key==='Enter')completeOnboarding()});
+$('#saveWalletSettings').onclick=saveWalletFromSettings;
+$('#syncWalletSettings').onclick=async()=>{await syncWallet(true);updateSettingsStatus();updateWalletMini()};
+$('#notificationSettings').onclick=enableNotifications;
+$('#manualScanSettings').onclick=async()=>{closeSimpleSettings();state.view='picks';setActiveViewButton('picks');await scan()};
+$('#openWalletPageSettings').onclick=()=>{closeSimpleSettings();state.view='wallet';setActiveViewButton('');render();syncWallet(true)};
+$('#walletMini').onclick=openSimpleSettings;
+$('#closeModal').onclick=()=>{state.promptOpen=false;$('#modal').classList.remove('show')};
+$('#modal').onclick=e=>{if(e.target.id==='modal'){state.promptOpen=false;$('#modal').classList.remove('show')}};
+
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){
+    if(state.walletAddress)syncWallet(true);
+    monitorPositions(true);
+    setTimeout(showReturnPrompt,900);
+  }
+});
+window.addEventListener('pageshow',()=>{
+  if(state.walletAddress)syncWallet(true);
+  monitorPositions(true);
+  setTimeout(showReturnPrompt,1100);
+});
+
+renderTradeAlert();updateWalletMini();showOnboardingIfNeeded();
+if(state.walletAddress)syncWallet(true);
+scan();
 setInterval(()=>{if(document.visibilityState==='visible')scan()},45000);
 setInterval(()=>{if(document.visibilityState==='visible')monitorPositions()},9000);
 setInterval(()=>{if(document.visibilityState==='visible'&&state.walletAddress)syncWallet()},15000);
