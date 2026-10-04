@@ -1,19 +1,20 @@
-SOL Meme Radar v5.4 — Balanced Mode
+SOL Alpha Radar v6
+==================
 
-Waarom:
-v5.3 was te streng en liet vrijwel niets door.
+Upload index.html, manifest.webmanifest en sw.js naar dezelfde GitHub Pages-map.
 
-Nieuw:
-- BUY ZONE: 2 stabiele scans i.p.v. 3;
-- minimumscore 70 i.p.v. 80;
-- minimumliquiditeit $30k i.p.v. $75k;
-- leeftijd 5–360 min;
-- bredere gezonde buy-flow/momentum ranges;
-- 1 lichte RugCheck warning is een penalty, geen automatische afwijzing;
-- safety scan wordt op meer kandidaten uitgevoerd;
-- READY-status toegevoegd, zodat je ziet welke coins bijna koopbaar zijn;
-- TOO HOT/AVOID blijven uit het rustige hoofdscherm;
-- echte BUY-knop is terug bij BUY ZONE;
-- paper-engine blijft tegelijk meelopen.
+Belangrijkste wijzigingen:
+- volledig herschreven; geen v5-codepad meer;
+- scan nieuwe pools iedere 8 seconden;
+- actieve trades ongeveer iedere 2 seconden;
+- eerste start vraagt eenmalig om je publieke Solana-walletadres;
+- SOL-saldo gebruikt eerst een keyless balance-API en daarna meerdere RPC-fallbacks;
+- walletbalans is niet meer nodig om een trade te monitoren;
+- ultra-early Alpha- en Runner-score;
+- RugCheck op topkandidaten;
+- background social/KOL enrichment via Jina Reader -> X/KOL Explorer waar beschikbaar;
+- handmatige X-search en KOL Explorer per coin;
+- bij 2x adviseert Runner-plan niet automatisch volledige exit: principal de-risken en runner-bag laten lopen;
+- Trust Wallet deeplinks voor SOL -> token en token -> SOL.
 
-Geen enkele BUY ZONE garandeert winst. Memecoins blijven zeer risicovol.
+Nooit seed phrase of private key invullen.

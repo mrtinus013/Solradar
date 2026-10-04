@@ -1,10 +1,10 @@
 {
-  "name": "SOL Meme Radar v5.4",
-  "short_name": "Meme Radar",
+  "name": "SOL Alpha Radar v6",
+  "short_name": "Alpha Radar",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#05070b",
-  "theme_color": "#05070b",
-  "description": "Gebalanceerde Solana memecoin radar met BUY/READY/WATCH, safety en parallel paper tracking."
+  "background_color": "#07090d",
+  "theme_color": "#07090d",
+  "description": "Ultra-early Solana memecoin radar met social/KOL intel en runner management."
 }
