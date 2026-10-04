@@ -1,10 +1,10 @@
 {
-  "name": "SOL Alpha Radar v6",
+  "name": "SOL Alpha Radar v6.1",
   "short_name": "Alpha Radar",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#07090d",
   "theme_color": "#07090d",
-  "description": "Ultra-early Solana memecoin radar met social/KOL intel en runner management."
+  "description": "Ultra-early Solana memecoin radar met Jupiter route-check, social/KOL intel en runner management."
 }

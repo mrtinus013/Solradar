@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
-<title>SOL Alpha Radar v6</title>
+<title>SOL Alpha Radar v6.1</title>
 <style>
 :root{
   --bg:#07090d;--panel:#0d1219;--panel2:#111822;--line:#202b3a;--text:#f4f7fb;
@@ -34,13 +34,18 @@ button,input{font:inherit}.app{max-width:720px;margin:auto;padding:14px 12px 90p
 .sheetWrap,.modalWrap{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center}.sheetWrap.show,.modalWrap.show{display:flex}.sheet{width:min(620px,100%);max-height:86vh;overflow:auto;background:#0a0f16;border:1px solid #26354b;border-radius:22px 22px 0 0;padding:18px 16px 28px}.sheetHead{display:flex;justify-content:space-between;align-items:center}.sheetHead h2{font-size:17px;margin:0}.close{width:34px;height:34px;border:0;border-radius:10px;background:#151d29;color:#fff}.setting{border:1px solid #202c3e;background:#080c12;border-radius:13px;padding:11px;margin-top:12px}.setting h3{font-size:10px;margin:0 0 6px}.setting p{font-size:9px;color:#8695a8;line-height:1.45;margin:0 0 8px}.setting input{width:100%;background:#05080d;border:1px solid #2a394d;color:#fff;border-radius:9px;padding:10px}.setBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.setBtns button{border:1px solid #2b3b50;background:#111824;color:#fff;border-radius:9px;padding:8px 9px;font-size:8px}.modalWrap{align-items:center;padding:20px}.modal{width:min(450px,100%);background:#0b1017;border:1px solid #27364a;border-radius:20px;padding:17px}.modal h3{font-size:16px;margin:0}.modal p{font-size:10px;color:#92a0b2;line-height:1.5}.modalBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px}.modalBtns button{border:1px solid #2c3a4e;background:#121a25;color:#fff;border-radius:10px;padding:11px;font-size:9px;font-weight:850}
 .historyRow{display:grid;grid-template-columns:1fr auto auto;gap:8px;border-bottom:1px solid #1d2735;padding:10px 0;font-size:9px}.historyRow b{font-size:10px}
 @media(max-width:520px){.app{padding:12px 9px 80px}.brand p{display:none}.walletChip{max-width:135px;overflow:hidden;text-overflow:ellipsis}.pulse{grid-template-columns:repeat(2,1fr)}.stats,.tradeStats{grid-template-columns:repeat(2,1fr)}.intel{grid-template-columns:1fr}.card{padding:12px}}
+
+.routeok{color:#55f2a4!important;border-color:rgba(85,242,164,.35)!important}
+.routewait{color:#ffd36a!important;border-color:rgba(255,211,106,.3)!important}
+.routebad{color:#ff778c!important;border-color:rgba(255,101,124,.35)!important}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
     <div class="logo">α</div>
-    <div class="brand"><h1>SOL Alpha Radar <span style="font-size:.55em;color:#55d9ff">v6</span></h1><p>ultra-early · social/KOL · runner management</p></div>
+    <div class="brand"><h1>SOL Alpha Radar <span style="font-size:.55em;color:#55d9ff">v6.1</span></h1><p>ultra-early · route-checked · social/KOL · runner management</p></div>
     <button class="walletChip" id="walletChip"><span class="dot"></span><b id="walletText">wallet</b></button>
   </header>
 
@@ -101,6 +106,7 @@ const GT='https://api.geckoterminal.com/api/v2';
 const DEX='https://api.dexscreener.com';
 const RUG='https://api.rugcheck.xyz/v1';
 const AI_BAL='https://aisenseapi.com/services/v1/solana/balance/';
+const JUP_QUOTE='https://lite-api.jup.ag/swap/v1/quote';
 const RPCS=['https://solana-rpc.publicnode.com','https://api.mainnet.solana.com','https://api.mainnet-beta.solana.com'];
 const CUPSEY='2fg5QD1eD7rzNNCsvnhmXFm5hqNgwTTG8p7kQ6f3rx6f';
 
@@ -118,7 +124,7 @@ const isAddress=s=>/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(String(s||'').trim());
 
 const state={
   view:'alpha',tokens:[],known:new Map(),safety:load('alphaSafety',{}),intel:load('alphaIntel',{}),
-  wallet:load('alphaWallet',''),sol:null,balanceSource:'',riskSol:load('alphaRiskSol',0.05),
+  wallet:load('alphaWallet',''),sol:null,balanceSource:'',riskSol:load('alphaRiskSol',0.05),routes:new Map(),
   positions:load('alphaPositions',[]),history:load('alphaHistory',[]),
   scanBusy:false,lastDiscover:0,lastEnrich:0,lastTradePoll:0,returnPrompt:false,errors:[]
 };
@@ -191,6 +197,52 @@ function score(t){
   let tag='WATCH';if(!hard&&s>=72&&t.age<=35)tag='ALPHA';else if(!hard&&runner>=78&&s>=58)tag='RUNNER';
   return {...t,alpha:s,runner,tag,hard,why:why.slice(0,3)};
 }
+
+function routeInfo(mint){return state.routes.get(mint)||{status:'unknown',ts:0}}
+async function checkRoute(t,force=false){
+  if(!t?.mint)return {status:'bad'};
+  const old=routeInfo(t.mint);
+  if(!force && old.ts && Date.now()-old.ts<15000)return old;
+  const checking={status:'checking',ts:Date.now()};state.routes.set(t.mint,checking);render();
+  try{
+    const testSol=Math.max(.003,Math.min(.05,n(state.riskSol)||.01));
+    const amount=Math.floor(testSol*1e9);
+    const u=`${JUP_QUOTE}?inputMint=${WSOL}&outputMint=${encodeURIComponent(t.mint)}&amount=${amount}&slippageBps=500&swapMode=ExactIn`;
+    const q=await fetchJSON(u,5000);
+    const ok=n(q?.outAmount)>0 && Array.isArray(q?.routePlan) && q.routePlan.length>0;
+    const impact=n(q?.priceImpactPct)*100;
+    const info=ok
+      ? {status:impact>18?'bad':'ok',ts:Date.now(),impact,routeCount:q.routePlan.length,outAmount:q.outAmount}
+      : {status:'bad',ts:Date.now(),impact:0,routeCount:0,error:q?.error||'Geen Jupiter-route'};
+    state.routes.set(t.mint,info);render();return info;
+  }catch(e){
+    const info={status:'error',ts:Date.now(),error:e?.message||'Routecheck mislukt'};
+    state.routes.set(t.mint,info);render();return info;
+  }
+}
+function jupiterUrl(mint){
+  return `https://jup.ag/swap?buy=${encodeURIComponent(mint)}&sell=${WSOL}`;
+}
+function trustOpenDapp(url){
+  return `https://link.trustwallet.com/open_url?coin_id=501&url=${encodeURIComponent(url)}`;
+}
+function startJupiterBuy(mint){
+  const t=state.tokens.find(x=>x.mint===mint);if(!t)return;
+  const r=routeInfo(mint);
+  if(r.status!=='ok'){
+    checkRoute(t,true).then(x=>{
+      if(x.status==='ok')startJupiterBuy(mint);
+      else alert('Geen bruikbare Jupiter-route voor deze coin. Ik blokkeer de koop om te voorkomen dat je opnieuw in Trust Wallet op “No swap route” uitkomt.');
+    });
+    return;
+  }
+  let p=state.positions.find(x=>x.mint===mint&&x.status!=='closed');
+  if(!p){p={mint,symbol:t.symbol,name:t.name,pair:t.pair,url:t.url,status:'pending_buy',clicked:Date.now(),clickedPrice:t.price,entry:0,high:t.price,baseLiq:t.liq,lastPrice:t.price,signal:'PENDING',reason:'Wacht op koopbevestiging via Jupiter.'};state.positions.push(p)}
+  else{p.status='pending_buy';p.clicked=Date.now();p.clickedPrice=t.price}
+  savePositions();
+  window.location.href=trustOpenDapp(jupiterUrl(mint));
+}
+
 async function safetyCheck(t){
   const c=state.safety[t.mint];if(c&&Date.now()-n(c.ts)<10*60e3)return;
   try{
@@ -232,8 +284,9 @@ async function scan(){
   finally{state.scanBusy=false;$('#liveState').textContent='LIVE'}
 }
 async function kickIntel(){
-  const top=state.tokens.filter(t=>!t.hard&&(t.tag==='ALPHA'||t.tag==='RUNNER')).slice(0,2);
+  const top=state.tokens.filter(t=>!t.hard&&(t.tag==='ALPHA'||t.tag==='RUNNER')).slice(0,4);
   for(const t of top){
+    checkRoute(t);
     const old=state.intel[t.mint];if(old&&Date.now()-n(old.ts)<120000)continue;
     state.intel[t.mint]={...(old||{}),ts:Date.now(),loading:true};save('alphaIntel',state.intel);
     Promise.allSettled([kolIntel(t),xIntel(t)]).then(()=>{const cur=state.tokens.find(x=>x.mint===t.mint);if(cur)Object.assign(cur,score(cur));render()})
@@ -264,13 +317,29 @@ function intelLabel(t){
 }
 function xSearch(t){return `https://x.com/search?q=${encodeURIComponent(t.mint+' $'+t.symbol)}&src=typed_query&f=live`}
 function card(t){
-  const i=intelLabel(t),safe=state.safety[t.mint]||{},tag=t.tag==='ALPHA'?'alpha':t.tag==='RUNNER'?'runner':'watch';
+  const i=intelLabel(t),safe=state.safety[t.mint]||{},route=routeInfo(t.mint),tag=t.tag==='ALPHA'?'alpha':t.tag==='RUNNER'?'runner':'watch';
   const img=t.image?`<img class="coin" src="${esc(t.image)}" onerror="this.outerHTML='<div class=&quot;coin fallback&quot;>${esc(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${esc(t.symbol.slice(0,2))}</div>`;
-  const buy=(t.tag==='ALPHA'||t.tag==='RUNNER')&&!t.hard&&safe.status!=='bad';
+  const signalEligible=(t.tag==='ALPHA'||t.tag==='RUNNER')&&!t.hard&&safe.status!=='bad';
+  const buy=signalEligible&&route.status==='ok';
+  const checking=signalEligible&&(route.status==='unknown'||route.status==='checking');
+  const routeBadge=route.status==='ok'
+    ? `<span class="badge routeok">JUPITER ROUTE ✓${route.impact?` · ${route.impact.toFixed(1)}% impact`:''}</span>`
+    : checking?`<span class="badge routewait">ROUTE CHECK…</span>`
+    : signalEligible?`<span class="badge routebad">GEEN ROUTE</span>`:'';
   const mult100=t.mc?money(t.mc*100):'—';
+  let action='';
+  if(buy){
+    action=`<button class="action" onclick="startJupiterBuy('${t.mint}')">Koop via Jupiter in Trust Wallet</button>`;
+  }else if(checking){
+    action=`<button class="action secondary" onclick="checkRoute(state.tokens.find(x=>x.mint==='${t.mint}'),true)">Route controleren…</button>`;
+  }else if(signalEligible){
+    action=`<button class="action secondary" disabled>Niet koopbaar · geen swaproute</button>`;
+  }else{
+    action=`<button class="action secondary" disabled>Nog geen entry</button>`;
+  }
   return `<article class="card">
     <div class="row">${img}<div class="name"><h3>${esc(t.name)}</h3><div class="sub"><b>${esc(t.symbol)}</b> · ${age(t.age)} · MC ${money(t.mc)}</div></div><div class="score">${t.alpha}</div></div>
-    <div class="badges"><span class="badge ${tag}">${t.tag}</span><span class="badge">Runner ${t.runner}</span>${t.xUrl?'<span class="badge x">𝕏 linked</span>':''}${(state.intel[t.mint]?.kolCount||0)>0?`<span class="badge kol">${state.intel[t.mint].kolCount} KOL</span>`:''}${safe.status==='bad'?'<span class="badge danger">SAFETY DANGER</span>':''}</div>
+    <div class="badges"><span class="badge ${tag}">${t.tag}</span><span class="badge">Runner ${t.runner}</span>${routeBadge}${t.xUrl?'<span class="badge x">𝕏 linked</span>':''}${(state.intel[t.mint]?.kolCount||0)>0?`<span class="badge kol">${state.intel[t.mint].kolCount} KOL</span>`:''}${safe.status==='bad'?'<span class="badge danger">SAFETY DANGER</span>':''}</div>
     <div class="stats">
       <div class="stat"><small>Liquidity</small><b>${money(t.liq)}</b></div>
       <div class="stat"><small>5 min</small><b class="${t.p5>=0?'pos':'neg'}">${pct(t.p5)}</b></div>
@@ -279,8 +348,8 @@ function card(t){
     </div>
     <div class="intel"><div class="intelBox"><small>X pulse</small><div>${i.x}</div></div><div class="intelBox"><small>KOL / smart money</small><div>${i.kol}</div></div></div>
     <div class="reason">${t.why.length?esc(t.why.join(' · ')):'Nog geen sterke edge.'} ${t.mc?`100× zou circa <b>${mult100}</b> market cap vereisen.`:''}</div>
-    <button class="action ${buy?'':'secondary'}" ${buy?'': 'disabled'} onclick="${buy?`startBuy('${t.mint}')`:''}">${buy?'Trade met SOL in Trust Wallet':'Nog geen entry'}</button>
-    <details class="details"><summary>Research / details</summary><div class="links"><a href="${esc(t.url)}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Zoek live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a></div></details>
+    ${action}
+    <details class="details"><summary>Research / details</summary><div class="links"><a href="${esc(t.url)}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Zoek live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a><a href="${jupiterUrl(t.mint)}" target="_blank">Jupiter</a></div></details>
   </article>`;
 }
 function renderAlpha(){
@@ -292,13 +361,7 @@ function activePositions(){return state.positions.filter(p=>p.status==='active'|
 function savePositions(){save('alphaPositions',state.positions)}
 function trustBuy(m){return `https://link.trustwallet.com/swap?from=c501&to=c501_t${encodeURIComponent(m)}`}
 function trustSell(m){return `https://link.trustwallet.com/swap?from=c501_t${encodeURIComponent(m)}&to=c501`}
-function startBuy(mint){
-  const t=state.tokens.find(x=>x.mint===mint);if(!t)return;
-  let p=state.positions.find(x=>x.mint===mint&&x.status!=='closed');
-  if(!p){p={mint,symbol:t.symbol,name:t.name,pair:t.pair,url:t.url,status:'pending_buy',clicked:Date.now(),clickedPrice:t.price,entry:0,high:t.price,baseLiq:t.liq,lastPrice:t.price,signal:'PENDING',reason:'Wacht op koopbevestiging.'};state.positions.push(p)}
-  else{p.status='pending_buy';p.clicked=Date.now();p.clickedPrice=t.price}
-  savePositions();window.location.href=trustBuy(mint);
-}
+function startBuy(mint){startJupiterBuy(mint)}
 function showReturnPrompt(){
   if(state.returnPrompt)return;
   const p=activePositions().find(x=>x.status==='pending_buy'||x.status==='pending_sell');if(!p)return;
@@ -313,7 +376,12 @@ function confirmBuy(mint,ok){
   if(!ok)p.status='cancelled';else{const t=state.tokens.find(x=>x.mint===mint);p.status='active';p.entry=t?.price||p.clickedPrice;p.lastPrice=p.entry;p.high=p.entry;p.baseLiq=t?.liq||p.baseLiq;p.started=Date.now();p.signal='HOLD';p.reason='Runner-plan actief.'}
   state.returnPrompt=false;$('#tradeModal').classList.remove('show');savePositions();setView(ok?'trades':'alpha');
 }
-function beginSell(mint){const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;p.status='pending_sell';savePositions();window.location.href=trustSell(mint)}
+function beginSell(mint){
+  const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;
+  p.status='pending_sell';savePositions();
+  const u=`https://jup.ag/swap?buy=${WSOL}&sell=${encodeURIComponent(mint)}`;
+  window.location.href=trustOpenDapp(u);
+}
 function confirmSell(mint,ok){
   const p=state.positions.find(x=>x.mint===mint&&x.status==='pending_sell');if(!p)return;
   if(ok){p.status='closed';p.exit=p.lastPrice;p.closed=Date.now();const ret=p.entry?((p.exit/p.entry)-1)*100:0;state.history.push({...p,returnPct:ret});save('alphaHistory',state.history)}else p.status='active';
