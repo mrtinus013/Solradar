@@ -1,18 +1,19 @@
-SOL Meme Radar v5.3 — Validation Mode
+SOL Meme Radar v5.4 — Balanced Mode
 
 Waarom:
-De vorige BUY-engine was te soepel. Een coin kon BUY ZONE krijgen voordat safety volledig was afgerond en één snapshot kon al genoeg zijn.
+v5.3 was te streng en liet vrijwel niets door.
 
 Nieuw:
-- echte BUY-knoppen standaard uit;
-- paper trades automatisch;
-- RugCheck/safety verplicht vóór een entry;
-- minimaal 3 stabiele opeenvolgende scans;
-- hogere minimale liquiditeit en strengere buy-flow/momentum-range;
-- geen vertical-chase entries;
-- learning adjustment tijdelijk uitgeschakeld;
-- pas na minimaal 20 paper trades beoordelen of live trading weer zinvol is.
+- BUY ZONE: 2 stabiele scans i.p.v. 3;
+- minimumscore 70 i.p.v. 80;
+- minimumliquiditeit $30k i.p.v. $75k;
+- leeftijd 5–360 min;
+- bredere gezonde buy-flow/momentum ranges;
+- 1 lichte RugCheck warning is een penalty, geen automatische afwijzing;
+- safety scan wordt op meer kandidaten uitgevoerd;
+- READY-status toegevoegd, zodat je ziet welke coins bijna koopbaar zijn;
+- TOO HOT/AVOID blijven uit het rustige hoofdscherm;
+- echte BUY-knop is terug bij BUY ZONE;
+- paper-engine blijft tegelijk meelopen.
 
-Upload index.html, manifest.webmanifest en sw.js naar dezelfde GitHub Pages map.
-
-Nooit seed phrase/private key invoeren.
+Geen enkele BUY ZONE garandeert winst. Memecoins blijven zeer risicovol.

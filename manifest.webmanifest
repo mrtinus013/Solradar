@@ -1,10 +1,10 @@
 {
-  "name": "SOL Meme Radar v5.3",
+  "name": "SOL Meme Radar v5.4",
   "short_name": "Meme Radar",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#05070b",
   "theme_color": "#05070b",
-  "description": "Solana memecoin radar in validation/paper mode met strengere safety- en entrybevestiging."
+  "description": "Gebalanceerde Solana memecoin radar met BUY/READY/WATCH, safety en parallel paper tracking."
 }

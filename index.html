@@ -7,7 +7,7 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>SOL Meme Radar v5.3.1 · Guardian AI</title>
+<title>SOL Meme Radar v5.4.1 · Guardian AI</title>
 <style>
 :root{--bg:#050609;--panel:#0b0e14;--panel2:#10141d;--text:#f5f7fb;--muted:#8993a4;--line:#20283a;--green:#50f6a4;--amber:#ffd36d;--red:#ff657b;--cyan:#52d8ff;--purple:#a982ff;--shadow:0 20px 70px rgba(0,0,0,.45)}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% -10%,rgba(82,216,255,.12),transparent 28%),radial-gradient(circle at 0 20%,rgba(169,130,255,.10),transparent 25%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
@@ -59,7 +59,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 @media(max-width:820px){.pickCounts{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.filters{grid-template-columns:repeat(2,1fr)}.status{display:none}.top{align-items:center}.actions{grid-template-columns:1.5fr 1fr 1fr auto}.toolbar{top:4px}}
 @media(max-width:460px){.tradeAlertTop{align-items:flex-start}.tradeAlertActions{flex-direction:column}.positionStats{grid-template-columns:repeat(2,1fr)}.positionActions{grid-template-columns:1fr 1fr}.positionActions .sellNow{grid-column:1/-1}.planline{grid-template-columns:1fr 1fr 1fr}.picksPanel{padding:11px}.app{padding:16px 10px 55px}.logo{width:42px;height:42px}.hero{gap:7px}.metric{padding:11px 12px}.metric strong{font-size:18px}.filters{gap:6px}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr 1fr 1fr auto}.actions a,.actions button{padding:10px 5px}.hide-mobile{display:none}.toolbar{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}.toolbar::-webkit-scrollbar{display:none}.refresh{margin-left:0}}
 
-/* v5.3 Simple Mode */
+/* v5.4 Simple Mode */
 body{background:#05070b}
 .app{max-width:760px}
 .top{margin-bottom:14px;align-items:center}
@@ -118,7 +118,7 @@ body{background:#05070b}
 }
 
 
-/* v5.3 Validation Mode */
+/* v5.4 Validation Mode */
 .validationBanner{border:1px solid #2b3952;background:linear-gradient(135deg,rgba(82,216,255,.08),rgba(80,246,164,.06));border-radius:16px;padding:12px;margin-bottom:12px}
 .validationBanner b{font-size:12px}.validationBanner p{margin:5px 0 0;color:#9aa7b9;font-size:10px;line-height:1.45}
 .validationStats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}
@@ -134,12 +134,21 @@ body{background:#05070b}
 .confirmDots i.on{background:#50f6a4;box-shadow:0 0 8px rgba(80,246,164,.5)}
 @media(max-width:520px){.validationStats{grid-template-columns:repeat(2,1fr)}}
 
+
+/* v5.4 Balanced */
+.validationBanner{background:linear-gradient(135deg,rgba(80,246,164,.07),rgba(82,216,255,.05))}
+.modePill{display:inline-block;margin-left:6px;border:1px solid #315d4b;color:#78f1b4;border-radius:7px;padding:3px 6px;font-size:8px;font-weight:900}
+.readyTag{background:rgba(82,216,255,.12)!important;color:#6edfff!important;border-color:rgba(82,216,255,.28)!important}
+.liveBuy{width:100%;margin-top:12px;border:0;border-radius:12px;padding:13px 10px;background:linear-gradient(135deg,#50f6a4,#65eebd);color:#04130d;font-size:12px;font-weight:950;cursor:pointer}
+.liveBuy:active{transform:scale(.99)}
+.balanceNote{font-size:9px;color:#8f9bad;line-height:1.45;margin-top:7px;text-align:center}
+
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
-    <div class="brand"><div class="logo">S◎L</div><div class="title"><h1>Meme Radar <span style="font-size:.42em;color:#52d8ff;vertical-align:middle">v5.3</span></h1><p>Rustige memecoin-assistent · vinden → kopen → bewaken → verkopen</p></div></div>
+    <div class="brand"><div class="logo">S◎L</div><div class="title"><h1>Meme Radar <span style="font-size:.42em;color:#52d8ff;vertical-align:middle">v5.4</span></h1><p>Rustige memecoin-assistent · vinden → kopen → bewaken → verkopen</p></div></div>
     <div class="walletMini" id="walletMini"><span class="ok"></span><b id="walletMiniText">Wallet</b></div>
   </header>
 
@@ -204,9 +213,9 @@ body{background:#05070b}
       <div class="settingsActions"><button id="notificationSettings">Meldingen inschakelen</button></div>
     </div>
     <div class="settingsSection">
-      <h3>Live trading</h3>
-      <p>Uitgeschakeld in Validation Mode. Eerst minimaal 20 paper trades met positieve gemiddelde uitkomst. Daarna kunnen we live opnieuw beoordelen.</p>
-      <div class="settingsActions"><button disabled style="opacity:.45">Live BUY uitgeschakeld</button></div>
+      <h3>Balanced Mode</h3>
+      <p>BUY ZONE verschijnt na twee stabiele scans en een safety-resultaat zonder harde danger-flags. READY is nog geen koopadvies.</p>
+      <div class="settingsActions"><button disabled style="opacity:.65">LIVE + PAPER actief</button></div>
     </div>
 <div class="settingsSection">
       <h3>Geavanceerd</h3><p>De scanner ververst automatisch. Deze knoppen heb je normaal niet nodig.</p>
@@ -239,7 +248,7 @@ const state={
   entryTrack:safeJson('solRadarEntryTrack',{}),
   paperPositions:safeJson('solRadarPaperPositions',[]),
   paperJournal:safeJson('solRadarPaperJournal',[]),
-  liveMode:false,
+  liveMode:true,
   walletAddress:safeJson('solRadarWallet',''),walletBalances:{},walletKnown:{},walletSOL:0,walletLast:0,walletSyncing:false,walletError:'',walletRpcName:'',
   errors:[],sources:new Set(),safetyRunning:false,monitoring:false,lastMonitor:0,promptOpen:false
 };
@@ -296,48 +305,49 @@ function hydrateSafety(tokens){
     if(c&&now-n(c.ts)<60*60*1000)t.safety=c.safety;
   }
 }
-function strictBaseCandidate(t){
+function balancedBaseCandidate(t){
   const vr=t.liq?t.v1/t.liq:0, tx5=t.buys5+t.sells5, mcL=t.liq&&t.mc?t.mc/t.liq:0;
+  const safetyOk=t.safety?.status==='ok' || (t.safety?.status==='warn' && n(t.safety?.dangers)===0 && n(t.safety?.warns)<=1);
   return !!(
-    t.safety?.status==='ok' &&
-    t.score>=80 &&
-    t.liq>=75000 &&
-    t.age>=15 && t.age<=240 &&
-    t.flow>=.56 && t.flow<=.72 &&
-    t.p5>=-3 && t.p5<=12 &&
-    t.p1>=-5 && t.p1<=45 &&
-    vr>=.20 && vr<=2.5 &&
-    tx5>=15 &&
-    t.sells5>=3 &&
-    (!t.mc || t.mc<=5000000) &&
-    (!mcL || mcL<=60)
+    safetyOk &&
+    t.score>=70 &&
+    t.liq>=30000 &&
+    t.age>=5 && t.age<=360 &&
+    t.flow>=.52 && t.flow<=.80 &&
+    t.p5>=-6 && t.p5<=22 &&
+    t.p1>=-12 && t.p1<=90 &&
+    vr>=.10 && vr<=4.0 &&
+    tx5>=8 &&
+    t.sells5>=2 &&
+    (!t.mc || t.mc<=8000000) &&
+    (!mcL || mcL<=100)
   );
 }
 function updateEntryTrack(tokens){
   const now=Date.now(), live=new Set(tokens.map(t=>t.mint));
   for(const t of tokens){
-    const base=strictBaseCandidate(t);
+    const base=balancedBaseCandidate(t);
     let tr=state.entryTrack[t.mint];
     if(!base){
-      if(tr&&now-n(tr.lastGood)>120000)delete state.entryTrack[t.mint];
+      if(tr&&now-n(tr.lastGood)>4*60*1000)delete state.entryTrack[t.mint];
       continue;
     }
     if(!tr){
       tr=state.entryTrack[t.mint]={confirmations:1,firstTs:now,lastTs:now,lastGood:now,firstPrice:n(t.price),lastPrice:n(t.price),firstLiq:n(t.liq)};
-    }else if(now-n(tr.lastTs)>=30000){
+    }else if(now-n(tr.lastTs)>=20000){
       const drift=tr.firstPrice&&t.price?((t.price/tr.firstPrice)-1)*100:0;
       const liqDrop=tr.firstLiq?Math.max(0,(1-t.liq/tr.firstLiq)*100):0;
-      if(drift<=8 && liqDrop<=8){
-        tr.confirmations=Math.min(3,n(tr.confirmations)+1);
+      if(drift>=-6 && drift<=15 && liqDrop<=12){
+        tr.confirmations=Math.min(2,n(tr.confirmations)+1);
         tr.lastGood=now;
       }else{
-        tr.confirmations=1;tr.firstTs=now;tr.firstPrice=n(t.price);tr.firstLiq=n(t.liq);
+        tr.confirmations=1;tr.firstTs=now;tr.firstPrice=n(t.price);tr.firstLiq=n(t.liq);tr.lastGood=now;
       }
       tr.lastTs=now;tr.lastPrice=n(t.price);
     }
   }
   for(const [mint,tr] of Object.entries(state.entryTrack)){
-    if(!live.has(mint)&&now-n(tr.lastGood)>10*60*1000)delete state.entryTrack[mint];
+    if(!live.has(mint)&&now-n(tr.lastGood)>12*60*1000)delete state.entryTrack[mint];
   }
   saveValidationState();
 }
@@ -351,14 +361,13 @@ function paperStats(){
 function renderValidationBanner(){
   const st=paperStats(),active=state.paperPositions.filter(p=>p.status==='active').length;
   const el=$('#validationBanner');if(!el)return;
-  const ready=st.n>=20&&st.avg>0&&st.win>=50;
-  el.innerHTML=`<b>🧪 Validation Mode ${ready?'<span class="paperTag">TEST DOORSTAAN</span>':'<span class="paperTag">PAPER ONLY</span>'}</b>
-  <p>Echte koopknoppen staan bewust uit. De radar moet eerst aantonen dat de strengere entry-engine positief presteert op minimaal 20 paper trades. Twee live verliezen zijn voor mij reden genoeg om eerst te valideren.</p>
+  el.innerHTML=`<b>⚖️ Balanced Mode <span class="modePill">LIVE + PAPER</span></b>
+  <p>De radar gebruikt nu harde scam/instortingsfilters, maar laat normale memecoin-volatiliteit weer toe. Een BUY ZONE vereist safety + twee stabiele scans; de paper-engine blijft tegelijk meelopen zodat we de resultaten kunnen blijven beoordelen.</p>
   <div class="validationStats">
-    <div class="validationStat"><small>Paper trades</small><strong>${st.n}/20</strong></div>
-    <div class="validationStat"><small>Actief</small><strong>${active}</strong></div>
+    <div class="validationStat"><small>Paper trades</small><strong>${st.n}</strong></div>
+    <div class="validationStat"><small>Paper actief</small><strong>${active}</strong></div>
     <div class="validationStat"><small>Winrate</small><strong>${st.n?st.win.toFixed(0)+'%':'—'}</strong></div>
-    <div class="validationStat"><small>Gem. resultaat</small><strong class="${st.avg>=0?'positive':'negative'}">${st.n?(st.avg>=0?'+':'')+st.avg.toFixed(1)+'%':'—'}</strong></div>
+    <div class="validationStat"><small>Gem. paper</small><strong class="${st.avg>=0?'positive':'negative'}">${st.n?(st.avg>=0?'+':'')+st.avg.toFixed(1)+'%':'—'}</strong></div>
   </div>`;
 }
 function closePaper(p,t,reason){
@@ -399,25 +408,40 @@ function updatePaperEngine(tokens){
 function classifyToken(t){
   const vr=t.liq?t.v1/t.liq:0, tx5=t.buys5+t.sells5, mcL=t.liq&&t.mc?t.mc/t.liq:0;
   const safetyPending=!t.safety||t.safety.status==='unknown';
-  const safetyBad=t.safety&&t.safety.status==='bad', safetyWarn=t.safety&&t.safety.status==='warn';
-  const hardRisk=safetyBad||t.liq<20000||t.score<50||t.flow<.40||t.p5<-20||t.p1<-35||(mcL>100)||(t.sells5===0&&t.buys5>=10);
-  const overheated=t.p5>25||t.p1>80||t.p6>300||t.p24>900||(t.p5>18&&t.flow>.80);
+  const dangers=n(t.safety?.dangers), warns=n(t.safety?.warns);
+  const safetyBad=t.safety?.status==='bad'||dangers>0;
+  const hardRisk=safetyBad||t.liq<10000||t.score<42||t.flow<.35||t.p5<-28||t.p1<-50||(mcL>150)||(t.sells5===0&&t.buys5>=15);
+  const overheated=t.p5>45||t.p1>180||t.p6>600||t.p24>1500||(t.p5>32&&t.flow>.86);
   const tr=state.entryTrack[t.mint], conf=n(tr?.confirmations);
-  let type='watch',label='WATCH',reason='Nog geen bevestigde instap.';
-  if(hardRisk){type='avoid';label='AVOID';reason=safetyBad?'On-chain safety bevat een harde waarschuwing.':'Marktstructuur bevat een harde risicoflag.';}
-  else if(overheated){type='hot';label='TOO HOT';reason='Momentum is al te heet; niet najagen.';}
-  else if(safetyPending){type='watch';label='WATCH';reason='Safety-check moet eerst slagen voordat een entry überhaupt mogelijk is.';}
-  else if(safetyWarn){type='avoid';label='AVOID';reason='Safety-scan bevat waarschuwingen; v5.3 neemt deze niet live mee.';}
-  else if(strictBaseCandidate(t)&&conf>=3){
-    type='buy';label='BUY ZONE';reason='Safety is groen én dezelfde setup bleef minimaal drie scans stabiel zonder prijs- of liquiditeitsspike.';
-  }else if(strictBaseCandidate(t)){
-    type='watch';label='WATCH';reason=`Setup is interessant, maar wacht op bevestiging ${Math.min(conf,3)}/3.`;
-  }else if(t.score>=68&&t.liq>=40000){
-    type='watch';label='WATCH';reason='Goede kandidaat, maar nog niet streng genoeg voor een entry.';
+  const base=balancedBaseCandidate(t);
+
+  let type='watch',label='WATCH',reason='Interessant, maar nog geen stabiele entry.';
+  if(hardRisk){
+    type='avoid';label='AVOID';reason=safetyBad?'Safety-scan bevat een harde waarschuwing.':'Harde risico-indicator in liquiditeit, orderflow of prijsstructuur.';
+  }else if(overheated){
+    type='hot';label='TOO HOT';reason='Deze move is al te ver doorgeschoten; liever wachten op consolidatie.';
+  }else if(base&&conf>=2){
+    type='buy';label='BUY ZONE';reason=warns===1?'Goede setup met één lichte safety-waarschuwing; positie klein houden.':'Safety en marktdata zijn sterk genoeg en de setup bleef twee scans stabiel.';
+  }else if(base){
+    type='ready';label='READY';reason=`Bijna koopbaar: bevestiging ${Math.min(conf,2)}/2.`;
+  }else if(safetyPending&&t.score>=65&&t.liq>=25000){
+    type='ready';label='READY';reason='Marktdata is interessant; safety-check loopt nog.';
+  }else if(t.score>=58&&t.liq>=20000&&t.flow>=.45){
+    type='watch';label='WATCH';reason='Kandidaat om te volgen, maar entrykwaliteit is nog onvoldoende.';
   }else{
-    type='avoid';label='AVOID';reason='Te weinig kwaliteit voor de shortlist.';
+    type='avoid';label='AVOID';reason='Momenteel te weinig kwaliteit.';
   }
-  let moon=t.score+(t.safety?.status==='ok'?5:-5)+(t.flow>=.56&&t.flow<=.72?5:0)+(vr>=.25&&vr<=2.5?4:0)+(conf*3)-(overheated?20:0)-(hardRisk?25:0)-(safetyWarn?15:0);
+
+  let moon=t.score;
+  if(t.safety?.status==='ok')moon+=6;
+  if(warns===1)moon-=3;
+  if(safetyPending)moon-=4;
+  if(t.flow>=.54&&t.flow<=.78)moon+=5;
+  if(vr>=.15&&vr<=3.0)moon+=4;
+  if(tx5>=12)moon+=3;
+  moon+=conf*4;
+  if(overheated)moon-=18;
+  if(hardRisk)moon-=30;
   moon=Math.round(clamp(moon,0,100));
   return {type,label,reason,moon,confirmations:conf};
 }
@@ -625,11 +649,11 @@ function journalSummary(){
 function renderWallet(){
   const status=state.walletAddress?(state.walletError?'⚠️ RPC probleem':state.walletLast?'🟢 Read-only verbonden':'🟡 Nog synchroniseren'):'Niet ingesteld';
   const notif=('Notification'in window)?Notification.permission:'installeer als app';
-  $('#grid').innerHTML=`<section class="walletPanel"><div class="panelTitle"><div><h2>👛 Wallet Watch</h2><p>Alleen je publieke Solana-adres. Hiermee kan v5.3 tokenbalansen read-only volgen en een koop/verkoop automatisch herkennen.</p></div><span class="badge">${status}</span></div>
+  $('#grid').innerHTML=`<section class="walletPanel"><div class="panelTitle"><div><h2>👛 Wallet Watch</h2><p>Alleen je publieke Solana-adres. Hiermee kan v5.4 tokenbalansen read-only volgen en een koop/verkoop automatisch herkennen.</p></div><span class="badge">${status}</span></div>
   <div class="walletGrid"><div class="walletBox"><small>Publiek walletadres</small><b>${state.walletAddress?escapeHtml(short(state.walletAddress)):'Nog niet gekoppeld'}</b></div><div class="walletBox"><small>SOL balans</small><b>${state.walletAddress&&state.walletLast?state.walletSOL.toFixed(4)+' SOL':'—'}</b></div><div class="walletBox"><small>RPC / laatste sync</small><b>${state.walletLast?`${escapeHtml(state.walletRpcName||'RPC')} · ${new Date(state.walletLast).toLocaleTimeString('nl-NL')}`:'—'}</b></div></div>
   <div class="walletInput"><input id="walletAddressInput" autocomplete="off" spellcheck="false" placeholder="Plak hier je publieke Solana ontvangstadres" value="${escapeHtml(state.walletAddress)}"><button onclick="setWalletAddress()">Opslaan & sync</button></div>
   <div class="settingsRow"><button class="primary" onclick="syncWallet(true)">↻ Wallet sync</button><button onclick="enableNotifications()">🔔 Meldingen: ${escapeHtml(notif)}</button>${state.walletAddress?'<button onclick="clearWallet()">Wallet vergeten</button>':''}</div>
-  <div class="walletHint"><b>Veilig:</b> dit adres is openbaar blockchain-data en geeft de app geen recht om crypto te versturen. Voer hier <b>nooit</b> een seed phrase of private key in. v5.3 probeert automatisch meerdere publieke RPC’s en vraagt alleen tokenbalansen op van coins die je daadwerkelijk volgt.${state.walletError?`<br><b>RPC:</b> ${escapeHtml(state.walletError)}`:''}</div></section>`;
+  <div class="walletHint"><b>Veilig:</b> dit adres is openbaar blockchain-data en geeft de app geen recht om crypto te versturen. Voer hier <b>nooit</b> een seed phrase of private key in. v5.4 probeert automatisch meerdere publieke RPC’s en vraagt alleen tokenbalansen op van coins die je daadwerkelijk volgt.${state.walletError?`<br><b>RPC:</b> ${escapeHtml(state.walletError)}`:''}</div></section>`;
 }
 function renderJournal(){
   const s=journalSummary(), mature=state.samples.filter(x=>x.outcome60!=null).length;
@@ -637,7 +661,7 @@ function renderJournal(){
   $('#grid').innerHTML=`<section class="journalPanel"><div class="panelTitle"><div><h2>📒 Tradeboek & Learning Engine</h2><p>Gesloten trades en geobserveerde setups worden lokaal gebruikt om toekomstige Moonshot Scores licht bij te sturen.</p></div><button class="btn" onclick="exportJournal()">Export CSV</button></div>
   <div class="journalStats"><div class="journalStat"><small>Trades</small><b>${s.n}</b></div><div class="journalStat"><small>Winrate</small><b>${s.win.toFixed(0)}%</b></div><div class="journalStat"><small>Gem. return</small><b class="${s.avg>=0?'positive':'negative'}">${s.avg>=0?'+':''}${s.avg.toFixed(1)}%</b></div><div class="journalStat"><small>Beste</small><b class="positive">+${s.best.toFixed(1)}%</b></div><div class="journalStat"><small>1u samples</small><b>${mature}</b></div></div>
   <div style="overflow:auto"><table class="journalTable"><thead><tr><th>Coin</th><th>Entry</th><th>Entryprijs</th><th>Resultaat</th><th>Max winst</th><th>Exitreden</th></tr></thead><tbody>${rows||'<tr><td colspan="6">Nog geen gesloten trades.</td></tr>'}</tbody></table></div>
-  <div class="learnBox"><b>Zelflerend:</b> v5.3 bewaart maximaal 7 dagen aan top-setups en meet hun koers na 15 en 60 minuten. Vanaf 8 volwassen samples kan een vergelijkbare nieuwe setup maximaal <b>±10 punten</b> aan de Moonshot Score krijgen. Dit is eenvoudige lokale patroonmatching, geen garantie of voorspellend AI-model.</div></section>`;
+  <div class="learnBox"><b>Zelflerend:</b> v5.4 bewaart maximaal 7 dagen aan top-setups en meet hun koers na 15 en 60 minuten. Vanaf 8 volwassen samples kan een vergelijkbare nieuwe setup maximaal <b>±10 punten</b> aan de Moonshot Score krijgen. Dit is eenvoudige lokale patroonmatching, geen garantie of voorspellend AI-model.</div></section>`;
 }
 function exportJournal(){
   const head=['symbol','entryTime','exitTime','entryPrice','exitPrice','returnPct','maxPnl','maxDrawdown','reason'];
@@ -792,11 +816,11 @@ function renderTradeAlert(){
   const box=$('#tradeAlert');if(!box)return;
   const active=activePositions().filter(p=>p.status==='active');
   $('#tradeCount').textContent=activePositions().length?`(${activePositions().length})`:'';
-  if(!active.length){box.className='tradeAlert';box.innerHTML='';document.title='SOL Meme Radar v5.3.1 · Guardian AI';return}
+  if(!active.length){box.className='tradeAlert';box.innerHTML='';document.title='SOL Meme Radar v5.4.1 · Guardian AI';return}
   const p=[...active].sort((a,b)=>signalRank(b.signal)-signalRank(a.signal)||n(b.risk)-n(a.risk))[0];
   const cls=signalClass(p.signal);box.className=`tradeAlert show ${cls==='emergency'||cls==='sell'?'sell':cls==='take'?'take':'hold'}`;
   box.innerHTML=`<div class="tradeAlertTop"><div><div class="tradeAlertTitle">${signalLabel(p.signal)} · ${escapeHtml(p.symbol)} ${p.pnl>=0?'+':''}${n(p.pnl).toFixed(1)}%</div><div class="tradeAlertText">${escapeHtml(p.signalReason||'Trade Guardian actief.')}</div></div><div class="tradeAlertActions"><button onclick="goTrades()">Mijn Trades</button>${['TAKE_PROFIT','EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal)?`<button class="sellBtn" onclick="beginSell('${p.mint}')">SELL → SOL</button>`:''}</div></div>`;
-  if(['EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal))document.title=`🚨 EXIT ${p.symbol} · Meme Radar`;else if(p.signal==='TAKE_PROFIT')document.title=`🟠 Profit ${p.symbol} · Meme Radar`;else document.title='SOL Meme Radar v5.3.1 · Guardian AI';
+  if(['EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal))document.title=`🚨 EXIT ${p.symbol} · Meme Radar`;else if(p.signal==='TAKE_PROFIT')document.title=`🟠 Profit ${p.symbol} · Meme Radar`;else document.title='SOL Meme Radar v5.4.1 · Guardian AI';
 }
 function positionCard(p){
   const cls=signalClass(p.signal),entry=p.entryPrice||p.buyClickPrice||0,price=p.lastPrice||0,flow=Math.round(n(p.lastData?.flow)*100);
@@ -927,12 +951,14 @@ function renderPickPanel(){
   state.tokens.forEach(t=>t.pick=classifyToken(t));
   const counts={buy:0,watch:0,hot:0,avoid:0};state.tokens.forEach(t=>counts[t.pick.type]++);
   $('#pcBuy').textContent=counts.buy;$('#pcWatch').textContent=counts.watch;$('#pcHot').textContent=counts.hot;$('#pcAvoid').textContent=counts.avoid;
-  const best=state.tokens.filter(t=>['buy','watch'].includes(t.pick.type)).sort((a,b)=>(a.pick.type==='buy'?0:1)-(b.pick.type==='buy'?0:1)||b.pick.moon-a.pick.moon);
+  const best=state.tokens.filter(t=>['buy','ready','watch'].includes(t.pick.type)).sort((a,b)=>{
+    const rank={buy:0,ready:1,watch:2};return rank[a.pick.type]-rank[b.pick.type]||b.pick.moon-a.pick.moon;
+  });
   const buy=best.find(t=>t.pick.type==='buy');
   $('#pickBanner').innerHTML=buy
-    ? `<b>🧪 Paper setup bevestigd.</b> ${escapeHtml(buy.symbol)} wordt nu zonder echt geld gevolgd.`
+    ? `<b>🟢 Koopzone gevonden.</b> ${escapeHtml(buy.symbol)} scoort ${buy.pick.moon}/100 en is twee scans bevestigd.`
     : best.length
-      ? `<b>Rustig blijven.</b> Er zijn interessante coins, maar nog geen duidelijke BUY ZONE.`
+      ? `<b>Scanner is actief.</b> Er zijn kandidaten in beeld; READY betekent dat een coin nog één stap van BUY ZONE verwijderd is.`
       : `<b>Geen goede instap nu.</b> De radar forceert liever geen trade.`;
 }
 function updateWalletMini(){
@@ -951,10 +977,13 @@ function render(){
 
   const a=state.tokens
     .map(t=>{t.pick=classifyToken(t);return t})
-    .filter(t=>['buy','watch'].includes(t.pick.type))
+    .filter(t=>['buy','ready','watch'].includes(t.pick.type))
     .filter(t=>t.liq>=10000)
-    .sort((a,b)=>(a.pick.type==='buy'?0:1)-(b.pick.type==='buy'?0:1)||b.pick.moon-a.pick.moon)
-    .slice(0,3);
+    .sort((a,b)=>{
+      const rank={buy:0,ready:1,watch:2};
+      return rank[a.pick.type]-rank[b.pick.type]||b.pick.moon-a.pick.moon;
+    })
+    .slice(0,4);
 
   if(!a.length){
     $('#grid').innerHTML='<div class="calmEmpty"><b>Geen goede instap gevonden</b>De scanner blijft automatisch zoeken. Zodra een coin interessant genoeg wordt verschijnt hij hier.</div>';
@@ -968,15 +997,15 @@ async function autoSafetyShortlist(){
     const now=Date.now();
     hydrateSafety(state.tokens);
     const list=state.tokens
-      .filter(t=>t.liq>=50000&&t.score>=68&&(!t.safety||t.safety.status==='unknown'))
-      .sort((a,b)=>b.score-a.score).slice(0,6);
+      .filter(t=>t.liq>=18000&&t.score>=55&&(!t.safety||t.safety.status==='unknown'))
+      .sort((a,b)=>b.score-a.score).slice(0,12);
     await Promise.allSettled(list.map(async t=>{
       try{
-        const r=await getJSON(`${RUG}/tokens/${t.mint}/report/summary`,8000);
+        const r=await getJSON(`${RUG}/tokens/${t.mint}/report/summary`,7000);
         const risks=Array.isArray(r.risks)?r.risks:[];
         const dangers=risks.filter(x=>String(x.level||'').toLowerCase().includes('danger')).length;
         const warns=risks.filter(x=>String(x.level||'').toLowerCase().match(/warn/)).length;
-        t.safety={status:dangers?'bad':warns>=1?'warn':'ok',dangers,warns};
+        t.safety={status:dangers?'bad':warns?'warn':'ok',dangers,warns};
         state.safetyCache[t.mint]={ts:now,safety:t.safety};
       }catch(e){
         t.safety={status:'unknown',dangers:0,warns:0};
@@ -990,16 +1019,24 @@ function card(t){
   t.pick=classifyToken(t);
   const c=color(t.score),isFav=state.watch.has(t.mint),conf=n(t.pick.confirmations);
   const img=t.image?`<img class="coin" src="${escapeHtml(t.image)}" onerror="this.outerHTML='<div class=\'coin fallback\'>${escapeHtml(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${escapeHtml(t.symbol.slice(0,2))}</div>`;
-  const dots=[1,2,3].map(i=>`<i class="${conf>=i?'on':''}"></i>`).join('');
+  const dots=[1,2].map(i=>`<i class="${conf>=i?'on':''}"></i>`).join('');
   const paper=state.paperPositions.find(p=>p.mint===t.mint&&p.status==='active');
-  const action=t.pick.type==='buy'
-    ? `<div class="paperAction"><b>Paper BUY actief</b>${paper?` · entry ${fmtPrice(paper.entryPrice)}`:''}<br>Geen echte koopknop totdat de strategie eerst is gevalideerd.</div>`
-    : `<div class="simpleWait">Nog wachten · geen echte trade</div>`;
+  let action='';
+  if(t.pick.type==='buy'){
+    action=`<button class="liveBuy" onclick="startBuy('${t.mint}')">Kopen in Trust Wallet</button>
+      <div class="balanceNote">Ook automatisch als paper trade gevolgd · geen garantie op winst.</div>`;
+  }else if(t.pick.type==='ready'){
+    action=`<div class="paperAction"><b>READY</b> · nog één bevestiging of safety-resultaat nodig.<br>${paper?'Paperpositie loopt al mee.':'De radar blijft automatisch volgen.'}</div>`;
+  }else{
+    action=`<div class="simpleWait">WATCH · nog geen goede entry</div>`;
+  }
+  const tag=t.pick.type==='buy'?'BUY ZONE':t.pick.type==='ready'?'READY':'WATCH';
+  const tagClass=t.pick.type==='ready'?'watch readyTag':t.pick.type;
   return `<article class="card" style="--score:${c}">
     <div class="row">${img}<div class="name"><h3>${escapeHtml(t.name)}</h3><div class="sym"><b>${escapeHtml(t.symbol)}</b> · ${ageText(t.age)}</div></div><div class="score">${t.pick.moon}</div></div>
     <div class="stats"><div class="stat"><small>Liquiditeit</small><b>${money(t.liq)}</b></div><div class="stat"><small>5 min</small><b class="${t.p5>=0?'positive':'negative'}">${pct(t.p5)}</b></div><div class="stat"><small>Volume 1u</small><b>${money(t.v1)}</b></div></div>
-    <div class="verdict"><span class="verdictTag ${t.pick.type}">${t.pick.type==='buy'?'PAPER BUY':'WATCH'}</span><div><div class="verdictTitle">Score <span class="moon">${t.pick.moon}/100</span></div><div class="verdictReason">${escapeHtml(t.pick.reason)}</div></div></div>
-    <div class="confirmLine">Entrybevestiging <span class="confirmDots">${dots}</span></div>
+    <div class="verdict"><span class="verdictTag ${tagClass}">${tag}</span><div><div class="verdictTitle">Score <span class="moon">${t.pick.moon}/100</span></div><div class="verdictReason">${escapeHtml(t.pick.reason)}</div></div></div>
+    <div class="confirmLine">Bevestiging <span class="confirmDots">${dots}</span></div>
     ${action}
     <details class="simpleDetails"><summary>Details bekijken</summary><div class="inside">
       <a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">DexScreener</a>
