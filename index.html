@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#06070a" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>SOL Meme Radar v5 · Guardian AI</title>
+<style>
+:root{--bg:#050609;--panel:#0b0e14;--panel2:#10141d;--text:#f5f7fb;--muted:#8993a4;--line:#20283a;--green:#50f6a4;--amber:#ffd36d;--red:#ff657b;--cyan:#52d8ff;--purple:#a982ff;--shadow:0 20px 70px rgba(0,0,0,.45)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% -10%,rgba(82,216,255,.12),transparent 28%),radial-gradient(circle at 0 20%,rgba(169,130,255,.10),transparent 25%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent 70%)}
+.app{max-width:1280px;margin:auto;padding:22px 16px 70px}.top{display:flex;gap:16px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.logo{width:47px;height:47px;border-radius:15px;background:linear-gradient(145deg,#4cf4a3,#52d8ff 55%,#a982ff);box-shadow:0 0 38px rgba(82,216,255,.22);display:grid;place-items:center;color:#020405;font-weight:1000}.title h1{margin:0;font-size:clamp(24px,5vw,39px);letter-spacing:-.045em}.title p{margin:5px 0 0;color:var(--muted);font-size:13px}.status{display:flex;align-items:center;gap:7px;color:#a8b1c2;font-size:12px;padding:8px 11px;border:1px solid var(--line);background:rgba(11,14,20,.78);border-radius:999px;backdrop-filter:blur(15px)}.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:pulse 1.5s infinite}@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.metric{border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,rgba(16,20,29,.86),rgba(7,9,14,.86));padding:14px 15px;box-shadow:var(--shadow)}.metric small{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.metric strong{display:block;font-size:21px;margin-top:5px}.metric .sub{color:var(--muted);font-size:11px;margin-top:2px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);background:rgba(8,10,15,.86);border-radius:17px;margin-bottom:13px;position:sticky;top:8px;z-index:20;backdrop-filter:blur(18px)}button,.btn,input,select{font:inherit}.pill,.btn{border:1px solid var(--line);color:#c8d0dd;background:#0e1219;border-radius:11px;padding:9px 11px;font-size:12px;cursor:pointer;transition:.18s}.pill:hover,.btn:hover{border-color:#3a465f;transform:translateY(-1px)}.pill.active{color:#06120d;background:var(--green);border-color:var(--green);font-weight:800}.refresh{margin-left:auto;background:linear-gradient(135deg,rgba(82,216,255,.16),rgba(169,130,255,.14));color:#fff}.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.field{border:1px solid var(--line);background:#0a0d13;border-radius:14px;padding:10px 12px}.field label{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}.field input,.field select{width:100%;border:0;outline:0;color:#fff;background:transparent;font-size:13px}.field select option{background:#111722}
+.notice{font-size:12px;color:#98a2b3;border:1px solid #263047;background:rgba(16,20,29,.6);padding:10px 12px;border-radius:12px;margin-bottom:13px}.notice b{color:#fff}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.card{position:relative;overflow:hidden;border:1px solid var(--line);background:linear-gradient(145deg,rgba(14,18,26,.96),rgba(7,9,14,.95));border-radius:19px;padding:15px;box-shadow:0 18px 50px rgba(0,0,0,.24);transition:.2s}.card:hover{border-color:#34405a;transform:translateY(-1px)}.card:before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:var(--score,#8993a4)}.row{display:flex;align-items:center;gap:10px}.coin{width:44px;height:44px;border-radius:13px;object-fit:cover;background:#151b26;border:1px solid #263047}.coin.fallback{display:grid;place-items:center;font-weight:900;color:#07110d;background:linear-gradient(145deg,#4cf4a3,#52d8ff)}.name{min-width:0;flex:1}.name h3{font-size:15px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sym{font-size:11px;color:var(--muted);margin-top:3px;display:flex;gap:6px;align-items:center}.score{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--score) 55%,#273146);background:radial-gradient(circle,rgba(255,255,255,.035),transparent 65%);font-weight:900;color:var(--score);font-size:15px;box-shadow:inset 0 0 20px color-mix(in srgb,var(--score) 10%,transparent)}.badge{font-size:9px;padding:3px 6px;border:1px solid #2a3448;border-radius:999px;color:#aeb8ca;background:#0b0e14}.badge.hot{border-color:rgba(255,211,109,.35);color:var(--amber)}.badge.early{border-color:rgba(80,246,164,.35);color:var(--green)}.badge.risk{border-color:rgba(255,101,123,.35);color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:13px 0 9px}.stat{background:#090c12;border:1px solid #1b2332;border-radius:10px;padding:8px}.stat small{display:block;color:#758095;font-size:9px;text-transform:uppercase}.stat b{font-size:12px;margin-top:3px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.positive{color:var(--green)!important}.negative{color:var(--red)!important}.neutral{color:var(--amber)!important}.barline{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:10px;color:var(--muted);margin-top:8px}.bar{height:6px;border-radius:999px;background:#171d29;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:inherit}.riskline{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;min-height:22px}.flag{font-size:9px;padding:4px 6px;border-radius:7px;border:1px solid #273146;color:#9ba6b8}.flag.bad{color:var(--red);border-color:rgba(255,101,123,.28);background:rgba(255,101,123,.05)}.flag.good{color:var(--green);border-color:rgba(80,246,164,.25);background:rgba(80,246,164,.045)}.actions{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:6px;margin-top:12px}.actions a,.actions button{border:1px solid #283249;background:#0b0f16;color:#dfe5ef;text-decoration:none;border-radius:10px;padding:9px 8px;text-align:center;font-size:10px;font-weight:700;cursor:pointer}.actions .trade{color:#06120d;background:linear-gradient(135deg,var(--green),#55e9d3);border:0}.fav{font-size:16px!important;padding-left:10px!important;padding-right:10px!important}.fav.on{color:var(--amber)}
+.empty{grid-column:1/-1;border:1px dashed #283249;border-radius:20px;padding:45px 20px;text-align:center;color:#7e899c}.loader{width:22px;height:22px;border:2px solid #263047;border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}@keyframes spin{to{transform:rotate(360deg)}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(8px)}.modal.show{display:flex}.sheet{width:min(680px,100%);max-height:82vh;overflow:auto;border:1px solid #2b364c;border-bottom:0;background:#0b0f16;border-radius:22px 22px 0 0;padding:18px 16px 32px;box-shadow:0 -30px 100px rgba(0,0,0,.6)}.sheethead{display:flex;justify-content:space-between;gap:10px;align-items:center}.sheet h2{margin:0;font-size:18px}.close{border:1px solid #29344a;background:#111722;color:#fff;border-radius:10px;padding:8px 11px}.riskbox{border:1px solid #253047;border-radius:14px;padding:12px;margin-top:12px}.riskbox h4{margin:0 0 8px}.riskitem{padding:9px 0;border-top:1px solid #1b2332}.riskitem:first-of-type{border-top:0}.small{font-size:11px;color:var(--muted)}.foot{margin-top:20px;color:#687386;font-size:10px;text-align:center;line-height:1.5}
+
+.picksPanel{border:1px solid #26324a;background:linear-gradient(145deg,rgba(13,18,28,.96),rgba(8,10,16,.94));border-radius:20px;padding:14px;margin:0 0 13px;box-shadow:var(--shadow)}
+.picksHead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.picksHead h2{font-size:16px;margin:0}.picksHead p{font-size:10px;color:var(--muted);margin:3px 0 0}.pickCounts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.pickCount{border:1px solid #202a3d;border-radius:12px;padding:9px;background:#090c12}.pickCount small{display:block;color:#7f8999;font-size:9px;text-transform:uppercase}.pickCount b{font-size:16px;display:block;margin-top:2px}.pickCount.buy b{color:var(--green)}.pickCount.watch b{color:var(--cyan)}.pickCount.hot b{color:var(--amber)}.pickCount.avoid b{color:var(--red)}
+.pickBanner{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid #1c2535;font-size:10px;color:#96a0b1}.pickBanner b{color:#fff}.pickchip{padding:5px 8px;border-radius:999px;border:1px solid #2b3549;background:#0a0e15}.pickchip.buy{color:var(--green);border-color:rgba(80,246,164,.3)}.pickchip.watch{color:var(--cyan);border-color:rgba(82,216,255,.3)}.pickchip.hot{color:var(--amber);border-color:rgba(255,211,109,.3)}.pickchip.avoid{color:var(--red);border-color:rgba(255,101,123,.3)}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;margin-top:11px;padding:10px;border:1px solid #222d41;border-radius:12px;background:#090d14}.verdictTag{font-size:9px;font-weight:900;padding:5px 7px;border-radius:8px;white-space:nowrap}.verdictTag.buy{color:#06120d;background:var(--green)}.verdictTag.watch{color:#05121a;background:var(--cyan)}.verdictTag.hot{color:#1c1400;background:var(--amber)}.verdictTag.avoid{color:#21050a;background:var(--red)}.verdictTitle{font-size:11px;font-weight:800}.verdictReason{font-size:10px;color:#929daf;margin-top:3px;line-height:1.35}.planline{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}.planbox{border:1px solid #20293a;border-radius:9px;padding:7px;background:#080b10}.planbox small{display:block;color:#6f7b8e;font-size:8px;text-transform:uppercase}.planbox b{display:block;margin-top:2px;font-size:10px}.moon{color:var(--purple)!important}
+.security{font-size:9px;padding:3px 6px;border-radius:999px;border:1px solid #2a3448}.security.ok{color:var(--green);border-color:rgba(80,246,164,.3)}.security.warn{color:var(--amber);border-color:rgba(255,211,109,.3)}.security.bad{color:var(--red);border-color:rgba(255,101,123,.3)}.security.unknown{color:#93a0b3}
+
+.tradeAlert{display:none;border:1px solid #28344d;border-radius:18px;padding:13px 14px;margin:0 0 13px;background:linear-gradient(145deg,rgba(13,18,28,.98),rgba(8,10,16,.97));box-shadow:var(--shadow)}
+.tradeAlert.show{display:block}.tradeAlert.sell{border-color:rgba(255,101,123,.55);box-shadow:0 0 38px rgba(255,101,123,.12)}.tradeAlert.take{border-color:rgba(255,211,109,.45)}.tradeAlert.hold{border-color:rgba(80,246,164,.3)}
+.tradeAlertTop{display:flex;gap:10px;justify-content:space-between;align-items:center}.tradeAlertTitle{font-weight:950;font-size:13px}.tradeAlertText{font-size:10px;color:#9aa5b7;margin-top:4px;line-height:1.45}.tradeAlertActions{display:flex;gap:7px;flex-shrink:0}.tradeAlertActions button{border:1px solid #34405a;background:#10151f;color:#fff;border-radius:10px;padding:8px 10px;font-size:10px;font-weight:800}
+.tradeAlertActions .sellBtn{background:var(--red);border-color:var(--red);color:#21050a}
+.positionCard{border:1px solid #27334b;background:linear-gradient(145deg,rgba(15,20,30,.98),rgba(7,10,16,.97));border-radius:20px;padding:15px;box-shadow:var(--shadow)}
+.positionHead{display:flex;gap:10px;align-items:center}.positionHead .grow{flex:1;min-width:0}.positionHead h3{margin:0;font-size:16px}.signal{font-size:10px;font-weight:950;padding:7px 9px;border-radius:9px;white-space:nowrap}.signal.hold{color:#06120d;background:var(--green)}.signal.watch{color:#07121a;background:var(--cyan)}.signal.take{color:#211800;background:var(--amber)}.signal.sell{color:#25050a;background:var(--red)}.signal.pending{color:#d5deec;background:#263047}
+.positionStats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.positionStat{border:1px solid #202a3c;background:#090c12;border-radius:10px;padding:8px}.positionStat small{display:block;font-size:8px;color:#758095;text-transform:uppercase}.positionStat b{display:block;margin-top:3px;font-size:12px}
+.riskMeter{height:8px;background:#181f2c;border-radius:999px;overflow:hidden;margin-top:7px}.riskMeter i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--amber),var(--red));border-radius:inherit}
+.positionReason{font-size:10px;color:#98a3b5;line-height:1.45;margin-top:9px}.positionActions{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:7px;margin-top:11px}.positionActions button,.positionActions a{border:1px solid #2b374d;background:#0d121a;color:#e6ebf3;text-decoration:none;text-align:center;border-radius:10px;padding:10px 8px;font-size:10px;font-weight:850;cursor:pointer}.positionActions .sellNow{background:linear-gradient(135deg,#ff657b,#ff9a6c);border:0;color:#25050a}
+.monitorInfo{grid-column:1/-1;border:1px solid #263149;background:#0a0e15;border-radius:14px;padding:12px;font-size:10px;color:#8f9aad;line-height:1.5}.monitorInfo b{color:#fff}
+.tradeDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);margin-right:5px}
+
+
+.walletPanel,.journalPanel{grid-column:1/-1;border:1px solid #27334b;background:linear-gradient(145deg,rgba(14,18,27,.98),rgba(7,9,14,.98));border-radius:20px;padding:16px;box-shadow:var(--shadow)}
+.panelTitle{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}.panelTitle h2{margin:0;font-size:18px}.panelTitle p{margin:4px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
+.walletGrid{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:9px}.walletBox{border:1px solid #202a3c;background:#090c12;border-radius:13px;padding:11px}.walletBox small{display:block;color:#7f8b9f;font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.walletBox b{font-size:12px;word-break:break-all}
+.walletInput{display:flex;gap:8px;margin-top:10px}.walletInput input{flex:1;min-width:0;border:1px solid #2b374d;background:#070a10;color:#fff;border-radius:11px;padding:11px}.walletInput button{border:1px solid #34405a;background:#111722;color:#fff;border-radius:11px;padding:10px 12px;font-weight:800}
+.settingsRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.settingsRow button{border:1px solid #34405a;background:#10151f;color:#fff;border-radius:10px;padding:9px 11px;font-size:10px;font-weight:850}.settingsRow button.primary{background:var(--green);color:#06120d;border-color:var(--green)}
+.walletHint{font-size:10px;color:#8f9aad;line-height:1.5;margin-top:10px}.walletHint b{color:#fff}
+.journalStats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}.journalStat{border:1px solid #202a3c;background:#090c12;border-radius:12px;padding:10px}.journalStat small{display:block;color:#7d889a;font-size:9px;text-transform:uppercase}.journalStat b{display:block;margin-top:4px;font-size:15px}
+.journalTable{width:100%;border-collapse:collapse;font-size:10px}.journalTable th,.journalTable td{text-align:left;padding:9px 7px;border-bottom:1px solid #1e2635}.journalTable th{color:#7f8a9d;font-size:9px;text-transform:uppercase}.journalTable td b{font-size:11px}
+.learnBox{border:1px solid #2a3550;background:linear-gradient(135deg,rgba(82,216,255,.07),rgba(169,130,255,.07));border-radius:13px;padding:11px;margin-top:10px;font-size:10px;color:#9eabbd;line-height:1.5}.learnBox b{color:#fff}
+.signal.strong{color:#04140d;background:#8bffc5}.signal.protect{color:#07121a;background:#52d8ff}.signal.emergency{color:#fff;background:#d82649;animation:dangerPulse .75s infinite alternate}@keyframes dangerPulse{to{box-shadow:0 0 25px rgba(255,55,88,.65)}}
+.trailingBox{margin-top:9px;border:1px solid #263149;background:#080c12;border-radius:11px;padding:9px}.trailingTop{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:#8e99aa}.trailingTop b{color:#fff}.trailbar{height:7px;background:#171e2a;border-radius:99px;overflow:hidden;margin-top:6px}.trailbar i{display:block;height:100%;background:linear-gradient(90deg,#50f6a4,#52d8ff,#ffd36d,#ff657b)}
+.autoBadge{font-size:8px;font-weight:900;border:1px solid rgba(80,246,164,.35);color:var(--green);padding:3px 5px;border-radius:6px;margin-left:5px}
+.notifBadge{font-size:8px;font-weight:900;border:1px solid #34405a;color:#b9c4d5;padding:3px 5px;border-radius:6px}
+.emptyWide{grid-column:1/-1}
+@media(max-width:820px){.walletGrid{grid-template-columns:1fr}.journalStats{grid-template-columns:repeat(2,1fr)}.journalTable{font-size:9px}}
+@media(max-width:520px){.walletInput{flex-direction:column}.journalTable th:nth-child(3),.journalTable td:nth-child(3),.journalTable th:nth-child(6),.journalTable td:nth-child(6){display:none}}
+
+@media(max-width:820px){.pickCounts{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.filters{grid-template-columns:repeat(2,1fr)}.status{display:none}.top{align-items:center}.actions{grid-template-columns:1.5fr 1fr 1fr auto}.toolbar{top:4px}}
+@media(max-width:460px){.tradeAlertTop{align-items:flex-start}.tradeAlertActions{flex-direction:column}.positionStats{grid-template-columns:repeat(2,1fr)}.positionActions{grid-template-columns:1fr 1fr}.positionActions .sellNow{grid-column:1/-1}.planline{grid-template-columns:1fr 1fr 1fr}.picksPanel{padding:11px}.app{padding:16px 10px 55px}.logo{width:42px;height:42px}.hero{gap:7px}.metric{padding:11px 12px}.metric strong{font-size:18px}.filters{gap:6px}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr 1fr 1fr auto}.actions a,.actions button{padding:10px 5px}.hide-mobile{display:none}.toolbar{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}.toolbar::-webkit-scrollbar{display:none}.refresh{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">S◎L</div><div class="title"><h1>Meme Radar <span style="font-size:.42em;color:#52d8ff;vertical-align:middle">v5</span></h1><p>Solana memecoin radar · Wallet Watch · Dynamic Exit · Trade Journal</p></div></div>
+    <div class="status"><span class="dot"></span><span id="liveText">Live scanner</span></div>
+  </header>
+
+  <section class="hero">
+    <div class="metric"><small>Gevonden</small><strong id="mFound">—</strong><div class="sub">SOL-pairs in scan</div></div>
+    <div class="metric"><small>Kans ≥ 70</small><strong id="mStrong">—</strong><div class="sub">na risk heuristics</div></div>
+    <div class="metric"><small>Nieuwe pools</small><strong id="mEarly">—</strong><div class="sub">jonger dan 60 min</div></div>
+    <div class="metric"><small>Laatste scan</small><strong id="mScan">—</strong><div class="sub" id="mSource">DEX + new pools</div></div>
+  </section>
+
+  <section class="picksPanel" id="picksPanel">
+    <div class="picksHead"><div><h2>🎯 CHAT'S TOP PICKS</h2><p>Automatische marktstructuur-classificatie. BUY ZONE vereist nog steeds contract/safety controle.</p></div><span class="badge">LIVE</span></div>
+    <div class="pickCounts">
+      <div class="pickCount buy"><small>Buy zone</small><b id="pcBuy">—</b></div>
+      <div class="pickCount watch"><small>Watch</small><b id="pcWatch">—</b></div>
+      <div class="pickCount hot"><small>Too hot</small><b id="pcHot">—</b></div>
+      <div class="pickCount avoid"><small>Avoid</small><b id="pcAvoid">—</b></div>
+    </div>
+    <div class="pickBanner" id="pickBanner"><b>Scanner start…</b></div>
+  </section>
+
+  <section class="tradeAlert" id="tradeAlert"></section>
+
+  <nav class="toolbar">
+    <button class="pill active" data-view="picks">🎯 Top Picks</button>
+    <button class="pill" data-view="trades">🛡️ Mijn Trades <span id="tradeCount"></span></button>
+    <button class="pill" data-view="wallet">👛 Wallet</button>
+    <button class="pill" data-view="journal">📒 Tradeboek</button>
+    <button class="pill" data-view="live">⚡ Live</button>
+    <button class="pill" data-view="early">🌱 Early</button>
+    <button class="pill" data-view="hot">🔥 Hot</button>
+    <button class="pill" data-view="watch">★ Watchlist</button>
+    <button class="btn refresh" id="refreshBtn">↻ Scan nu</button>
+  </nav>
+
+  <section class="filters">
+    <div class="field"><label>Min. liquiditeit</label><select id="minLiq"><option value="3000" selected>$3k</option><option value="10000">$10k</option><option value="20000">$20k</option><option value="50000">$50k</option></select></div>
+    <div class="field"><label>Max. leeftijd</label><select id="maxAge"><option value="60">1 uur</option><option value="360">6 uur</option><option value="1440" selected>24 uur</option><option value="10080">7 dagen</option></select></div>
+    <div class="field"><label>Min. radar score</label><select id="minScore"><option value="0" selected>Alles</option><option value="45">45+</option><option value="60">60+</option><option value="70">70+</option><option value="80">80+</option></select></div>
+    <div class="field"><label>Sorteren</label><select id="sortBy"><option value="score">Beste score</option><option value="age">Nieuwste</option><option value="vol">Meeste volume</option><option value="liq">Liquiditeit</option></select></div>
+  </section>
+
+  <div class="notice"><b>Guardian v5.</b> Met een optioneel publiek Solana-walletadres kan de app aankopen en verkopen read-only herkennen. De exit-engine gebruikt een dynamische trailing-top, orderflow en liquiditeitsverlies. Geen enkel signaal kan een top of rug garanderen.</div>
+
+  <main class="grid" id="grid"><div class="empty"><div class="loader"></div>Live feeds verbinden…</div></main>
+  <div class="foot">De app vraagt uitsluitend om een <b>publiek Solana-adres</b> als je Wallet Watch gebruikt. Nooit seed phrase of private key invoeren. Alle swaps bevestig jij zelf in Trust Wallet. Lokale meldingen werken als de app actief is; echte achtergrond-push op iPhone vereist de gehoste PWA/backend-versie.</div>
+</div>
+
+<div class="modal" id="modal"><div class="sheet"><div class="sheethead"><div><div class="small">RugCheck safety scan</div><h2 id="modalTitle">Token</h2></div><button class="close" id="closeModal">Sluiten</button></div><div id="modalBody" class="riskbox"><div class="loader"></div></div></div></div>
+
+<script>
+const WSOL='So11111111111111111111111111111111111111112';
+const DEX='https://api.dexscreener.com';
+const GT='https://api.geckoterminal.com/api/v2';
+const RUG='https://api.rugcheck.xyz/v1';
+const SOLRPC='https://api.mainnet-beta.solana.com';
+const TOKEN_PROGRAM='TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+const TOKEN2022_PROGRAM='TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb';
+
+function safeJson(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v??fallback}catch(e){return fallback}}
+function safeSet(key,v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
+function safeLoadWatch(){return new Set(safeJson('solRadarWatch',[]))}
+function safeSaveWatch(set){safeSet('solRadarWatch',[...set])}
+function safeLoadPositions(){const a=safeJson('solRadarPositions',[]);return Array.isArray(a)?a:[]}
+function safeSavePositions(a){safeSet('solRadarPositions',a)}
+const state={
+  tokens:[],view:'picks',loading:false,last:0,watch:safeLoadWatch(),positions:safeLoadPositions(),
+  journal:safeJson('solRadarJournal',[]),samples:safeJson('solRadarSamples',[]),
+  walletAddress:safeJson('solRadarWallet',''),walletBalances:{},walletSOL:0,walletLast:0,walletSyncing:false,walletError:'',
+  errors:[],sources:new Set(),safetyRunning:false,monitoring:false,lastMonitor:0,promptOpen:false
+};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const n=v=>Number(v||0)||0;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const money=v=>{v=n(v); if(!v)return '$0'; if(v>=1e9)return '$'+(v/1e9).toFixed(2)+'B'; if(v>=1e6)return '$'+(v/1e6).toFixed(2)+'M'; if(v>=1e3)return '$'+(v/1e3).toFixed(v>=1e5?0:1)+'K'; return '$'+v.toFixed(v<10?2:0)};
+const pct=v=>(n(v)>=0?'+':'')+n(v).toFixed(Math.abs(n(v))<10?1:0)+'%';
+const short=a=>a?`${a.slice(0,4)}…${a.slice(-4)}`:'—';
+const ageText=m=>m<1?'<1m':m<60?`${Math.floor(m)}m`:m<1440?`${(m/60).toFixed(m<180?1:0)}u`:`${(m/1440).toFixed(1)}d`;
+function stripNet(id){return String(id||'').replace(/^solana_/,'')}
+function saveWatch(){safeSaveWatch(state.watch)}
+function color(score){return score>=78?'#50f6a4':score>=62?'#52d8ff':score>=48?'#ffd36d':'#ff657b'}
+function fmtPrice(v){v=n(v);if(!v)return '—';if(v>=1)return '$'+v.toFixed(3);if(v>=.01)return '$'+v.toFixed(5);if(v>=.0001)return '$'+v.toFixed(7);return '$'+v.toPrecision(3)}
+
+function sampleFeature(t){return {score:n(t.score),liq:n(t.liq),age:n(t.age),flow:n(t.flow),p5:n(t.p5),p1:n(t.p1),vr:t.liq?n(t.v1)/n(t.liq):0,mc:n(t.mc)}}
+function featureDistance(a,b){
+  const parts=[
+    Math.abs(n(a.score)-n(b.score))/35,
+    Math.abs(Math.log10(n(a.liq)+100)-Math.log10(n(b.liq)+100))/2,
+    Math.abs(Math.log10(n(a.age)+2)-Math.log10(n(b.age)+2))/2,
+    Math.abs(n(a.flow)-n(b.flow))*2.5,
+    Math.abs(n(a.p5)-n(b.p5))/80,
+    Math.abs(n(a.p1)-n(b.p1))/250
+  ];
+  return parts.reduce((x,y)=>x+y,0);
+}
+function learnedAdjustment(t){
+  const mature=state.samples.filter(s=>s.outcome60!=null&&s.features);
+  if(mature.length<8)return {adj:0,n:mature.length,confidence:'learning'};
+  const f=sampleFeature(t);
+  const near=mature.map(s=>({s,d:featureDistance(f,s.features)})).sort((a,b)=>a.d-b.d).slice(0,Math.min(14,mature.length));
+  let w=0,sum=0;
+  for(const x of near){const ww=1/(.2+x.d);w+=ww;sum+=ww*clamp(n(x.s.outcome60),-60,120)}
+  const avg=w?sum/w:0;
+  return {adj:Math.round(clamp(avg/10,-10,10)),n:near.length,confidence:near.length>=10?'medium':'low',avg};
+}
+function updateLearningSamples(tokens){
+  const now=Date.now(), map=new Map(state.samples.map(s=>[s.mint,s]));
+  for(const t of tokens.slice().sort((a,b)=>b.score-a.score).slice(0,18)){
+    let s=map.get(t.mint);
+    if(!s){s={mint:t.mint,symbol:t.symbol,first:now,firstPrice:t.price,high:t.price,low:t.price,last:t.price,features:sampleFeature(t)};state.samples.push(s);map.set(t.mint,s)}
+    if(t.price){s.high=Math.max(n(s.high),t.price);s.low=s.low?Math.min(n(s.low),t.price):t.price;s.last=t.price}
+    const mins=(now-s.first)/60000;
+    if(mins>=15&&s.outcome15==null&&s.firstPrice)s.outcome15=((s.last/s.firstPrice)-1)*100;
+    if(mins>=60&&s.outcome60==null&&s.firstPrice)s.outcome60=((s.last/s.firstPrice)-1)*100;
+  }
+  state.samples=state.samples.filter(s=>now-s.first<7*86400000).slice(-350);
+  safeSet('solRadarSamples',state.samples);
+}
+
+function classifyToken(t){
+  const vr=t.liq?t.v1/t.liq:0, tx5=t.buys5+t.sells5, mcL=t.liq&&t.mc?t.mc/t.liq:0;
+  const safetyBad=t.safety&&t.safety.status==='bad', safetyWarn=t.safety&&t.safety.status==='warn';
+  const hardRisk=safetyBad||t.liq<12000||t.score<42||t.flow<.38||t.p5<-28||t.p1<-45||(mcL>180)||(t.sells5===0&&t.buys5>=12);
+  const overheated=t.p5>55||t.p1>180||t.p6>600||t.p24>1600||(t.p5>30&&t.flow>.84);
+  let type='watch',label='WATCH',reason='Interessant genoeg om te volgen, maar nog geen nette instapstructuur.';
+  if(hardRisk){type='avoid';label='AVOID';reason=safetyBad?'On-chain safety scan bevat een harde waarschuwing.':'Marktstructuur bevat één of meer harde risicoflags.';}
+  else if(overheated){type='hot';label='TOO HOT';reason='Momentum is al te verticaal. Niet achter de candle aan jagen; wacht op afkoeling.';}
+  else if(t.score>=72&&t.liq>=40000&&t.age>=4&&t.age<=720&&t.flow>=.52&&t.flow<=.80&&t.p5>=-10&&t.p5<=28&&t.p1>=-20&&t.p1<=110&&vr>=.15&&tx5>=8&&(!t.mc||t.mc<=8000000)&&!safetyWarn){
+    type='buy';label='BUY ZONE';reason='Gezonde combinatie van liquiditeit, activiteit, buy-flow en momentum zonder verticale spike.';
+  } else if(t.score>=62&&t.liq>=20000){type='watch';label='WATCH';reason='Goede kandidaat, maar wacht op betere bevestiging of een rustigere entry.';}
+  else {type='avoid';label='AVOID';reason='De huidige data is te zwak voor de shortlist.';}
+  let moon=t.score+(t.age<60?7:t.age<360?3:0)+(t.flow>=.55&&t.flow<=.75?5:0)+(vr>=.3&&vr<=4?4:0)-(overheated?18:0)-(hardRisk?25:0)-(safetyWarn?8:0);
+  const learned=learnedAdjustment(t);moon+=learned.adj;moon=Math.round(clamp(moon,0,100));
+  const entry=type==='buy'?'Nu alleen klein / liefst -5% tot -12% pullback':type==='watch'?'Wachten op consolidatie + positieve 5m flow':type==='hot'?'Wachten op ≥15–25% afkoeling':'Geen entry';
+  const invalid=type==='buy'?'Risicolijn ± -15%*':type==='watch'?'Nog geen setup':type==='hot'?'Niet najagen':'Overslaan';
+  return {type,label,reason,moon,entry,invalid,learned};
+}
+function securityBadge(t){
+  if(!t.safety)return '<span class="security unknown">Safety: niet gecheckt</span>';
+  if(t.safety.status==='ok')return '<span class="security ok">Safety: rustig</span>';
+  if(t.safety.status==='warn')return `<span class="security warn">Safety: ${t.safety.warns} waarschuwing</span>`;
+  if(t.safety.status==='bad')return `<span class="security bad">Safety: ${t.safety.dangers} danger</span>`;
+  return '<span class="security unknown">Safety: onbekend</span>';
+}
+
+async function getJSON(url,timeout=9000){
+  const c=new AbortController(); const t=setTimeout(()=>c.abort(),timeout);
+  try{
+    const r=await fetch(url,{headers:{Accept:'application/json'},signal:c.signal,cache:'no-store',mode:'cors'});
+    if(!r.ok)throw new Error(`${r.status} ${r.statusText}`);
+    return await r.json();
+  }catch(e){throw new Error(e?.name==='AbortError'?'timeout':(e?.message||'network error'))}
+  finally{clearTimeout(t)}
+}
+function includedMap(j){const m=new Map();for(const x of (j?.included||[]))m.set(x.id,x.attributes||{});return m}
+function gtToken(pool,j){
+  const rel=pool.relationships||{}, bId=rel.base_token?.data?.id, qId=rel.quote_token?.data?.id;
+  const b=stripNet(bId), q=stripNet(qId); let mint=null, isBase=true;
+  if(q===WSOL&&b&&b!==WSOL){mint=b;isBase=true}else if(b===WSOL&&q&&q!==WSOL){mint=q;isBase=false}else return null;
+  const a=pool.attributes||{}, inc=includedMap(j), meta=inc.get(isBase?bId:qId)||{};
+  const created=Date.parse(a.pool_created_at||0); const age=created?Math.max(0,(Date.now()-created)/60000):99999;
+  const tx5=a.transactions?.m5||{}, tx1=a.transactions?.h1||{};
+  const liq=n(a.reserve_in_usd), mc=n(a.market_cap_usd)||n(a.fdv_usd), fdv=n(a.fdv_usd);
+  const buys5=n(tx5.buys), sells5=n(tx5.sells), buys1=n(tx1.buys), sells1=n(tx1.sells);
+  const flow=(buys5+sells5)>0?buys5/(buys5+sells5):(buys1+sells1)>0?buys1/(buys1+sells1):.5;
+  const pair=stripNet(pool.id);
+  const t={mint,name:meta.name||a.name?.split(' / ')[0]||'Unknown token',symbol:meta.symbol||'?',pair,
+    url:`https://dexscreener.com/solana/${pair}`,image:meta.image_url||'',liq,mc,fdv,age,
+    v5:n(a.volume_usd?.m5),v1:n(a.volume_usd?.h1),buys5,sells5,buys1,sells1,flow,
+    p5:n(a.price_change_percentage?.m5),p1:n(a.price_change_percentage?.h1),p6:n(a.price_change_percentage?.h6),p24:n(a.price_change_percentage?.h24),
+    boost:0,socials:0,websites:0,dex:rel.dex?.data?.id?.replace(/^solana_/,'')||'Solana DEX',price:n(isBase?a.base_token_price_usd:a.quote_token_price_usd),source:'Gecko'};
+  scoreToken(t); return t;
+}
+
+
+
+function saveJournal(){safeSet('solRadarJournal',state.journal)}
+function saveWallet(){safeSet('solRadarWallet',state.walletAddress)}
+function isSolAddress(s){return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(String(s||'').trim())}
+async function rpc(method,params,timeout=9000){
+  const c=new AbortController(), timer=setTimeout(()=>c.abort(),timeout);
+  try{
+    const r=await fetch(SOLRPC,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params}),signal:c.signal});
+    if(!r.ok)throw new Error(`RPC ${r.status}`);
+    const j=await r.json();if(j.error)throw new Error(j.error.message||'RPC error');return j.result;
+  }finally{clearTimeout(timer)}
+}
+async function ownerProgramBalances(address,programId){
+  const r=await rpc('getTokenAccountsByOwner',[address,{programId},{encoding:'jsonParsed',commitment:'confirmed'}]);
+  const out={};
+  for(const x of (r?.value||[])){
+    const info=x?.account?.data?.parsed?.info, mint=info?.mint, amt=n(info?.tokenAmount?.uiAmountString??info?.tokenAmount?.uiAmount);
+    if(mint)out[mint]=(out[mint]||0)+amt;
+  }
+  return out;
+}
+async function syncWallet(force=false){
+  if(!state.walletAddress||state.walletSyncing)return false;
+  if(!force&&Date.now()-state.walletLast<12000)return true;
+  state.walletSyncing=true;state.walletError='';
+  try{
+    const [classic,t22,sol]=await Promise.allSettled([
+      ownerProgramBalances(state.walletAddress,TOKEN_PROGRAM),
+      ownerProgramBalances(state.walletAddress,TOKEN2022_PROGRAM),
+      rpc('getBalance',[state.walletAddress,{commitment:'confirmed'}])
+    ]);
+    if(classic.status!=='fulfilled'&&t22.status!=='fulfilled')throw new Error('Tokenbalansen konden niet worden opgehaald');
+    const completeTokenSnapshot=classic.status==='fulfilled'&&t22.status==='fulfilled';
+    const balances={};
+    for(const src of [classic,t22])if(src.status==='fulfilled')for(const [m,a] of Object.entries(src.value))balances[m]=(balances[m]||0)+n(a);
+    state.walletBalances=balances;
+    if(sol.status==='fulfilled')state.walletSOL=n(sol.value?.value)/1e9;
+    state.walletLast=Date.now();
+    if(completeTokenSnapshot)reconcileWalletPositions(); else state.walletError='Wallet deels gesynchroniseerd; automatische trade-detectie wacht op een complete RPC-snapshot.';
+    if(state.view==='wallet')renderWallet();if(state.view==='trades')renderTrades();
+    return true;
+  }catch(e){state.walletError=e?.message||'Wallet RPC mislukt';if(state.view==='wallet')renderWallet();return false}
+  finally{state.walletSyncing=false}
+}
+function walletAmount(mint){return n(state.walletBalances[mint])}
+function setWalletAddress(){
+  const v=String($('#walletAddressInput')?.value||'').trim();
+  if(v&&!isSolAddress(v)){alert('Dit lijkt geen geldig Solana-adres. Gebruik alleen je publieke ontvangstadres.');return}
+  state.walletAddress=v;saveWallet();state.walletBalances={};state.walletLast=0;renderWallet();if(v)syncWallet(true)
+}
+function clearWallet(){state.walletAddress='';state.walletBalances={};state.walletSOL=0;state.walletLast=0;saveWallet();renderWallet()}
+async function enableNotifications(){
+  if(!('Notification'in window)){alert('Deze browser ondersteunt geen webmeldingen.');return}
+  try{await Notification.requestPermission()}catch(e){}
+  renderWallet()
+}
+function notifySignal(p,title,body){
+  try{
+    if('Notification'in window&&Notification.permission==='granted'&&document.visibilityState==='visible'){
+      new Notification(title,{body,tag:`solradar-${p.mint}`,renotify:true});
+    }
+    navigator.vibrate?.(p.signal==='EMERGENCY_EXIT'?[250,80,250,80,250]:[160,70,160]);
+  }catch(e){}
+}
+function closeAndJournal(p,reason='Verkocht',exitPrice=null){
+  if(!p||p.journaled)return;
+  const px=n(exitPrice)||n(p.lastPrice), entry=n(p.entryPrice)||n(p.buyClickPrice);
+  p.status='closed';p.closedAt=Date.now();p.exitPrice=px;p.signal='CLOSED';p.journaled=true;
+  const ret=entry&&px?((px/entry)-1)*100:n(p.pnl);
+  state.journal.push({
+    id:`${p.mint}-${p.confirmedAt||p.clickedAt||Date.now()}`,mint:p.mint,symbol:p.symbol,name:p.name,
+    entryTime:p.confirmedAt||p.clickedAt,exitTime:p.closedAt,entryPrice:entry,exitPrice:px,returnPct:ret,
+    maxPnl:n(p.maxPnl),maxDrawdown:n(p.maxObservedDrawdown||p.drawdown),reason,
+    entryFeatures:p.entryFeatures||null,walletDetected:!!p.walletDetected
+  });
+  state.journal=state.journal.slice(-250);saveJournal();savePositions()
+}
+function reconcileWalletPositions(){
+  if(!state.walletAddress)return;
+  for(const p of activePositions()){
+    const current=walletAmount(p.mint);
+    if(p.status==='pending_buy'&&p.walletBefore!=null&&current>n(p.walletBefore)+1e-9){
+      p.status='active';p.confirmedAt=Date.now();p.walletDetected=true;p.tokenAmount=current-n(p.walletBefore);
+      p.walletLastBalance=current;p.entryPrice=n(p.lastPrice)||n(p.buyClickPrice);p.highPrice=Math.max(n(p.entryPrice),n(p.highPrice));
+      p.signal='HOLD';p.signalReason='Aankoop automatisch in je publieke wallet gedetecteerd. Entryprijs is geschat op het eerste detectiemoment.';
+    }else if(['active','pending_sell'].includes(p.status)&&p.walletBefore!=null){
+      const tradeBal=Math.max(0,current-n(p.walletBefore));
+      const prior=n(p.tradeBalance||p.tokenAmount);
+      if(p.status==='active'&&p.walletLastBalance!=null&&current+1e-9<n(p.walletLastBalance)&&tradeBal>0){
+        p.partialSaleDetected=true;p.signalReason='Gedeeltelijke verkoop in wallet gedetecteerd; resterende positie blijft onder monitoring.';
+      }
+      p.tradeBalance=tradeBal;p.walletLastBalance=current;
+      if((p.tokenAmount>0&&tradeBal<=p.tokenAmount*.03)||current<=n(p.walletBefore)+1e-9){
+        closeAndJournal(p,'Wallet detecteerde vrijwel volledige verkoop',p.lastPrice);
+      }else if(p.status==='pending_sell'&&tradeBal<prior*.92){
+        p.status='active';p.signalReason='Gedeeltelijke verkoop gedetecteerd; Guardian volgt de resterende positie.';
+      }
+    }
+  }
+  savePositions()
+}
+function journalSummary(){
+  const j=state.journal, returns=j.map(x=>n(x.returnPct)).filter(Number.isFinite), wins=returns.filter(x=>x>0);
+  return {n:j.length,win:j.length?wins.length/j.length*100:0,avg:returns.length?returns.reduce((a,b)=>a+b,0)/returns.length:0,
+    best:returns.length?Math.max(...returns):0,worst:returns.length?Math.min(...returns):0};
+}
+function renderWallet(){
+  const status=state.walletAddress?(state.walletError?'⚠️ RPC probleem':state.walletLast?'🟢 Read-only verbonden':'🟡 Nog synchroniseren'):'Niet ingesteld';
+  const notif=('Notification'in window)?Notification.permission:'niet ondersteund';
+  $('#grid').innerHTML=`<section class="walletPanel"><div class="panelTitle"><div><h2>👛 Wallet Watch</h2><p>Alleen je publieke Solana-adres. Hiermee kan v5 tokenbalansen read-only volgen en een koop/verkoop automatisch herkennen.</p></div><span class="badge">${status}</span></div>
+  <div class="walletGrid"><div class="walletBox"><small>Publiek walletadres</small><b>${state.walletAddress?escapeHtml(short(state.walletAddress)):'Nog niet gekoppeld'}</b></div><div class="walletBox"><small>SOL balans</small><b>${state.walletAddress?state.walletSOL.toFixed(4)+' SOL':'—'}</b></div><div class="walletBox"><small>Laatste sync</small><b>${state.walletLast?new Date(state.walletLast).toLocaleTimeString('nl-NL'):'—'}</b></div></div>
+  <div class="walletInput"><input id="walletAddressInput" autocomplete="off" spellcheck="false" placeholder="Plak hier je publieke Solana ontvangstadres" value="${escapeHtml(state.walletAddress)}"><button onclick="setWalletAddress()">Opslaan & sync</button></div>
+  <div class="settingsRow"><button class="primary" onclick="syncWallet(true)">↻ Wallet sync</button><button onclick="enableNotifications()">🔔 Meldingen: ${escapeHtml(notif)}</button>${state.walletAddress?'<button onclick="clearWallet()">Wallet vergeten</button>':''}</div>
+  <div class="walletHint"><b>Veilig:</b> dit adres is openbaar blockchain-data en geeft de app geen recht om crypto te versturen. Voer hier <b>nooit</b> een seed phrase of private key in. Als RPC-detectie faalt, blijft de handmatige koop/verkoopbevestiging beschikbaar.${state.walletError?`<br><b>RPC:</b> ${escapeHtml(state.walletError)}`:''}</div></section>`;
+}
+function renderJournal(){
+  const s=journalSummary(), mature=state.samples.filter(x=>x.outcome60!=null).length;
+  const rows=[...state.journal].reverse().slice(0,50).map(x=>`<tr><td><b>${escapeHtml(x.symbol||'?')}</b></td><td>${x.entryTime?new Date(x.entryTime).toLocaleString('nl-NL',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—'}</td><td>${fmtPrice(x.entryPrice)}</td><td class="${n(x.returnPct)>=0?'positive':'negative'}"><b>${n(x.returnPct)>=0?'+':''}${n(x.returnPct).toFixed(1)}%</b></td><td>${n(x.maxPnl).toFixed(0)}%</td><td>${escapeHtml(x.reason||'Exit')}</td></tr>`).join('');
+  $('#grid').innerHTML=`<section class="journalPanel"><div class="panelTitle"><div><h2>📒 Tradeboek & Learning Engine</h2><p>Gesloten trades en geobserveerde setups worden lokaal gebruikt om toekomstige Moonshot Scores licht bij te sturen.</p></div><button class="btn" onclick="exportJournal()">Export CSV</button></div>
+  <div class="journalStats"><div class="journalStat"><small>Trades</small><b>${s.n}</b></div><div class="journalStat"><small>Winrate</small><b>${s.win.toFixed(0)}%</b></div><div class="journalStat"><small>Gem. return</small><b class="${s.avg>=0?'positive':'negative'}">${s.avg>=0?'+':''}${s.avg.toFixed(1)}%</b></div><div class="journalStat"><small>Beste</small><b class="positive">+${s.best.toFixed(1)}%</b></div><div class="journalStat"><small>1u samples</small><b>${mature}</b></div></div>
+  <div style="overflow:auto"><table class="journalTable"><thead><tr><th>Coin</th><th>Entry</th><th>Entryprijs</th><th>Resultaat</th><th>Max winst</th><th>Exitreden</th></tr></thead><tbody>${rows||'<tr><td colspan="6">Nog geen gesloten trades.</td></tr>'}</tbody></table></div>
+  <div class="learnBox"><b>Zelflerend:</b> v5 bewaart maximaal 7 dagen aan top-setups en meet hun koers na 15 en 60 minuten. Vanaf 8 volwassen samples kan een vergelijkbare nieuwe setup maximaal <b>±10 punten</b> aan de Moonshot Score krijgen. Dit is eenvoudige lokale patroonmatching, geen garantie of voorspellend AI-model.</div></section>`;
+}
+function exportJournal(){
+  const head=['symbol','entryTime','exitTime','entryPrice','exitPrice','returnPct','maxPnl','maxDrawdown','reason'];
+  const esc=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const lines=[head.join(','),...state.journal.map(x=>head.map(k=>esc(k.endsWith('Time')&&x[k]?new Date(x[k]).toISOString():x[k])).join(','))];
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sol-memecoin-tradeboek.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)
+}
+
+function savePositions(){safeSavePositions(state.positions)}
+function activePositions(){return state.positions.filter(p=>!['closed','cancelled'].includes(p.status))}
+function getPosition(mint){return state.positions.find(p=>p.mint===mint&&!['closed','cancelled'].includes(p.status))}
+function signalRank(s){return ({PENDING:0,STRONG_HOLD:1,HOLD:1,PROTECT_PROFIT:2,TAKE_PROFIT:3,EXIT_NOW:4,EMERGENCY_EXIT:5}[s]??0)}
+function trustBuyUrl(mint){return `https://link.trustwallet.com/swap?from=c501&to=c501_t${encodeURIComponent(mint)}`}
+function trustSellUrl(mint){return `https://link.trustwallet.com/swap?from=c501_t${encodeURIComponent(mint)}&to=c501`}
+function startBuy(mint){
+  const t=state.tokens.find(x=>x.mint===mint); if(!t)return;
+  let p=getPosition(mint);
+  if(!p){
+    p={mint,name:t.name,symbol:t.symbol,pair:t.pair,url:t.url,image:t.image||'',status:'pending_buy',
+       clickedAt:Date.now(),buyClickPrice:t.price||0,entryPrice:0,baselineLiquidity:t.liq||0,highPrice:t.price||0,
+       lastPrice:t.price||0,lastLiquidity:t.liq||0,pnl:0,drawdown:0,risk:0,signal:'PENDING',
+       walletBefore:(state.walletAddress&&state.walletLast&&Date.now()-state.walletLast<60000)?walletAmount(mint):null,entryFeatures:sampleFeature(t),
+       signalReason:state.walletAddress?'Trust Wallet geopend. Wallet Watch probeert de aankoop bij terugkeer automatisch te herkennen.':'Trust Wallet geopend. Bevestig na terugkeer of de swap gelukt is.',
+       history:[],lastAlertRank:0,maxPnl:0,maxObservedDrawdown:0};
+    state.positions.push(p);
+  }else{
+    p.status='pending_buy';p.clickedAt=Date.now();p.buyClickPrice=t.price||p.lastPrice||0;p.baselineLiquidity=t.liq||p.baselineLiquidity||0;
+  }
+  state.watch.add(mint);saveWatch();savePositions();renderTradeAlert();render();
+  window.location.href=trustBuyUrl(mint);
+}
+function confirmBuy(mint,ok){
+  const p=getPosition(mint);if(!p)return;
+  if(!ok){p.status='cancelled';savePositions();state.promptOpen=false;$('#modal').classList.remove('show');render();return}
+  const live=state.tokens.find(t=>t.mint===mint);
+  p.status='active';p.confirmedAt=Date.now();p.entryPrice=(live?.price||p.lastPrice||p.buyClickPrice||0);
+  p.highPrice=Math.max(p.entryPrice||0,p.highPrice||0);p.baselineLiquidity=live?.liq||p.lastLiquidity||p.baselineLiquidity||0;
+  if(state.walletAddress){p.walletBefore=p.walletBefore??walletAmount(mint);p.walletLastBalance=walletAmount(mint);p.tradeBalance=Math.max(0,walletAmount(mint)-n(p.walletBefore));p.tokenAmount=p.tradeBalance||p.tokenAmount||0;}
+  p.signal='HOLD';p.signalReason='Positie actief. Trade Guardian volgt momentum, drawdown, buy/sell-flow en liquiditeit.';
+  p.returnPrompted=true;savePositions();state.promptOpen=false;$('#modal').classList.remove('show');state.view='trades';setActiveViewButton('trades');render();monitorPositions(true);
+}
+function beginSell(mint){
+  const p=getPosition(mint);if(!p)return;
+  p.status='pending_sell';p.sellClickedAt=Date.now();savePositions();render();
+  window.location.href=trustSellUrl(mint);
+}
+function confirmSell(mint,ok){
+  const p=getPosition(mint);if(!p)return;
+  if(ok){closeAndJournal(p,'Handmatig bevestigd verkocht',p.lastPrice)}
+  else {p.status='active';p.signalReason='Verkoop niet bevestigd; monitoring gaat verder.'}
+  savePositions();state.promptOpen=false;$('#modal').classList.remove('show');render();monitorPositions(true);
+}
+function removePosition(mint){
+  const p=getPosition(mint);if(!p)return;
+  if(confirm(`${p.symbol} uit Mijn Trades verwijderen?`)){if(p.status==='active')closeAndJournal(p,'Handmatig uit Trade Guardian verwijderd',p.lastPrice);else{p.status='cancelled';savePositions()}render()}
+}
+function showReturnPrompt(){
+  if(state.promptOpen)return;
+  if(state.walletAddress){syncWallet(true)}
+  const p=activePositions().find(x=>(x.status==='pending_buy'&&!x.returnPrompted)||(x.status==='pending_sell'&&!x.sellReturnPrompted));
+  if(!p)return;
+  state.promptOpen=true;$('#modal').classList.add('show');$('#modalTitle').textContent=`${p.symbol} · Trust Wallet`;
+  if(p.status==='pending_buy'){
+    p.returnPrompted=true;savePositions();
+    $('#modalBody').innerHTML=`<h4>Is de swap naar ${escapeHtml(p.symbol)} gelukt?</h4>
+    <p class="small">${state.walletAddress?'Wallet Watch heeft hem nog niet automatisch gezien. Je kunt wachten op de volgende sync of handmatig bevestigen.':'Zonder publiek walletadres kan de deeplink geen transactiebevestiging teruggeven.'} Bij handmatige bevestiging neem ik de actuele marktprijs als geschatte entry.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><button class="btn" style="background:var(--green);color:#06120d;font-weight:900" onclick="confirmBuy('${p.mint}',true)">Ja · start monitoring</button><button class="btn" onclick="confirmBuy('${p.mint}',false)">Nee · niet gekocht</button></div>`;
+  }else{
+    p.sellReturnPrompted=true;savePositions();
+    $('#modalBody').innerHTML=`<h4>Heb je ${escapeHtml(p.symbol)} naar SOL verkocht?</h4>
+    <p class="small">Bevestig dit alleen als de swap in Trust Wallet werkelijk is uitgevoerd.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><button class="btn" style="background:var(--red);color:#25050a;font-weight:900" onclick="confirmSell('${p.mint}',true)">Ja · positie sluiten</button><button class="btn" onclick="confirmSell('${p.mint}',false)">Nee · blijf volgen</button></div>`;
+  }
+}
+function pairForPosition(rows,p){
+  const valid=(rows||[]).filter(x=>{
+    const b=x.baseToken?.address,q=x.quoteToken?.address;
+    return (b===p.mint||q===p.mint)&&(b===WSOL||q===WSOL);
+  });
+  return valid.find(x=>x.pairAddress===p.pair)||valid.sort((a,b)=>n(b.liquidity?.usd)-n(a.liquidity?.usd))[0]||null;
+}
+function trailingAllowance(maxPnl,d){
+  let a=maxPnl>=200?7:maxPnl>=100?9:maxPnl>=50?11:maxPnl>=20?14:18;
+  if(d.flow<.50)a-=2;if(d.p5<0)a-=2;if(d.flow>.58&&d.p5>0)a+=2;
+  return clamp(a,5,20)
+}
+function assessExit(p,d){
+  const entry=p.entryPrice||p.buyClickPrice||d.price||0;
+  p.highPrice=Math.max(n(p.highPrice),d.price||0,entry||0);
+  const pnl=entry?((d.price/entry)-1)*100:0;
+  const dd=p.highPrice?((p.highPrice-d.price)/p.highPrice)*100:0;
+  p.maxPnl=Math.max(n(p.maxPnl),pnl);p.maxObservedDrawdown=Math.max(n(p.maxObservedDrawdown),dd);
+  const allowance=trailingAllowance(p.maxPnl,d);
+  const liqDrop=p.baselineLiquidity?Math.max(0,(1-d.liq/p.baselineLiquidity)*100):0;
+  let risk=0;
+  if(p.maxPnl>=20)risk+=6;if(p.maxPnl>=50)risk+=7;if(p.maxPnl>=100)risk+=8;if(p.maxPnl>=200)risk+=10;
+  if(d.p5>=25)risk+=8;if(d.p5>=50)risk+=10;if(d.p1>=150)risk+=6;
+  if(d.flow<.52)risk+=14;if(d.flow<.45)risk+=12;if(d.sells5>d.buys5*1.2)risk+=12;
+  if(dd>=allowance*.55)risk+=10;if(dd>=allowance*.8)risk+=15;if(dd>=allowance)risk+=20;
+  if(d.p5<0&&p.maxPnl>20)risk+=8;if(liqDrop>=10)risk+=10;if(liqDrop>=20)risk+=16;
+  if(d.flow>=.58&&d.flow<=.76&&d.p5>=0&&d.p5<=18&&dd<allowance*.35)risk-=14;
+  risk=Math.round(clamp(risk,0,100));
+  let signal='HOLD', reason='Trendstructuur blijft acceptabel; Guardian geeft de trade nog ruimte.';
+  if(liqDrop>=32 || pnl<=-20 || (dd>=Math.max(18,allowance+7)) || (d.p5<=-22&&d.flow<.40)){
+    signal='EMERGENCY_EXIT';reason=liqDrop>=32?'Liquiditeit valt hard weg. Dit kan een rug/liquidity-event zijn.':pnl<=-20?'Kapitaalbescherming: positie is door de noodgrens gezakt.':'Agressieve reversal: prijs, orderflow en drawdown verslechteren tegelijk.';
+  }else if(p.maxPnl>=12&&dd>=allowance){
+    signal='EXIT_NOW';reason=`Dynamische trailing-top geraakt: ${dd.toFixed(1)}% onder de piek, toegestane terugval was circa ${allowance.toFixed(0)}%.`;
+  }else if((pnl>15&&risk>=66)||(d.p5<-10&&d.flow<.46&&p.maxPnl>18)){
+    signal='EXIT_NOW';reason='Meerdere vroege reversal-signalen vallen samen. Winst/kapitaal beschermen krijgt voorrang.';
+  }else if(p.maxPnl>=45&&(dd>=allowance*.55||risk>=48)){
+    signal='TAKE_PROFIT';reason='De trade heeft duidelijke winst en top-risico loopt op. Overweeg een deel naar SOL veilig te stellen.';
+  }else if(p.maxPnl>=20&&(risk>=34||d.p5>28)){
+    signal='PROTECT_PROFIT';reason='Winstbescherming actief: de trailing-top wordt strakker terwijl de trade verder stijgt.';
+  }else if(d.flow>=.60&&d.flow<=.78&&d.p5>=1&&d.p5<=18&&dd<4&&liqDrop<8){
+    signal='STRONG_HOLD';reason='Buy-flow en momentum zijn sterk zonder duidelijke verticale uitputting.';
+  }
+  p.lastPrice=d.price;p.lastLiquidity=d.liq;p.pnl=pnl;p.drawdown=dd;p.liqDrop=liqDrop;p.risk=risk;p.signal=signal;p.signalReason=reason;p.trailingAllowance=allowance;
+  p.lastData={...d,ts:Date.now()};p.history=(p.history||[]).concat([{ts:Date.now(),price:d.price,flow:d.flow,p5:d.p5,liq:d.liq,pnl}]).slice(-180);
+  const rank=signalRank(signal);
+  if(rank>n(p.lastAlertRank)&&rank>=3){
+    p.lastAlertRank=rank;p.lastAlertAt=Date.now();
+    notifySignal(p,signalLabel(signal),`${p.symbol} ${pnl>=0?'+':''}${pnl.toFixed(1)}% · ${reason}`);
+  }
+}
+async function monitorPositions(force=false){
+  if(state.walletAddress)syncWallet(force);
+  const positions=activePositions().filter(p=>['active','pending_buy','pending_sell'].includes(p.status));
+  if(!positions.length||state.monitoring)return;
+  if(!force&&Date.now()-state.lastMonitor<8000)return;
+  state.monitoring=true;
+  try{
+    const mints=[...new Set(positions.map(p=>p.mint))];
+    for(let i=0;i<mints.length;i+=30){
+      const chunk=mints.slice(i,i+30);
+      const rows=await getJSON(`${DEX}/tokens/v1/solana/${chunk.join(',')}`,8000);
+      for(const mint of chunk){
+        const p=getPosition(mint);if(!p)continue;const pair=pairForPosition(rows,p);if(!pair)continue;
+        const t5=pair.txns?.m5||{}, price=n(pair.priceUsd),liq=n(pair.liquidity?.usd),buys5=n(t5.buys),sells5=n(t5.sells);
+        const flow=(buys5+sells5)>0?buys5/(buys5+sells5):.5;
+        const d={price,liq,buys5,sells5,flow,p5:n(pair.priceChange?.m5),p1:n(pair.priceChange?.h1),v5:n(pair.volume?.m5),v1:n(pair.volume?.h1)};
+        if(price&&p.status==='active')assessExit(p,d);
+        else {p.lastPrice=price||p.lastPrice;p.lastLiquidity=liq||p.lastLiquidity;p.lastData={...d,ts:Date.now()}}
+      }
+    }
+    state.lastMonitor=Date.now();savePositions();renderTradeAlert();if(state.view==='trades')renderTrades();
+  }catch(e){/* keep prior signal when feed temporarily fails */}
+  finally{state.monitoring=false}
+}
+function signalClass(s){return s==='EMERGENCY_EXIT'?'emergency':s==='EXIT_NOW'?'sell':s==='TAKE_PROFIT'?'take':s==='PROTECT_PROFIT'?'protect':s==='STRONG_HOLD'?'strong':s==='HOLD'?'hold':'pending'}
+function signalLabel(s){return s==='EMERGENCY_EXIT'?'☠️ EMERGENCY EXIT':s==='EXIT_NOW'?'🚨 EXIT NOW':s==='TAKE_PROFIT'?'🟠 TAKE PROFIT':s==='PROTECT_PROFIT'?'🟡 PROTECT PROFIT':s==='STRONG_HOLD'?'💚 STRONG HOLD':s==='HOLD'?'🟢 HOLD':'⏳ PENDING'}
+function renderTradeAlert(){
+  const box=$('#tradeAlert');if(!box)return;
+  const active=activePositions().filter(p=>p.status==='active');
+  $('#tradeCount').textContent=activePositions().length?`(${activePositions().length})`:'';
+  if(!active.length){box.className='tradeAlert';box.innerHTML='';document.title='SOL Meme Radar v5 · Guardian AI';return}
+  const p=[...active].sort((a,b)=>signalRank(b.signal)-signalRank(a.signal)||n(b.risk)-n(a.risk))[0];
+  const cls=signalClass(p.signal);box.className=`tradeAlert show ${cls==='emergency'||cls==='sell'?'sell':cls==='take'?'take':'hold'}`;
+  box.innerHTML=`<div class="tradeAlertTop"><div><div class="tradeAlertTitle">${signalLabel(p.signal)} · ${escapeHtml(p.symbol)} ${p.pnl>=0?'+':''}${n(p.pnl).toFixed(1)}%</div><div class="tradeAlertText">${escapeHtml(p.signalReason||'Trade Guardian actief.')}</div></div><div class="tradeAlertActions"><button onclick="goTrades()">Mijn Trades</button>${['TAKE_PROFIT','EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal)?`<button class="sellBtn" onclick="beginSell('${p.mint}')">SELL → SOL</button>`:''}</div></div>`;
+  if(['EXIT_NOW','EMERGENCY_EXIT'].includes(p.signal))document.title=`🚨 EXIT ${p.symbol} · Meme Radar`;else if(p.signal==='TAKE_PROFIT')document.title=`🟠 Profit ${p.symbol} · Meme Radar`;else document.title='SOL Meme Radar v5 · Guardian AI';
+}
+function positionCard(p){
+  const cls=signalClass(p.signal),entry=p.entryPrice||p.buyClickPrice||0,price=p.lastPrice||0,flow=Math.round(n(p.lastData?.flow)*100);
+  return `<article class="positionCard"><div class="positionHead"><div class="grow"><h3>${escapeHtml(p.name||p.symbol)} <span class="small">${escapeHtml(p.symbol)}</span></h3><div class="small"><span class="tradeDot"></span>${p.status==='active'?'Live monitoring':'Wacht op bevestiging'} ${p.walletDetected?'<span class="autoBadge">WALLET AUTO</span>':''} · update ${p.lastData?.ts?new Date(p.lastData.ts).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'—'}</div></div><span class="signal ${cls}">${signalLabel(p.signal)}</span></div>
+  <div class="positionStats"><div class="positionStat"><small>Geschatte entry</small><b>${fmtPrice(entry)}</b></div><div class="positionStat"><small>Prijs nu</small><b>${fmtPrice(price)}</b></div><div class="positionStat"><small>P/L</small><b class="${n(p.pnl)>=0?'positive':'negative'}">${n(p.pnl)>=0?'+':''}${n(p.pnl).toFixed(1)}%</b></div><div class="positionStat"><small>Vanaf piek</small><b class="${n(p.drawdown)>=8?'negative':'neutral'}">-${n(p.drawdown).toFixed(1)}%</b></div></div>
+  <div class="positionStats"><div class="positionStat"><small>Top risk</small><b>${Math.round(n(p.risk))}/100</b></div><div class="positionStat"><small>5m momentum</small><b class="${n(p.lastData?.p5)>=0?'positive':'negative'}">${pct(p.lastData?.p5)}</b></div><div class="positionStat"><small>Buy-flow</small><b>${flow||'—'}%</b></div><div class="positionStat"><small>Liquidity Δ</small><b class="${n(p.liqDrop)>=15?'negative':'neutral'}">-${n(p.liqDrop).toFixed(0)}%</b></div></div>
+  <div class="riskMeter"><i style="width:${clamp(n(p.risk),0,100)}%"></i></div>
+  <div class="trailingBox"><div class="trailingTop"><span>Dynamische trailing-top</span><b>${p.status==='active'?`max ${n(p.trailingAllowance||18).toFixed(0)}% terug vanaf piek`:'start na entry'}</b></div><div class="trailbar"><i style="width:${clamp((n(p.drawdown)/Math.max(1,n(p.trailingAllowance||18)))*100,0,100)}%"></i></div></div>
+  <div class="positionReason">${escapeHtml(p.signalReason||'Monitoring wordt gestart zodra de koop is bevestigd.')}</div>
+  <div class="positionActions">${p.status==='active'?`<button class="sellNow" onclick="beginSell('${p.mint}')">SELL → SOL in Trust Wallet</button>`:`<button onclick="showReturnPrompt()">Swap bevestigen</button>`}<a href="${escapeHtml(p.url||`https://dexscreener.com/solana/${p.pair||''}`)}" target="_blank" rel="noopener">DexScreener</a><button onclick="removePosition('${p.mint}')">Verwijderen</button></div></article>`;
+}
+function renderTrades(){
+  renderTradeAlert();
+  const a=activePositions();
+  $('#tradeCount').textContent=a.length?`(${a.length})`:'';
+  if(!a.length){$('#grid').innerHTML='<div class="empty"><b>Nog geen actieve trades.</b><br><br>Druk bij een Top Pick op <b>BUY NOW → Trust Wallet</b>. Na terugkeer vraagt de radar of de swap gelukt is en start daarna de Trade Guardian.</div>';return}
+  $('#grid').innerHTML=`<div class="monitorInfo"><b>Guardian v5 actief.</b> Elke actieve trade krijgt een dynamische trailing-top: hoe groter de winst, hoe minder terugval vanaf de piek wordt toegestaan. <b>PROTECT PROFIT</b> = bescherming aanscherpen, <b>TAKE PROFIT</b> = gedeeltelijk winstnemen overwegen, <b>EXIT NOW</b> = uitstappen overwegen, <b>EMERGENCY EXIT</b> = sterke noodwaarschuwing.</div>`+a.map(positionCard).join('');
+}
+function setActiveViewButton(view){$$('.pill').forEach(b=>b.classList.toggle('active',b.dataset.view===view))}
+function goTrades(){state.view='trades';setActiveViewButton('trades');render()}
+
+async function discover(){
+  state.errors=[];state.sources.clear();const candidates=new Map(), fallback=[];
+  const jobs=[
+    ['Gecko new #1',`${GT}/networks/solana/new_pools?include=base_token,quote_token,dex&page=1`],
+    ['Gecko new #2',`${GT}/networks/solana/new_pools?include=base_token,quote_token,dex&page=2`],
+    ['Gecko trending',`${GT}/networks/solana/trending_pools?include=base_token,quote_token,dex&page=1`]
+  ];
+  const pages=await Promise.allSettled(jobs.map(x=>getJSON(x[1])));
+  pages.forEach((res,i)=>{
+    if(res.status!=='fulfilled'){state.errors.push(`${jobs[i][0]}: ${res.reason?.message||'mislukt'}`);return}
+    state.sources.add('GeckoTerminal'); const j=res.value;
+    for(const pool of (j.data||[])){
+      const t=gtToken(pool,j); if(!t)continue; fallback.push(t);
+      const old=candidates.get(t.mint)||{mint:t.mint}; old.gtToken=t; old.source=old.source||'NEW'; candidates.set(t.mint,old);
+    }
+  });
+  const extras=[
+    ['DEX profiles',`${DEX}/token-profiles/latest/v1`],
+    ['DEX boosts',`${DEX}/token-boosts/latest/v1`],
+    ['DEX top boosts',`${DEX}/token-boosts/top/v1`]
+  ];
+  const er=await Promise.allSettled(extras.map(x=>getJSON(x[1])));
+  er.forEach((r,idx)=>{
+    if(r.status!=='fulfilled'){state.errors.push(`${extras[idx][0]}: ${r.reason?.message||'mislukt'}`);return}
+    state.sources.add('DexScreener');
+    for(const x of (Array.isArray(r.value)?r.value:[])){
+      if(x.chainId!=='solana'||!x.tokenAddress||x.tokenAddress===WSOL)continue;
+      const old=candidates.get(x.tokenAddress)||{mint:x.tokenAddress};
+      old.profile=idx===0?x:(old.profile||null);
+      old.boost=(idx>0?Math.max(n(old.boost),n(x.amount),n(x.totalAmount)):old.boost)||0;
+      old.source=old.source||(idx===0?'PROFILE':'BOOST'); candidates.set(x.tokenAddress,old);
+    }
+  });
+  return {candidates:[...candidates.values()].slice(0,90),fallback};
+}
+
+async function enrich(pack){
+  const candidates=pack.candidates||[], fallback=pack.fallback||[];
+  const chunks=[];for(let i=0;i<candidates.length;i+=30)chunks.push(candidates.slice(i,i+30));
+  const all=[];
+  for(const chunk of chunks){
+    try{const rows=await getJSON(`${DEX}/tokens/v1/solana/${chunk.map(x=>x.mint).join(',')}`);all.push(...(rows||[]));state.sources.add('DexScreener')}
+    catch(e){state.errors.push(`DEX token data: ${e.message}`)}
+  }
+  const byMint=new Map(candidates.map(x=>[x.mint,x])), grouped=new Map();
+  for(const p of all){
+    const base=p.baseToken?.address, quote=p.quoteToken?.address; let mint=null;
+    if(base&&base!==WSOL&&quote===WSOL)mint=base;else if(quote&&quote!==WSOL&&base===WSOL)mint=quote;else continue;
+    if(!grouped.has(mint))grouped.set(mint,[]); grouped.get(mint).push(p);
+  }
+  const out=[];
+  for(const [mint,pairs] of grouped){
+    pairs.sort((a,b)=>n(b.liquidity?.usd)-n(a.liquidity?.usd)); const p=pairs[0], meta=byMint.get(mint)||{};
+    const token=p.baseToken?.address===mint?p.baseToken:p.quoteToken;
+    const created=n(p.pairCreatedAt)||Date.parse(meta.gtToken?.createdAt||0); const age=created?Math.max(0,(Date.now()-created)/60000):(meta.gtToken?.age??99999);
+    const t5=p.txns?.m5||{}, t1=p.txns?.h1||{}, v5=n(p.volume?.m5), v1=n(p.volume?.h1), liq=n(p.liquidity?.usd), mc=n(p.marketCap)||n(p.fdv), fdv=n(p.fdv);
+    const buys5=n(t5.buys), sells5=n(t5.sells), buys1=n(t1.buys), sells1=n(t1.sells), flow=(buys5+sells5)>0?buys5/(buys5+sells5):(buys1+sells1)>0?buys1/(buys1+sells1):.5;
+    const t={mint,name:token?.name||meta.gtToken?.name||'Unknown token',symbol:token?.symbol||meta.gtToken?.symbol||'?',pair:p.pairAddress,url:p.url||`https://dexscreener.com/solana/${p.pairAddress}`,image:p.info?.imageUrl||meta.profile?.icon||meta.gtToken?.image||'',liq,mc,fdv,age,v5,v1,buys5,sells5,buys1,sells1,flow,p5:n(p.priceChange?.m5),p1:n(p.priceChange?.h1),p6:n(p.priceChange?.h6),p24:n(p.priceChange?.h24),boost:n(p.boosts?.active)||n(meta.boost),socials:(p.info?.socials||[]).length,websites:(p.info?.websites||[]).length,dex:p.dexId||'',price:n(p.priceUsd),source:'DEX'};
+    scoreToken(t);out.push(t);
+  }
+  const have=new Set(out.map(x=>x.mint));
+  for(const t of fallback){if(!have.has(t.mint))out.push(t)}
+  return out;
+}
+
+function scoreToken(t){let s=20, flags=[];
+  if(t.liq>=20000&&t.liq<=400000)s+=18; else if(t.liq>=10000)s+=10; else if(t.liq<5000){s-=25;flags.push(['Zeer lage liquidity','bad'])} else {s-=8;flags.push(['Lage liquidity','bad'])}
+  if(t.age>=3&&t.age<=45){s+=15;flags.push(['Early','good'])} else if(t.age<3){s+=4;flags.push(['Ultra-new','bad'])} else if(t.age<=180)s+=10; else if(t.age<=360)s+=5;
+  if(t.flow>=.58&&t.flow<=.82)s+=14; else if(t.flow>.82){s+=5;flags.push(['Buy-flow extreem','bad'])} else if(t.flow<.45){s-=12;flags.push(['Sell pressure','bad'])}
+  const vr=t.liq?t.v1/t.liq:0;if(vr>=.5&&vr<=5)s+=14;else if(vr>=.2)s+=9;else if(vr>=.08)s+=4;else s-=4;
+  const tx5=t.buys5+t.sells5;if(tx5>=30)s+=10;else if(tx5>=10)s+=6;else if(tx5<3)s-=6;
+  if(t.p5>=2&&t.p5<=25)s+=10;else if(t.p5>25&&t.p5<=60)s+=5;else if(t.p5>80){s-=12;flags.push(['5m spike >80%','bad'])}else if(t.p5<-15){s-=10;flags.push(['5m dump','bad'])}
+  if(t.mc>=25000&&t.mc<=3000000)s+=9; else if(t.mc>10000000)s-=4; else if(t.mc>0&&t.mc<10000){s-=12;flags.push(['Micro MC','bad'])}
+  if(t.mc&&t.liq&&t.mc/t.liq>120){s-=8;flags.push(['MC/Liq hoog','bad'])}
+  if(t.socials>0)s+=4; if(t.websites>0)s+=2; if(t.boost>0)flags.push(['DEX boost','']);
+  if(t.sells5===0&&t.buys5>=8){s-=8;flags.push(['Geen sells in 5m','bad'])}
+  t.flags=flags;t.score=Math.round(clamp(s,0,100));
+  t.label=t.score>=78?'STRONG':t.score>=65?'WATCH':t.score>=50?'SPECULATIVE':'SKIP';
+  t.pick=classifyToken(t);
+}
+
+async function scan(){if(state.loading)return;state.loading=true;$('#refreshBtn').textContent='Scanning…';$('#liveText').textContent='Feeds verbinden';$('#grid').innerHTML='<div class="empty"><div class="loader"></div>Solana-pools ophalen…<br><span class="small">maximaal enkele seconden per databron</span></div>';
+  try{
+    const pack=await discover(); $('#liveText').textContent='Tokens analyseren';
+    const tokens=await enrich(pack); state.tokens=tokens; state.last=Date.now();updateLearningSamples(tokens);
+    if(!tokens.length){
+      const err=state.errors.slice(0,5).map(x=>`<div style="margin-top:6px">• ${escapeHtml(x)}</div>`).join('');
+      $('#grid').innerHTML=`<div class="empty"><b>Geen live data ontvangen</b><br><br>De scanner zelf draait, maar deze browser blokkeert de externe feeds of de feeds antwoorden niet.<div class="small" style="margin-top:12px;text-align:left;display:inline-block">${err||'Geen details beschikbaar'}</div><br><br><button class="btn" onclick="scan()">Opnieuw testen</button></div>`;
+      $('#mFound').textContent='0';$('#mScan').textContent=new Date().toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});$('#mSource').textContent='feeds geblokkeerd';
+    }else {render(); autoSafetyShortlist();}
+  }catch(e){$('#grid').innerHTML=`<div class="empty"><b>Scan mislukt</b><br><br>${escapeHtml(e.message)}<br><br><button class="btn" onclick="scan()">Opnieuw proberen</button></div>`}
+  finally{state.loading=false;$('#refreshBtn').textContent='↻ Scan nu';$('#liveText').textContent=state.tokens.length?`${state.tokens.length} live tokens`:'Scanner gereed'}
+}
+
+function filtered(){const minL=n($('#minLiq').value),maxA=n($('#maxAge').value),minS=n($('#minScore').value),sort=$('#sortBy').value;let a=state.tokens.filter(t=>t.liq>=minL&&t.age<=maxA&&t.score>=minS);
+  if(state.view==='picks')a=a.filter(t=>['buy','watch','hot'].includes((t.pick||classifyToken(t)).type)).sort((x,y)=>{const rank={buy:0,watch:1,hot:2,avoid:3};return rank[(x.pick||classifyToken(x)).type]-rank[(y.pick||classifyToken(y)).type]||(y.pick?.moon||0)-(x.pick?.moon||0)}).slice(0,16);
+  if(state.view==='early')a=a.filter(t=>t.age<=60);if(state.view==='hot')a=a.filter(t=>(t.pick||classifyToken(t)).type==='hot');if(state.view==='watch')a=a.filter(t=>state.watch.has(t.mint));
+  if(state.view!=='picks')a.sort((x,y)=>sort==='age'?x.age-y.age:sort==='vol'?y.v1-x.v1:sort==='liq'?y.liq-x.liq:y.score-x.score);return a}
+function renderPickPanel(){
+  state.tokens.forEach(t=>t.pick=classifyToken(t));
+  const counts={buy:0,watch:0,hot:0,avoid:0};state.tokens.forEach(t=>counts[t.pick.type]++);
+  $('#pcBuy').textContent=counts.buy;$('#pcWatch').textContent=counts.watch;$('#pcHot').textContent=counts.hot;$('#pcAvoid').textContent=counts.avoid;
+  const best=state.tokens.filter(t=>t.pick.type!=='avoid').sort((a,b)=>{const r={buy:0,watch:1,hot:2};return r[a.pick.type]-r[b.pick.type]||b.pick.moon-a.pick.moon}).slice(0,4);
+  $('#pickBanner').innerHTML=best.length?`<b>Beste signalen nu:</b> ${best.map(t=>`<span class="pickchip ${t.pick.type}">${escapeHtml(t.symbol)} · ${t.pick.label} · 🚀 ${t.pick.moon}</span>`).join('')}`:'<b>Geen overtuigende signalen in deze scan.</b>';
+}
+function render(){renderPickPanel();renderTradeAlert();const aux=['trades','wallet','journal'].includes(state.view);$('#picksPanel').style.display=aux?'none':'';document.querySelector('.filters').style.display=aux?'none':'';if(state.view==='trades'){renderTrades();return}if(state.view==='wallet'){renderWallet();return}if(state.view==='journal'){renderJournal();return}const a=filtered();$('#mFound').textContent=state.tokens.length;$('#mStrong').textContent=state.tokens.filter(t=>t.score>=70).length;$('#mEarly').textContent=state.tokens.filter(t=>t.age<60).length;$('#mScan').textContent=state.last?new Date(state.last).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}):'—';$('#mSource').textContent=`${[...state.sources].join(' + ')||'Live feeds'} · ${state.tokens.length} SOL pairs`;
+  if(!a.length){$('#grid').innerHTML='<div class="empty">Geen tokens binnen deze selectie. Bij <b>Top Picks</b> betekent dit dat de radar momenteel liever niets forceert.</div>';return}
+  $('#grid').innerHTML=a.map(card).join('');
+}
+async function autoSafetyShortlist(){
+  if(state.safetyRunning)return;state.safetyRunning=true;
+  try{
+    const list=state.tokens.filter(t=>t.liq>=20000&&t.score>=58).sort((a,b)=>b.score-a.score).slice(0,8);
+    await Promise.allSettled(list.map(async t=>{try{const r=await getJSON(`${RUG}/tokens/${t.mint}/report/summary`,8000);const risks=Array.isArray(r.risks)?r.risks:[];const dangers=risks.filter(x=>String(x.level||'').toLowerCase().includes('danger')).length;const warns=risks.filter(x=>String(x.level||'').toLowerCase().match(/warn/)).length;t.safety={status:dangers?'bad':warns>=2?'warn':'ok',dangers,warns};t.pick=classifyToken(t)}catch(e){t.safety={status:'unknown',dangers:0,warns:0}}}));
+    render();
+  }finally{state.safetyRunning=false}
+}
+function escapeHtml(s){return String(s||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function card(t){t.pick=classifyToken(t);const c=color(t.score), buy=Math.round(t.flow*100), isFav=state.watch.has(t.mint);const buyBtn=t.pick.type==='buy'?`<button class="trade" onclick="startBuy('${t.mint}')">BUY NOW → Trust Wallet</button>`:t.pick.type==='watch'?`<button class="trade" style="opacity:.55" disabled>WACHT OP BUY ZONE</button>`:t.pick.type==='hot'?`<button class="trade" style="opacity:.55" disabled>TOO HOT · NIET NAJAGEN</button>`:`<button class="trade" style="opacity:.45" disabled>AVOID · GEBLOKKEERD</button>`;const img=t.image?`<img class="coin" src="${escapeHtml(t.image)}" onerror="this.outerHTML='<div class=\'coin fallback\'>${escapeHtml(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${escapeHtml(t.symbol.slice(0,2))}</div>`;
+  const badges=[t.age<60?'<span class="badge early">EARLY</span>':'',t.score>=70?'<span class="badge hot">HOT</span>':'',t.boost?'<span class="badge">BOOST</span>':'',securityBadge(t)].join('');
+  const flags=(t.flags||[]).slice(0,4).map(f=>`<span class="flag ${f[1]}">${escapeHtml(f[0])}</span>`).join('')||'<span class="flag">Geen harde heuristische flag</span>';
+  const twDex=`https://link.trustwallet.com/open_url?coin_id=501&url=${encodeURIComponent(t.url)}`;
+  return `<article class="card" style="--score:${c}"><div class="row">${img}<div class="name"><h3>${escapeHtml(t.name)}</h3><div class="sym"><b>${escapeHtml(t.symbol)}</b> · ${ageText(t.age)} · ${escapeHtml(t.dex)} ${badges}</div></div><div class="score" title="Opportunity score">${t.score}</div></div>
+  <div class="stats"><div class="stat"><small>Liquidity</small><b>${money(t.liq)}</b></div><div class="stat"><small>Market cap</small><b>${money(t.mc)}</b></div><div class="stat"><small>Vol. 1u</small><b>${money(t.v1)}</b></div><div class="stat"><small>5m</small><b class="${t.p5>=0?'positive':'negative'}">${pct(t.p5)}</b></div></div>
+  <div class="barline"><span>Buys ${t.buys5||t.buys1}</span><div class="bar"><i style="width:${buy}%"></i></div><span>${buy}% buy-flow</span></div>
+  <div class="verdict"><span class="verdictTag ${t.pick.type}">${t.pick.label}</span><div><div class="verdictTitle">Moonshot Score <span class="moon">${t.pick.moon}/100</span> ${t.pick.learned?.adj?`<span class="notifBadge">learn ${t.pick.learned.adj>0?'+':''}${t.pick.learned.adj}</span>`:''}</div><div class="verdictReason">${escapeHtml(t.pick.reason)}</div></div></div>
+  <div class="planline"><div class="planbox"><small>Entry plan</small><b>${escapeHtml(t.pick.entry)}</b></div><div class="planbox"><small>Risk line</small><b>${escapeHtml(t.pick.invalid)}</b></div><div class="planbox"><small>Prijs nu</small><b>${fmtPrice(t.price)}</b></div></div>
+  <div class="riskline">${flags}</div>
+  <div class="actions">${buyBtn}<a href="${escapeHtml(t.url)}" target="_blank" rel="noopener">DexScreener</a><button onclick="safety('${t.mint}','${escapeHtml(t.symbol).replace(/'/g,'&#39;')}')">Safety scan</button><button class="fav ${isFav?'on':''}" onclick="toggleWatch('${t.mint}')">★</button></div>
+  <div class="row" style="margin-top:8px"><button class="btn" style="padding:6px 8px;font-size:9px" onclick="copyMint('${t.mint}',this)">CA ${short(t.mint)}</button><a class="small" style="margin-left:auto;color:#7f8ca1;text-decoration:none" href="${twDex}">Open DexScreener in Trust Wallet ↗</a></div></article>`}
+
+function toggleWatch(m){state.watch.has(m)?state.watch.delete(m):state.watch.add(m);saveWatch();render()}
+async function copyMint(m,b){try{await navigator.clipboard.writeText(m);const old=b.textContent;b.textContent='Gekopieerd ✓';setTimeout(()=>b.textContent=old,1200)}catch(e){prompt('Kopieer contractadres:',m)}}
+async function safety(mint,sym){$('#modal').classList.add('show');$('#modalTitle').textContent=`${sym} · ${short(mint)}`;$('#modalBody').innerHTML='<div class="loader"></div><div class="small" style="text-align:center">On-chain risico’s ophalen…</div>';
+  try{const r=await getJSON(`${RUG}/tokens/${mint}/report/summary`,15000);const risks=Array.isArray(r.risks)?r.risks:[];const dangers=risks.filter(x=>String(x.level||'').toLowerCase().includes('danger')).length;const warns=risks.filter(x=>String(x.level||'').toLowerCase().match(/warn/)).length;const t=state.tokens.find(x=>x.mint===mint);if(t){t.safety={status:dangers?'bad':warns>=2?'warn':'ok',dangers,warns};t.pick=classifyToken(t);render()}renderSafety(r,mint)}catch(e){$('#modalBody').innerHTML=`<h4>Automatische scan niet beschikbaar</h4><p class="small">RugCheck blokkeerde of rate-limitte deze browserrequest. Open de volledige check handmatig.</p><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://rugcheck.xyz/tokens/${mint}?network=sol">Open RugCheck ↗</a>`}}
+function renderSafety(r,mint){const risks=Array.isArray(r.risks)?r.risks:[];const score=n(r.score_normalised??r.scoreNormalized??r.score);const bad=risks.filter(x=>String(x.level||'').toLowerCase().match(/danger|warn/));const rows=risks.length?risks.map(x=>`<div class="riskitem"><b style="color:${String(x.level).toLowerCase()==='danger'?'var(--red)':'var(--amber)'}">${escapeHtml(x.name||'Risk')}</b><div class="small">${escapeHtml(x.description||x.value||'')}</div></div>`).join(''):'<div class="riskitem"><b class="positive">Geen risico-items gerapporteerd</b><div class="small">Dit is geen garantie dat een token veilig is.</div></div>';
+  $('#modalBody').innerHTML=`<h4>RugCheck score: ${score||'—'} ${bad.length?'· '+bad.length+' waarschuwing(en)':''}</h4><div class="small">Hogere RugCheck-risicoscore = meer rode vlaggen. Controleer vooral mint/freeze authority, LP en holderconcentratie.</div>${rows}<div style="margin-top:12px"><a class="btn" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://rugcheck.xyz/tokens/${mint}?network=sol">Volledig rapport ↗</a></div>`}
+
+$$('.pill').forEach(b=>b.onclick=()=>{setActiveViewButton(b.dataset.view);state.view=b.dataset.view;render();if(state.view==='trades')monitorPositions(true);if(state.view==='wallet')syncWallet(true)});
+['minLiq','maxAge','minScore','sortBy'].forEach(id=>$('#'+id).onchange=render);$('#refreshBtn').onclick=scan;$('#closeModal').onclick=()=>{state.promptOpen=false;$('#modal').classList.remove('show')};$('#modal').onclick=e=>{if(e.target.id==='modal'){state.promptOpen=false;$('#modal').classList.remove('show')}};
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){if(state.walletAddress)syncWallet(true);monitorPositions(true);setTimeout(showReturnPrompt,900)}});
+window.addEventListener('pageshow',()=>{if(state.walletAddress)syncWallet(true);monitorPositions(true);setTimeout(showReturnPrompt,1100)});
+renderTradeAlert();if(state.walletAddress)syncWallet(true);scan();
+setInterval(()=>{if(document.visibilityState==='visible')scan()},45000);
+setInterval(()=>{if(document.visibilityState==='visible')monitorPositions()},9000);
+setInterval(()=>{if(document.visibilityState==='visible'&&state.walletAddress)syncWallet()},15000);
+setTimeout(showReturnPrompt,1800);
+try{if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{})}catch(e){}
+</script>
+</body></html>
