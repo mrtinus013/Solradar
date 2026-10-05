@@ -1,10 +1,10 @@
 {
-  "name": "PEARL · Solana Alpha Engine v7",
+  "name": "PEARL · Solana Alpha Engine v7.1",
   "short_name": "PEARL",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#06080b",
   "theme_color": "#06080b",
-  "description": "Lifecycle-first Solana memecoin radar with Axiom execution, survival sizing and self-auditing signals."
+  "description": "Lifecycle-first Solana memecoin radar with Trust Wallet execution via Pump.fun/Jupiter, survival sizing and self-auditing signals."
 }

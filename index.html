@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
-<title>PEARL · Solana Alpha Engine v7</title>
+<title>PEARL · Solana Alpha Engine v7.1</title>
 <style>
 :root{
   --bg:#06080b;--panel:#0b1016;--panel2:#101721;--line:#202b39;--line2:#2b394b;
@@ -61,13 +61,20 @@ header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .metrics,.stats,.tradeGrid,.auditSummary{grid-template-columns:repeat(2,1fr)}
   .onGrid{grid-template-columns:1fr}.card{padding:12px}.auditRow{grid-template-columns:1fr auto auto}.auditRow span:last-child{display:none}
 }
+
+.routeBadge{display:inline-block;font-size:8px;font-weight:950;border:1px solid #29384b;border-radius:7px;padding:5px 7px}
+.routeBadge.jupiter{color:#75f2b5;border-color:rgba(83,243,165,.32)}
+.routeBadge.pump{color:#ffd879;border-color:rgba(255,212,109,.32)}
+.routeBadge.wait{color:#8ba0b5}
+.routeBadge.none{color:#ff8799;border-color:rgba(255,99,123,.34)}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header>
   <div class="logo">◉</div>
-  <div class="brand"><h1>PEARL <span style="font-size:.58em;color:#57d9ff">v7</span></h1><p>Lifecycle engine · Axiom execution · self-auditing signals</p></div>
+  <div class="brand"><h1>PEARL <span style="font-size:.58em;color:#57d9ff">v7.1</span></h1><p>Lifecycle engine · Trust Wallet execution · self-auditing signals</p></div>
   <span class="modeChip" id="modeChip">STARTING</span>
 </header>
 
@@ -99,7 +106,7 @@ header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
     <h1>Maak eerst je survival-budget</h1>
     <p>De vorige versie liet één trade veel te groot worden. PEARL bepaalt voortaan eerst hoeveel pogingen je pot moet kunnen overleven.</p>
     <div class="onGrid">
-      <div class="onField"><label>Axiom tradingpot</label><input id="onPot" type="number" min=".01" step=".1" value="1"><span style="font-size:9px;color:#78879a">SOL</span></div>
+      <div class="onField"><label>Memecoin tradingpot</label><input id="onPot" type="number" min=".01" step=".1" value="1"><span style="font-size:9px;color:#78879a">SOL</span></div>
       <div class="onField"><label>Max per entry</label><select id="onRisk"><option value=".5">0,5%</option><option value="1" selected>1%</option><option value="1.5">1,5%</option><option value="2">2% (max)</option></select></div>
     </div>
     <div class="safe"><b>Waarom zo klein?</b> De gemeten Cupsey-wallet wint niet eens de helft van zijn gesloten calls; een paar uitzonderlijke runners dragen een groot deel van de edge. Deze app voorkomt daarom dat één fout signaal je hele pot bepaalt.</div>
@@ -110,10 +117,10 @@ header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 <div class="overlay" id="settings">
   <div class="sheet">
     <div class="sheetHead"><h2>PEARL instellingen</h2><button class="close" id="closeSettings">✕</button></div>
-    <div class="setting"><h3>Tradingpot & sizing</h3><p>Alleen gebruikt om een maximale position size te adviseren. PEARL kan je Axiom-wallet niet leegtrekken of zelfstandig traden.</p><input id="potInput" type="number" min=".01" step=".1"><select id="riskInput" style="margin-top:7px"><option value=".5">0,5% per entry</option><option value="1">1% per entry</option><option value="1.5">1,5% per entry</option><option value="2">2% per entry</option></select><div class="setBtns"><button id="saveBudget">Opslaan</button></div></div>
+    <div class="setting"><h3>Tradingpot & sizing</h3><p>Alleen gebruikt om een maximale position size te adviseren. PEARL kan je Trust Wallet-wallet niet leegtrekken of zelfstandig traden.</p><input id="potInput" type="number" min=".01" step=".1"><select id="riskInput" style="margin-top:7px"><option value=".5">0,5% per entry</option><option value="1">1% per entry</option><option value="1.5">1,5% per entry</option><option value="2">2% per entry</option></select><div class="setBtns"><button id="saveBudget">Opslaan</button></div></div>
     <div class="setting"><h3>Ultra-early speed feed (optioneel)</h3><p>Met een PumpPortal API-key kan PEARL gratis token-creations en migraties via één WebSocket ontvangen. De app abonneert zich <b>niet</b> op de betaalde token-trade stream.</p><input id="pumpKey" type="password" placeholder="PumpPortal API key (optioneel)"><div class="setBtns"><button id="savePumpKey">Opslaan / verbinden</button><button id="clearPumpKey">Verwijderen</button></div><div id="pumpStatus" style="font-size:8px;color:#78879a;margin-top:7px"></div></div>
-    <div class="setting"><h3>Axiom</h3><p>PEARL gebruikt Axiom alleen als execution terminal. De knop opent direct het tokenadres in Axiom; jij bepaalt daar slippage, MEV-protectie en de uiteindelijke order.</p><div class="setBtns"><button onclick="window.open('https://axiom.trade/discover?chains=sol&discoverChains=sol&pulseChains=sol&trackerChains=sol','_blank')">Open Axiom Pulse</button></div></div>
-    <div class="setting"><h3>Reset self-audit</h3><p>Wis alleen PEARL's lokale signal-history. Dit verandert niets aan je wallet of Axiom.</p><div class="setBtns"><button id="resetAudit">Audit wissen</button></div></div>
+    <div class="setting"><h3>Execution</h3><p>PEARL kiest automatisch de snelste bruikbare route. Een gemigreerde/liquide coin gaat via Jupiter; een verse Pump.fun-launch zonder Jupiter-route opent rechtstreeks op Pump.fun. Beide openen in de Trust Wallet dApp-browser.</p><div class="setBtns"><button onclick="window.open('https://pump.fun/','_blank')">Pump.fun</button><button onclick="window.open('https://jup.ag/','_blank')">Jupiter</button></div></div>
+    <div class="setting"><h3>Reset self-audit</h3><p>Wis alleen PEARL's lokale signal-history. Dit verandert niets aan je wallet of Trust Wallet.</p><div class="setBtns"><button id="resetAudit">Audit wissen</button></div></div>
   </div>
 </div>
 
@@ -126,6 +133,7 @@ const WSOL='So11111111111111111111111111111111111111112';
 const GT='https://api.geckoterminal.com/api/v2';
 const DEX='https://api.dexscreener.com';
 const RUG='https://api.rugcheck.xyz/v1';
+const JUP_QUOTE='https://lite-api.jup.ag/swap/v1/quote';
 
 const $=q=>document.querySelector(q), $$=q=>[...document.querySelectorAll(q)];
 const num=v=>Number(v||0)||0, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -143,6 +151,7 @@ const state={
   safety:load('pearlSafety',{}), intel:load('pearlIntel',{}),
   pot:num(load('pearlPot',0)), riskPct:num(load('pearlRiskPct',1))||1,
   pumpKey:load('pearlPumpKey',''), pumpSocket:null, pumpState:'off', reconnectTimer:null,
+  routes:new Map(), routeBusy:new Set(),
   audits:load('pearlAudits',[]), positions:load('pearlPositions',[]), cooldownUntil:num(load('pearlCooldown',0)),
   lastDiscover:0,lastMarket:0,lastRender:0,pending:null,errors:[]
 };
@@ -305,7 +314,7 @@ async function refreshMarket(){
       }catch(e){}
     }
     for(const t of state.tokens.values())updateLifecycle(t);
-    state.lastMarket=now();kickSafety();kickIntel();updateAudits();updatePositions();evaluateCircuit();render();
+    state.lastMarket=now();kickSafety();kickIntel();kickRouteChecks();updateAudits();updatePositions();evaluateCircuit();render();
   }finally{state.marketBusy=false}
 }
 async function kickSafety(){
@@ -384,11 +393,74 @@ function regime(){
   if(bad>=.35||good<.25)return {name:'CAUTION',cls:'caution'};
   return {name:'GO',cls:'go'}
 }
+
+function pumpUrl(mint){return `https://pump.fun/coin/${encodeURIComponent(mint)}`}
+function jupiterUrl(mint){return `https://jup.ag/swap?buy=${encodeURIComponent(mint)}&sell=${WSOL}`}
+function trustDapp(url){return `https://link.trustwallet.com/open_url?coin_id=501&url=${encodeURIComponent(url)}`}
+function isPumpLaunch(t){
+  return !!(t && (String(t.source||'').includes('pump') || String(t.mint||'').toLowerCase().endsWith('pump') || String(t.url||'').includes('pump.fun')));
+}
+function routeFor(t){return state.routes.get(t.mint)||{status:'unknown',ts:0}}
+async function checkExecutionRoute(t,force=false){
+  if(!t?.mint)return {status:'none',ts:now()};
+  const old=routeFor(t);
+  if(!force && old.ts && now()-old.ts<10000)return old;
+  if(state.routeBusy.has(t.mint))return old;
+  state.routeBusy.add(t.mint);
+  state.routes.set(t.mint,{...old,status:'checking',ts:old.ts||0});render();
+  try{
+    const testSol=Math.max(.002,Math.min(.05,suggestedSize(t)||.005));
+    const amount=Math.max(1000000,Math.floor(testSol*1e9));
+    const q=await getJSON(`${JUP_QUOTE}?inputMint=${WSOL}&outputMint=${encodeURIComponent(t.mint)}&amount=${amount}&slippageBps=500&swapMode=ExactIn`,3500);
+    const ok=num(q?.outAmount)>0 && Array.isArray(q?.routePlan) && q.routePlan.length>0;
+    const impact=Math.abs(num(q?.priceImpactPct))*100;
+    if(ok && impact<=20){
+      const r={status:'jupiter',ts:now(),impact,routeCount:q.routePlan.length};
+      state.routes.set(t.mint,r);return r;
+    }
+    if(isPumpLaunch(t)){
+      const r={status:'pump',ts:now(),impact:0};
+      state.routes.set(t.mint,r);return r;
+    }
+    const r={status:'none',ts:now(),reason:ok?`Price impact ${impact.toFixed(1)}%`:'Geen Jupiter-route'};
+    state.routes.set(t.mint,r);return r;
+  }catch(e){
+    if(isPumpLaunch(t)){
+      const r={status:'pump',ts:now(),fallback:true};
+      state.routes.set(t.mint,r);return r;
+    }
+    const r={status:'none',ts:now(),reason:e?.message||'Routecheck mislukt'};
+    state.routes.set(t.mint,r);return r;
+  }finally{
+    state.routeBusy.delete(t.mint);render();
+  }
+}
+function kickRouteChecks(){
+  const list=[...state.tokens.values()]
+    .filter(t=>t.price && (t.entryReady || t.pearl>=66) && !t.blockReason)
+    .sort((a,b)=>(b.entryReady-a.entryReady)||b.pearl-a.pearl)
+    .slice(0,5);
+  for(const t of list)checkExecutionRoute(t);
+}
+async function tradeNow(mint){
+  const t=state.tokens.get(mint);if(!t||!t.entryReady||circuitBlocked())return;
+  let r=routeFor(t);
+  if(r.status==='unknown'||r.status==='checking'||now()-num(r.ts)>10000)r=await checkExecutionRoute(t,true);
+  let destination='';
+  if(r.status==='jupiter')destination=jupiterUrl(mint);
+  else if(r.status==='pump')destination=pumpUrl(mint);
+  else{
+    alert('PEARL vindt nu geen bruikbare route voor deze coin. De entry blijft geblokkeerd.');
+    return;
+  }
+  state.pending={mint,opened:now(),route:r.status};save('pearlPending',state.pending);
+  window.location.href=trustDapp(destination);
+}
+
 function suggestedSize(t){
   const max=state.pot*(state.riskPct/100),quality=clamp((t.pearl-70)/25,.45,1);
   return Math.max(0,Math.min(max,max*quality))
 }
-function axiomUrl(mint){return `https://axiom.trade/t/${encodeURIComponent(mint)}`}
 function xSearch(t){return `https://x.com/search?q=${encodeURIComponent(t.mint+' $'+t.symbol)}&src=typed_query&f=live`}
 function stageLabel(s){return ({DISCOVERY:'Discovery',FORMING:'Forming',ACCUMULATION:'Accumulation',BREAKOUT:'Breakout',RECLAIM:'Reclaim',EUPHORIA:'Euphoria',DISTRIBUTION:'Distribution',DUMP:'Dump'}[s]||s)}
 function stageReason(t){
@@ -408,21 +480,31 @@ function sparkSvg(t){
   return `<svg class="spark" viewBox="0 0 100 44" preserveAspectRatio="none" aria-label="microtrend"><polyline class="base" points="0,40 100,40"></polyline><polyline points="${pts}"></polyline></svg>`
 }
 function tokenCard(t){
-  const m=t.metrics||stageMetrics(t),intel=state.intel[t.mint]||{},safe=state.safety[t.mint]?.status||'unknown',ready=t.entryReady,reg=regime();
+  const m=t.metrics||stageMetrics(t),intel=state.intel[t.mint]||{},safe=state.safety[t.mint]?.status||'unknown',ready=t.entryReady,reg=regime(),route=routeFor(t);
   const img=t.image?`<img class="coin" src="${esc(t.image)}" alt="" onerror="this.outerHTML='<div class=&quot;coin fallback&quot;>${esc(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${esc(t.symbol.slice(0,2))}</div>`;
   const size=suggestedSize(t),blocked=!!t.blockReason||t.stage==='EUPHORIA'||t.stage==='DISTRIBUTION'||t.stage==='DUMP'||reg.name==='COOLDOWN'||reg.name==='HOSTILE';
-  const canOpen=ready&&!blocked;
+  const routeReady=route.status==='jupiter'||route.status==='pump';
+  const canOpen=ready&&!blocked&&routeReady;
   const names=(intel.names||[]).join(', ');
+  const routeBadge=route.status==='jupiter'
+    ? `<span class="routeBadge jupiter">Jupiter ✓${route.impact?` · ${route.impact.toFixed(1)}% impact`:''}</span>`
+    : route.status==='pump'
+      ? `<span class="routeBadge pump">Pump.fun ✓</span>`
+      : route.status==='checking'
+        ? `<span class="routeBadge wait">Route check…</span>`
+        : route.status==='none'
+          ? `<span class="routeBadge none">Geen route</span>`
+          : `<span class="routeBadge wait">Route onbekend</span>`;
   return `<article class="card">
     <div class="head">${img}<div class="name"><h3>${esc(t.name)}</h3><div class="sub"><b>${esc(t.symbol)}</b> · ${age(t.age)} · MC ${money(t.mc)}</div></div><div class="pearl ${canOpen?'ready':blocked?'blocked':''}">${t.pearl}</div></div>
-    <div class="badges"><span class="badge ${t.stage.toLowerCase()}">${stageLabel(t.stage)}</span>${safe==='ok'?'<span class="badge">Safety ✓</span>':safe==='warn'?'<span class="badge euphoria">Safety warn</span>':safe==='bad'?'<span class="badge dump">Safety danger</span>':''}${intel.kol?`<span class="badge kol">${intel.kol} KOL</span>`:''}${intel.xHeat>=3?'<span class="badge x">𝕏 HOT</span>':intel.xHeat===2?'<span class="badge x">𝕏 warming</span>':t.xUrl?'<span class="badge x">𝕏 linked</span>':''}</div>
+    <div class="badges"><span class="badge ${t.stage.toLowerCase()}">${stageLabel(t.stage)}</span>${safe==='ok'?'<span class="badge">Safety ✓</span>':safe==='warn'?'<span class="badge euphoria">Safety warn</span>':safe==='bad'?'<span class="badge dump">Safety danger</span>':''}${intel.kol?`<span class="badge kol">${intel.kol} KOL</span>`:''}${intel.xHeat>=3?'<span class="badge x">𝕏 HOT</span>':intel.xHeat===2?'<span class="badge x">𝕏 warming</span>':t.xUrl?'<span class="badge x">𝕏 linked</span>':''}${routeBadge}</div>
     <div class="stats"><div class="stat"><small>6 sec</small><b class="${m.r6>=0?'pos':'neg'}">${pct(m.r6)}</b></div><div class="stat"><small>15 sec</small><b class="${m.r15>=0?'pos':'neg'}">${pct(m.r15)}</b></div><div class="stat"><small>Buy flow</small><b>${Math.round(m.flowNow*100)}%</b></div><div class="stat"><small>Peak DD</small><b class="${m.dd>10?'neg':''}">-${m.dd.toFixed(1)}%</b></div></div>
     <div class="micro"><div class="microTop"><span>Microstructure</span><b>${m.higherLow?'HL ✓':'HL —'} · ${m.higherHigh?'HH ✓':'HH —'} · ${m.green}/4 green</b></div>${sparkSvg(t)}</div>
     <div class="reason">${stageReason(t)}${names?`<br>KOL overlap: <b>${esc(names)}</b>.`:''}</div>
-    <div class="guard ${canOpen?'ok':'no'}">${canOpen?`ENTRY READY · twee opeenvolgende lifecycle-confirmaties · max ${size.toFixed(4)} SOL`:`Geen live entry · ${t.confirm||0}/2 bevestigingen · PEARL wacht.`}</div>
-    <div class="entryRow"><button class="entryBtn" ${canOpen?'':'disabled'} onclick="${canOpen?`openAxiom('${t.mint}')`:''}">${canOpen?'Open in Axiom':'Entry geblokkeerd'}</button><button class="watchBtn" onclick="window.open('${axiomUrl(t.mint)}','_blank')">Chart</button></div>
+    <div class="guard ${canOpen?'ok':'no'}">${canOpen?`ENTRY READY · ${route.status==='jupiter'?'Jupiter':'Pump.fun'} route klaar · max ${size.toFixed(4)} SOL`:ready&&!blocked?`Lifecycle is klaar, maar execution-route wordt nog gecontroleerd.`:`Geen live entry · ${t.confirm||0}/2 bevestigingen · PEARL wacht.`}</div>
+    <div class="entryRow"><button class="entryBtn" ${canOpen?'':'disabled'} onclick="${canOpen?`tradeNow('${t.mint}')`:''}">${canOpen?'TRADE NU':'Entry geblokkeerd'}</button><button class="watchBtn" onclick="window.open('${esc(t.url||pumpUrl(t.mint))}','_blank')">Chart</button></div>
     <div class="sizing">Survival sizing: <b>${state.riskPct.toFixed(1)}%</b> van ${state.pot.toFixed(2)} SOL · PEARL kan deze limiet niet overschrijven.</div>
-    <details class="details"><summary>Research</summary><div class="detailLinks"><a href="${esc(t.url||'https://dexscreener.com')}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a></div></details>
+    <details class="details"><summary>Research</summary><div class="detailLinks"><a href="${esc(t.url||'https://dexscreener.com')}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a><a href="${pumpUrl(t.mint)}" target="_blank">Pump.fun</a><a href="${jupiterUrl(t.mint)}" target="_blank">Jupiter</a></div></details>
   </article>`
 }
 function sortedTokens(){
@@ -437,16 +519,12 @@ function renderHunt(){
   if(!arr.length){$('#feed').innerHTML='<div class="empty"><b>Nog geen bruikbare marktdata</b>PEARL houdt nieuwe Solana-pools in de gaten. Als de bron tijdelijk blokkeert, probeert de scanner automatisch opnieuw.</div>';return}
   $('#feed').innerHTML=arr.map(tokenCard).join('')
 }
-function openAxiom(mint){
-  const t=state.tokens.get(mint);if(!t?.entryReady||circuitBlocked())return;
-  state.pending={mint,opened:now()};save('pearlPending',state.pending);
-  window.open(axiomUrl(mint),'_blank');
-}
+function openAxiom(mint){tradeNow(mint)}
 function returnPrompt(){
   const p=state.pending||load('pearlPending',null);if(!p||now()-num(p.opened)>10*60e3)return;
   const t=state.tokens.get(p.mint);if(!t)return;
-  $('#modalTitle').textContent=`${t.symbol} gekocht in Axiom?`;
-  $('#modalText').innerHTML=`Bevestig alleen als je de order werkelijk hebt uitgevoerd. PEARL gebruikt de actuele koers als geschatte entry en bewaakt daarna de lifecycle iedere ~2 seconden.<br><br>Aanbevolen maximale size was <b>${suggestedSize(t).toFixed(4)} SOL</b>.`;
+  $('#modalTitle').textContent=`${t.symbol} gekocht?`;
+  $('#modalText').innerHTML=`Bevestig alleen als je de swap werkelijk hebt uitgevoerd in Trust Wallet. PEARL gebruikt de actuele koers als geschatte entry en bewaakt daarna de lifecycle iedere ~2 seconden.<br><br>Aanbevolen maximale size was <b>${suggestedSize(t).toFixed(4)} SOL</b>.`;
   $('#modalBtns').innerHTML=`<button id="yesBought">Ja, gekocht</button><button id="noBought">Nee</button>`;
   $('#modalOverlay').classList.add('show');
   $('#yesBought').onclick=()=>confirmBought(t,true);$('#noBought').onclick=()=>confirmBought(t,false)
@@ -466,7 +544,7 @@ function updatePositions(){
     p.last=t.price;p.high=Math.max(num(p.high),t.price);p.pnl=((t.price/p.entry)-1)*100;p.maxPnl=Math.max(num(p.maxPnl),p.pnl);
     p.dd=p.high?((p.high-t.price)/p.high)*100:0;p.liqDrop=p.baseLiq?Math.max(0,(1-t.liq/p.baseLiq)*100):0;
     const stage=t.stage;
-    if(p.liqDrop>=30||stage==='DUMP'&&(p.pnl<0||p.dd>10)){p.signal='EXIT';p.reason='Thesis kapot: dump/liquidity-risk. Snel opnieuw beoordelen in Axiom.'}
+    if(p.liqDrop>=30||stage==='DUMP'&&(p.pnl<0||p.dd>10)){p.signal='EXIT';p.reason='Thesis kapot: dump/liquidity-risk. Snel opnieuw beoordelen in Trust Wallet.'}
     else if(p.pnl>=100&&!p.principalAlerted){p.signal='DERISK';p.reason='2× bereikt: overweeg je oorspronkelijke inleg terug te halen en alleen een runner-bag te laten lopen.';p.principalAlerted=true}
     else if(p.principalAlerted&&p.pnl>=100){p.signal='RUNNER';p.reason='Runner-bag: geef de winnaar meer ruimte. Exit vooral bij distributie/dump of ernstige liquiditeitsuitstroom.'}
     else if(p.pnl>=35&&p.dd>=14&&stage!=='BREAKOUT'){p.signal='DERISK';p.reason='Sterke winst, maar momentum verzwakt. Overweeg een deel winst veilig te stellen.'}
@@ -478,9 +556,24 @@ function updatePositions(){
 function signalClass(s){return s==='EXIT'?'exit':s==='DERISK'?'derisk':s==='RUNNER'?'runner':'hold'}
 function renderTrades(){
   const a=state.positions.filter(p=>p.status==='active');
-  if(!a.length){$('#feed').innerHTML='<div class="empty"><b>Geen actieve trades</b>Een positie verschijnt hier pas nadat jij bevestigt dat je de Axiom-order echt hebt uitgevoerd.</div>';return}
-  $('#feed').innerHTML=a.map(p=>{const t=state.tokens.get(p.mint),stage=t?.stage||'—';return `<article class="trade"><div class="tradeHead"><div><h3>${esc(p.symbol)}</h3><div class="sub">${price(p.entry)} → ${price(p.last)} · ${stageLabel(stage)}</div></div><span class="signal ${signalClass(p.signal)}">${p.signal}</span></div><div class="tradeGrid"><div class="stat"><small>P/L</small><b class="${p.pnl>=0?'pos':'neg'}">${pct(p.pnl)}</b></div><div class="stat"><small>Max winst</small><b class="pos">${pct(p.maxPnl)}</b></div><div class="stat"><small>Vanaf piek</small><b>-${num(p.dd).toFixed(1)}%</b></div><div class="stat"><small>Liq Δ</small><b class="${p.liqDrop>15?'neg':''}">-${num(p.liqDrop).toFixed(0)}%</b></div></div><div class="tradeReason">${esc(p.reason)}</div><button class="axiomBtn" onclick="window.open('${axiomUrl(p.mint)}','_blank')">Open positie in Axiom</button><button class="axiomBtn" onclick="closePosition('${p.mint}')">Markeer als verkocht</button></article>`}).join('')
+  if(!a.length){$('#feed').innerHTML='<div class="empty"><b>Geen actieve trades</b>Een positie verschijnt hier pas nadat jij bevestigt dat je de trade echt hebt uitgevoerd.</div>';return}
+  $('#feed').innerHTML=a.map(p=>{const t=state.tokens.get(p.mint),stage=t?.stage||'—';return `<article class="trade"><div class="tradeHead"><div><h3>${esc(p.symbol)}</h3><div class="sub">${price(p.entry)} → ${price(p.last)} · ${stageLabel(stage)}</div></div><span class="signal ${signalClass(p.signal)}">${p.signal}</span></div><div class="tradeGrid"><div class="stat"><small>P/L</small><b class="${p.pnl>=0?'pos':'neg'}">${pct(p.pnl)}</b></div><div class="stat"><small>Max winst</small><b class="pos">${pct(p.maxPnl)}</b></div><div class="stat"><small>Vanaf piek</small><b>-${num(p.dd).toFixed(1)}%</b></div><div class="stat"><small>Liq Δ</small><b class="${p.liqDrop>15?'neg':''}">-${num(p.liqDrop).toFixed(0)}%</b></div></div><div class="tradeReason">${esc(p.reason)}</div><button class="axiomBtn" onclick="openSellRoute('${p.mint}')">Verkoop via Trust Wallet</button><button class="axiomBtn" onclick="closePosition('${p.mint}')">Markeer als verkocht</button></article>`}).join('')
 }
+
+async function openSellRoute(mint){
+  const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;
+  const t=state.tokens.get(mint)||{mint,source:''};
+  let destination='';
+  try{
+    const amount=Math.max(1,Math.floor(1e6)); // route-existence probe only
+    const q=await getJSON(`${JUP_QUOTE}?inputMint=${encodeURIComponent(mint)}&outputMint=${WSOL}&amount=${amount}&slippageBps=500&swapMode=ExactIn`,3500);
+    if(num(q?.outAmount)>0&&Array.isArray(q?.routePlan)&&q.routePlan.length)destination=`https://jup.ag/swap?buy=${WSOL}&sell=${encodeURIComponent(mint)}`;
+  }catch(e){}
+  if(!destination&&isPumpLaunch(t))destination=pumpUrl(mint);
+  if(!destination){alert('Geen bruikbare verkooproute gevonden. Open de coin handmatig via de chart/research-links.');return}
+  window.location.href=trustDapp(destination);
+}
+
 function closePosition(mint){
   const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;
   p.status='closed';p.closed=now();p.result=num(p.pnl);save('pearlPositions',state.positions);render()
