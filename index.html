@@ -7,97 +7,118 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
-<title>SOL Alpha Radar v6.1</title>
+<title>PEARL · Solana Alpha Engine v7</title>
 <style>
 :root{
-  --bg:#07090d;--panel:#0d1219;--panel2:#111822;--line:#202b3a;--text:#f4f7fb;
-  --muted:#8794a6;--green:#55f2a4;--cyan:#55d9ff;--amber:#ffd36a;--red:#ff657c;
+  --bg:#06080b;--panel:#0b1016;--panel2:#101721;--line:#202b39;--line2:#2b394b;
+  --text:#f6f8fb;--muted:#8290a3;--green:#53f3a5;--cyan:#57d9ff;--amber:#ffd46d;
+  --red:#ff637b;--violet:#b79cff;--shadow:0 16px 42px rgba(0,0,0,.22)
 }
-*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% -20%,#172331 0,#07090d 34%,#05070a 100%);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif}
-button,input{font:inherit}.app{max-width:720px;margin:auto;padding:14px 12px 90px}.top{display:flex;gap:10px;align-items:center;margin-bottom:14px}
-.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:950;color:#03110b;background:linear-gradient(145deg,var(--green),var(--cyan))}
-.brand{flex:1;min-width:0}.brand h1{font-size:19px;margin:0}.brand p{font-size:9px;color:var(--muted);margin:3px 0 0}.walletChip{border:1px solid var(--line);background:#0b1016;border-radius:999px;padding:8px 10px;font-size:9px;color:#b8c4d3;white-space:nowrap;cursor:pointer}.walletChip b{color:#fff}.dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--green);box-shadow:0 0 10px #55f2a4;margin-right:5px}
-.tabs{display:grid;grid-template-columns:1fr 1fr 1fr 42px;gap:7px;margin-bottom:12px}.tab,.gear{border:1px solid var(--line);background:#0c1118;color:#9da9b9;border-radius:12px;padding:10px 7px;font-size:10px;font-weight:850}.tab.on{background:#14201b;color:#73efb0;border-color:#2b5944}.gear{font-size:16px}
-.hero{border:1px solid #233148;background:linear-gradient(145deg,rgba(16,24,34,.96),rgba(8,12,18,.98));border-radius:18px;padding:14px;margin-bottom:10px}
-.heroTop{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.hero h2{font-size:16px;margin:0}.hero p{font-size:10px;line-height:1.5;color:#94a0b2;margin:5px 0 0}.live{font-size:8px;font-weight:900;color:var(--green);border:1px solid rgba(85,242,164,.28);padding:5px 7px;border-radius:999px}
-.pulse{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.metric{background:#090d13;border:1px solid #1c2735;border-radius:11px;padding:8px}.metric small{display:block;font-size:7px;color:#708095;text-transform:uppercase}.metric b{display:block;font-size:11px;margin-top:3px}
-.feed{display:grid;gap:10px}.card{border:1px solid #202c3d;background:linear-gradient(145deg,#0e141d,#090d13);border-radius:18px;padding:14px;box-shadow:0 15px 34px rgba(0,0,0,.14)}
-.row{display:flex;align-items:center;gap:10px}.coin{width:42px;height:42px;border-radius:13px;object-fit:cover;background:#18202b}.coin.fallback{display:grid;place-items:center;font-size:11px;font-weight:900;color:#b9c7d8}.name{flex:1;min-width:0}.name h3{font-size:15px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{font-size:9px;color:#7f8da1;margin-top:3px}.score{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--green);font-size:13px;font-weight:950}
-.badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}.badge{font-size:8px;font-weight:900;padding:5px 7px;border-radius:7px;border:1px solid #2b384c;color:#aab6c7}.badge.alpha{color:#04130c;background:var(--green);border-color:var(--green)}.badge.runner{color:#061119;background:var(--cyan);border-color:var(--cyan)}.badge.watch{color:#1d1500;background:var(--amber);border-color:var(--amber)}.badge.danger{color:#fff;background:#4a1720;border-color:#792b39}.badge.x{color:#dce5f1}.badge.kol{color:#c5a9ff;border-color:#5c477a}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.stat{border:1px solid #1d2837;background:#080c11;border-radius:10px;padding:8px}.stat small{font-size:7px;color:#6f7d90;display:block;text-transform:uppercase}.stat b{font-size:10px;margin-top:3px;display:block}.pos{color:var(--green)}.neg{color:var(--red)}
-.reason{font-size:10px;color:#9da9b9;line-height:1.45;margin-top:10px}.action{width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#55f2a4,#6de8c0);color:#03120b;padding:12px;font-size:11px;font-weight:950;margin-top:11px}.action.secondary{background:#111a25;color:#aab7c8;border:1px solid #28374a}.action:disabled{opacity:.45}
-.details{border-top:1px solid #1b2532;margin-top:10px;padding-top:8px}.details summary{font-size:8px;color:#758397;cursor:pointer;list-style:none}.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.links a,.links button{border:1px solid #263449;background:#0b1017;color:#b9c5d4;border-radius:8px;padding:7px 9px;font-size:8px;text-decoration:none}
-.intel{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}.intelBox{border:1px solid #1d2939;border-radius:9px;padding:8px;background:#090d13}.intelBox small{font-size:7px;color:#708096;text-transform:uppercase}.intelBox div{font-size:9px;color:#aab6c6;margin-top:3px}
-.empty{border:1px solid #202b3c;background:#0b1016;border-radius:18px;padding:24px;text-align:center;color:#92a0b2;font-size:11px;line-height:1.55}.empty b{color:#fff;font-size:15px;display:block;margin-bottom:5px}
-.tradeCard{border:1px solid #26344a;background:#0c121a;border-radius:18px;padding:14px;margin-bottom:9px}.tradeHead{display:flex;gap:8px;align-items:center}.tradeHead h3{margin:0;font-size:15px}.signal{margin-left:auto;padding:6px 8px;border-radius:8px;font-size:8px;font-weight:950}.hold{background:var(--green);color:#06120c}.protect{background:var(--cyan);color:#061119}.profit{background:var(--amber);color:#211700}.exit{background:var(--red);color:#25040a}.tradeStats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.tradeReason{font-size:10px;color:#98a5b5;line-height:1.45;margin-top:9px}.sell{width:100%;border:0;border-radius:11px;background:linear-gradient(135deg,#ff687e,#ff936c);color:#25030a;padding:11px;font-weight:950;margin-top:10px}
-.onboard{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 0,#172331 0,#07090d 40%,#040608 100%);display:none;align-items:center;justify-content:center;padding:20px}.onboard.show{display:flex}.onCard{width:min(470px,100%);background:#0a0f16;border:1px solid #27354a;border-radius:24px;padding:22px}.onCard h1{font-size:24px;margin:0 0 7px}.onCard p{font-size:11px;line-height:1.5;color:#98a6b8}.safe{font-size:9px;line-height:1.5;color:#91a0b2;background:#080c12;border:1px solid #202d3f;border-radius:12px;padding:10px;margin:14px 0}.safe b{color:#fff}.inputRow{display:flex;gap:7px}.inputRow input{flex:1;min-width:0;background:#05080d;border:1px solid #2a3a50;color:#fff;border-radius:12px;padding:13px}.inputRow button{border:1px solid #2a3a50;background:#111824;color:#fff;border-radius:12px;padding:0 12px}.continue{width:100%;border:0;border-radius:13px;background:var(--green);color:#04120b;padding:13px;font-weight:950;margin-top:9px}.err{font-size:9px;color:var(--red);min-height:16px;margin-top:5px}
-.sheetWrap,.modalWrap{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center}.sheetWrap.show,.modalWrap.show{display:flex}.sheet{width:min(620px,100%);max-height:86vh;overflow:auto;background:#0a0f16;border:1px solid #26354b;border-radius:22px 22px 0 0;padding:18px 16px 28px}.sheetHead{display:flex;justify-content:space-between;align-items:center}.sheetHead h2{font-size:17px;margin:0}.close{width:34px;height:34px;border:0;border-radius:10px;background:#151d29;color:#fff}.setting{border:1px solid #202c3e;background:#080c12;border-radius:13px;padding:11px;margin-top:12px}.setting h3{font-size:10px;margin:0 0 6px}.setting p{font-size:9px;color:#8695a8;line-height:1.45;margin:0 0 8px}.setting input{width:100%;background:#05080d;border:1px solid #2a394d;color:#fff;border-radius:9px;padding:10px}.setBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.setBtns button{border:1px solid #2b3b50;background:#111824;color:#fff;border-radius:9px;padding:8px 9px;font-size:8px}.modalWrap{align-items:center;padding:20px}.modal{width:min(450px,100%);background:#0b1017;border:1px solid #27364a;border-radius:20px;padding:17px}.modal h3{font-size:16px;margin:0}.modal p{font-size:10px;color:#92a0b2;line-height:1.5}.modalBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px}.modalBtns button{border:1px solid #2c3a4e;background:#121a25;color:#fff;border-radius:10px;padding:11px;font-size:9px;font-weight:850}
-.historyRow{display:grid;grid-template-columns:1fr auto auto;gap:8px;border-bottom:1px solid #1d2735;padding:10px 0;font-size:9px}.historyRow b{font-size:10px}
-@media(max-width:520px){.app{padding:12px 9px 80px}.brand p{display:none}.walletChip{max-width:135px;overflow:hidden;text-overflow:ellipsis}.pulse{grid-template-columns:repeat(2,1fr)}.stats,.tradeStats{grid-template-columns:repeat(2,1fr)}.intel{grid-template-columns:1fr}.card{padding:12px}}
-
-.routeok{color:#55f2a4!important;border-color:rgba(85,242,164,.35)!important}
-.routewait{color:#ffd36a!important;border-color:rgba(255,211,106,.3)!important}
-.routebad{color:#ff778c!important;border-color:rgba(255,101,124,.35)!important}
-
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:
+  radial-gradient(circle at 50% -18%,rgba(35,58,76,.85) 0,rgba(8,12,17,.92) 29%,#06080b 58%);
+  color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:760px;margin:auto;padding:14px 11px 90px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(145deg,var(--green),var(--cyan));color:#03120b;font-weight:1000;font-size:18px}
+.brand{flex:1;min-width:0}.brand h1{margin:0;font-size:19px;letter-spacing:-.02em}.brand p{margin:3px 0 0;color:var(--muted);font-size:9px}
+.modeChip{border:1px solid var(--line2);background:#0a0f15;color:#b8c3d1;border-radius:999px;padding:8px 10px;font-size:8px;font-weight:900;white-space:nowrap}
+.modeChip.go{color:var(--green);border-color:rgba(83,243,165,.3)}.modeChip.caution{color:var(--amber);border-color:rgba(255,212,109,.3)}.modeChip.stop{color:var(--red);border-color:rgba(255,99,123,.35)}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr 42px;gap:7px;margin-bottom:11px}
+.tab,.gear{border:1px solid var(--line);background:#0a0f15;color:#9ba7b7;border-radius:12px;padding:10px 7px;font-size:10px;font-weight:900}
+.tab.on{background:#14211b;color:#72efb1;border-color:#2e5d48}.gear{font-size:16px;padding:0}
+.hero{border:1px solid #223044;background:linear-gradient(145deg,rgba(14,21,30,.97),rgba(8,12,17,.98));border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.heroTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.hero h2{margin:0;font-size:16px}.hero p{margin:5px 0 0;color:#92a0b3;font-size:10px;line-height:1.5}
+.live{font-size:8px;font-weight:1000;border:1px solid rgba(83,243,165,.28);color:var(--green);padding:5px 7px;border-radius:999px;white-space:nowrap}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}.metric{border:1px solid #1d2836;background:#080c11;border-radius:10px;padding:8px}.metric small{display:block;color:#6f7e91;font-size:7px;text-transform:uppercase;letter-spacing:.04em}.metric b{display:block;margin-top:3px;font-size:11px}
+.regime{margin-top:9px;border-top:1px solid #1c2633;padding-top:9px;display:flex;gap:7px;align-items:center;font-size:9px;color:#8795a8}.regime strong{color:#eaf0f8}.regime .grow{flex:1}
+.feed{display:grid;gap:10px}
+.card{border:1px solid #202c3b;background:linear-gradient(145deg,#0e141d,#090d13);border-radius:18px;padding:13px;box-shadow:0 14px 34px rgba(0,0,0,.14)}
+.head{display:flex;align-items:center;gap:10px}.coin{width:42px;height:42px;border-radius:13px;object-fit:cover;background:#17212c}.coin.fallback{display:grid;place-items:center;font-size:10px;font-weight:950;color:#c2cedd}.name{flex:1;min-width:0}.name h3{margin:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sub{font-size:9px;color:#7f8da0;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pearl{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid #314258;font-size:13px;font-weight:1000}.pearl.ready{border-color:var(--green);box-shadow:0 0 18px rgba(83,243,165,.1)}.pearl.blocked{border-color:#653342;color:#ff8698}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.badge{font-size:8px;font-weight:950;border:1px solid #29374a;color:#aab6c6;border-radius:7px;padding:5px 7px}.badge.breakout,.badge.reclaim{background:var(--green);border-color:var(--green);color:#04130c}.badge.accumulation{color:var(--cyan);border-color:#31586a}.badge.euphoria{background:#3a2c0d;color:#ffdd81;border-color:#735c21}.badge.distribution,.badge.dump{background:#3b161e;color:#ff8596;border-color:#6c2936}.badge.forming,.badge.discovery{color:#abb7c6}.badge.kol{color:#c8b1ff;border-color:#584a75}.badge.x{color:#e2e7ee}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.stat{border:1px solid #1c2735;background:#080c11;border-radius:10px;padding:8px}.stat small{display:block;color:#6c7b8f;font-size:7px;text-transform:uppercase}.stat b{display:block;font-size:10px;margin-top:3px}.pos{color:var(--green)}.neg{color:var(--red)}
+.micro{margin-top:10px;border:1px solid #1d2938;background:#080d13;border-radius:11px;padding:9px}.microTop{display:flex;gap:8px;justify-content:space-between;font-size:8px;color:#75859a}.microTop b{color:#dfe7f2}.spark{width:100%;height:44px;display:block;margin-top:4px}.spark polyline{fill:none;stroke:var(--cyan);stroke-width:2;vector-effect:non-scaling-stroke}.spark .base{stroke:#263448;stroke-width:1}
+.reason{margin-top:9px;font-size:10px;line-height:1.48;color:#9ba7b7}.reason b{color:#fff}
+.guard{margin-top:8px;border-radius:10px;padding:8px 9px;font-size:9px;line-height:1.4;border:1px solid #263448;background:#090e14;color:#9ba8b9}.guard.ok{border-color:rgba(83,243,165,.24);color:#a8d9c0}.guard.no{border-color:rgba(255,99,123,.25);color:#d7a4ad}
+.entryRow{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:10px}.entryBtn{border:0;border-radius:12px;background:linear-gradient(135deg,var(--green),#6be9bf);color:#03120b;padding:12px;font-size:11px;font-weight:1000}.entryBtn:disabled{background:#121a24;color:#66758a;border:1px solid #283649}.watchBtn{border:1px solid #29384b;background:#0d141d;color:#aab7c7;border-radius:12px;padding:0 12px;font-size:9px;font-weight:900}
+.sizing{margin-top:7px;font-size:8px;color:#738297;text-align:center}.sizing b{color:#cfd8e5}
+.details{border-top:1px solid #1b2532;margin-top:9px;padding-top:8px}.details summary{font-size:8px;color:#728196;cursor:pointer;list-style:none}.detailLinks{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.detailLinks a,.detailLinks button{border:1px solid #27364a;background:#0b1118;color:#b7c4d3;border-radius:8px;padding:7px 9px;font-size:8px;text-decoration:none}
+.empty{border:1px solid #202c3c;background:#0a0f15;border-radius:18px;padding:25px 18px;text-align:center;color:#8e9caf;font-size:11px;line-height:1.55}.empty b{display:block;color:#fff;font-size:15px;margin-bottom:5px}
+.trade{border:1px solid #243248;background:#0b1119;border-radius:18px;padding:13px}.tradeHead{display:flex;align-items:center;gap:8px}.tradeHead h3{margin:0;font-size:15px}.signal{margin-left:auto;border-radius:8px;padding:6px 8px;font-size:8px;font-weight:1000}.signal.hold{background:var(--green);color:#04120b}.signal.runner{background:var(--violet);color:#120d20}.signal.derisk{background:var(--amber);color:#221700}.signal.exit{background:var(--red);color:#25040a}
+.tradeGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:9px}.tradeReason{font-size:10px;color:#98a5b5;line-height:1.45;margin-top:9px}.axiomBtn{width:100%;border:0;border-radius:11px;background:#16202b;color:#dce4ef;padding:11px;font-weight:950;margin-top:9px}
+.audit{border:1px solid #202c3b;background:#0a0f15;border-radius:17px;padding:13px}.auditTop{display:flex;align-items:center;justify-content:space-between;gap:8px}.auditTop h3{margin:0;font-size:14px}.auditRow{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;border-top:1px solid #192330;padding:9px 0;font-size:9px}.auditRow:first-of-type{margin-top:8px}.auditRow b{font-size:10px}.auditSummary{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.auditBox{border:1px solid #1d2836;background:#070b10;border-radius:10px;padding:8px}.auditBox small{display:block;font-size:7px;color:#6e7d90;text-transform:uppercase}.auditBox b{display:block;font-size:11px;margin-top:3px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.66);z-index:9000;display:none;align-items:flex-end;justify-content:center}.overlay.show{display:flex}.sheet{width:min(650px,100%);max-height:87vh;overflow:auto;background:#090e14;border:1px solid #27364a;border-radius:24px 24px 0 0;padding:17px 15px 28px}.sheetHead{display:flex;justify-content:space-between;align-items:center}.sheetHead h2{font-size:17px;margin:0}.close{width:35px;height:35px;border:0;border-radius:10px;background:#151e2a;color:#fff}.setting{border:1px solid #202c3d;background:#070b10;border-radius:13px;padding:11px;margin-top:11px}.setting h3{font-size:10px;margin:0 0 6px}.setting p{font-size:9px;color:#8493a7;line-height:1.45;margin:0 0 8px}.setting input,.setting select{width:100%;border:1px solid #2a394d;background:#05080d;color:#fff;border-radius:10px;padding:11px;font-size:16px}.setBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.setBtns button{border:1px solid #2b3a4f;background:#111925;color:#fff;border-radius:9px;padding:9px 10px;font-size:9px;font-weight:900}
+.modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9500;display:none;align-items:center;justify-content:center;padding:20px}.modalOverlay.show{display:flex}.modal{width:min(450px,100%);border:1px solid #29394d;background:#0a1017;border-radius:20px;padding:17px}.modal h3{font-size:16px;margin:0}.modal p{font-size:10px;color:#93a1b3;line-height:1.5}.modalBtns{display:grid;grid-template-columns:1fr 1fr;gap:7px}.modalBtns button{border:1px solid #2b3a4e;background:#121a25;color:#fff;border-radius:10px;padding:11px;font-size:9px;font-weight:900}
+.onboard{position:fixed;inset:0;z-index:10000;background:radial-gradient(circle at 50% 0,#172432 0,#07090d 42%,#040608 100%);display:none;align-items:center;justify-content:center;padding:20px}.onboard.show{display:flex}.onCard{width:min(480px,100%);border:1px solid #27364a;background:#090e14;border-radius:25px;padding:22px}.onCard h1{font-size:24px;margin:0 0 7px}.onCard p{font-size:11px;color:#92a0b2;line-height:1.52;margin:0}.onGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.onField{border:1px solid #202d3f;background:#070b10;border-radius:12px;padding:10px}.onField label{display:block;font-size:8px;color:#7e8da1;text-transform:uppercase;margin-bottom:6px}.onField input,.onField select{width:100%;border:0;background:transparent;color:#fff;font-size:18px;font-weight:900;outline:none}.safe{border:1px solid #213044;background:#080d13;border-radius:12px;padding:10px;color:#8f9db0;font-size:9px;line-height:1.5;margin-bottom:10px}.safe b{color:#fff}.continue{width:100%;border:0;border-radius:13px;background:var(--green);color:#03120a;padding:13px;font-weight:1000}.foot{padding:14px 4px;color:#59697d;font-size:8px;line-height:1.5}
+@media(max-width:520px){
+  .app{padding:12px 9px 80px}.brand p{display:none}.modeChip{max-width:125px;overflow:hidden;text-overflow:ellipsis}
+  .metrics,.stats,.tradeGrid,.auditSummary{grid-template-columns:repeat(2,1fr)}
+  .onGrid{grid-template-columns:1fr}.card{padding:12px}.auditRow{grid-template-columns:1fr auto auto}.auditRow span:last-child{display:none}
+}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="top">
-    <div class="logo">α</div>
-    <div class="brand"><h1>SOL Alpha Radar <span style="font-size:.55em;color:#55d9ff">v6.1</span></h1><p>ultra-early · route-checked · social/KOL · runner management</p></div>
-    <button class="walletChip" id="walletChip"><span class="dot"></span><b id="walletText">wallet</b></button>
-  </header>
+<header>
+  <div class="logo">◉</div>
+  <div class="brand"><h1>PEARL <span style="font-size:.58em;color:#57d9ff">v7</span></h1><p>Lifecycle engine · Axiom execution · self-auditing signals</p></div>
+  <span class="modeChip" id="modeChip">STARTING</span>
+</header>
 
-  <nav class="tabs">
-    <button class="tab on" data-view="alpha">Alpha</button>
-    <button class="tab" data-view="trades">Trades</button>
-    <button class="tab" data-view="history">Historie</button>
-    <button class="gear" id="gear">⚙️</button>
-  </nav>
+<nav class="tabs">
+  <button class="tab on" data-view="hunt">Hunt</button>
+  <button class="tab" data-view="trades">Trades</button>
+  <button class="tab" data-view="audit">Audit</button>
+  <button class="gear" id="gear">⚙️</button>
+</nav>
 
-  <section class="hero" id="hero">
-    <div class="heroTop"><div><h2>Early alpha, niet achter pumps aan</h2><p>On-chain snelheid is de primaire trigger. X en KOL-data zijn bevestiging, niet de reden om blind te kopen.</p></div><span class="live" id="liveState">LIVE</span></div>
-    <div class="pulse">
-      <div class="metric"><small>Nieuwe pools</small><b id="mPools">—</b></div>
-      <div class="metric"><small>Alpha</small><b id="mAlpha">—</b></div>
-      <div class="metric"><small>Scan</small><b id="mScan">—</b></div>
-      <div class="metric"><small>SOL</small><b id="mSol">—</b></div>
-    </div>
-  </section>
+<section class="hero" id="hero">
+  <div class="heroTop"><div><h2>Koop geen sterke statistieken. Koop een sterke fase.</h2><p>PEARL volgt eerst de microstructuur en blokkeert falling knives, euforie en distributie. Alleen een bevestigde breakout of reclaim kan ENTRY READY worden.</p></div><span class="live" id="live">LIVE</span></div>
+  <div class="metrics">
+    <div class="metric"><small>Tracked</small><b id="mTracked">—</b></div>
+    <div class="metric"><small>Entry ready</small><b id="mReady">—</b></div>
+    <div class="metric"><small>Bad phases</small><b id="mBad">—</b></div>
+    <div class="metric"><small>Refresh</small><b id="mRefresh">—</b></div>
+  </div>
+  <div class="regime"><span>Regime</span><strong id="regimeText">Learning…</strong><span class="grow"></span><span id="speedText">market 2s · discovery 7s</span></div>
+</section>
 
-  <main class="feed" id="feed"><div class="empty"><b>Scanner start…</b>Nieuwe Solana pools worden geladen.</div></main>
-  <div style="font-size:8px;color:#607084;line-height:1.5;padding:15px 4px">Memecoins kunnen in seconden vrijwel waardeloos worden. Een hoge Alpha/Runner-score is geen voorspelling van winst of 100×. Alle swaps worden door jou in Trust Wallet bevestigd.</div>
+<main class="feed" id="feed"><div class="empty"><b>PEARL start…</b>Nieuwe Solana-pools worden opgehaald en krijgen eerst een korte lifecycle-history.</div></main>
+<div class="foot">PEARL is een experimentele trading-assistent, geen winstgarantie. Memecoins kunnen in seconden vrijwel waardeloos worden. De app voert nooit zelf transacties uit en bewaart nooit seed phrases/private keys.</div>
 </div>
 
 <div class="onboard" id="onboard">
   <div class="onCard">
-    <div class="logo" style="margin-bottom:15px">α</div>
-    <h1>Eenmalig je wallet instellen</h1>
-    <p>Plak je publieke Solana-adres. De app slaat het lokaal op en probeert daarna je echte SOL-saldo op te halen.</p>
-    <div class="safe"><b>Read-only.</b> Een publiek walletadres kan geen crypto versturen. Vul hier nooit je seed phrase of private key in.</div>
-    <div class="inputRow"><input id="walletInput" autocapitalize="none" autocomplete="off" spellcheck="false" placeholder="Solana walletadres"><button id="pasteBtn">Plak</button></div>
-    <div class="err" id="walletErr"></div>
-    <button class="continue" id="saveWallet">Opslaan & starten</button>
+    <div class="logo" style="margin-bottom:15px">◉</div>
+    <h1>Maak eerst je survival-budget</h1>
+    <p>De vorige versie liet één trade veel te groot worden. PEARL bepaalt voortaan eerst hoeveel pogingen je pot moet kunnen overleven.</p>
+    <div class="onGrid">
+      <div class="onField"><label>Axiom tradingpot</label><input id="onPot" type="number" min=".01" step=".1" value="1"><span style="font-size:9px;color:#78879a">SOL</span></div>
+      <div class="onField"><label>Max per entry</label><select id="onRisk"><option value=".5">0,5%</option><option value="1" selected>1%</option><option value="1.5">1,5%</option><option value="2">2% (max)</option></select></div>
+    </div>
+    <div class="safe"><b>Waarom zo klein?</b> De gemeten Cupsey-wallet wint niet eens de helft van zijn gesloten calls; een paar uitzonderlijke runners dragen een groot deel van de edge. Deze app voorkomt daarom dat één fout signaal je hele pot bepaalt.</div>
+    <button class="continue" id="startBtn">Start PEARL</button>
   </div>
 </div>
 
-<div class="sheetWrap" id="settingsWrap">
+<div class="overlay" id="settings">
   <div class="sheet">
-    <div class="sheetHead"><h2>Instellingen</h2><button class="close" id="closeSettings">✕</button></div>
-    <div class="setting"><h3>Wallet</h3><p>Alleen het publieke adres wordt lokaal bewaard.</p><input id="settingsWallet"><div class="setBtns"><button id="updateWallet">Opslaan + saldo</button></div></div>
-    <div class="setting"><h3>Risicobedrag</h3><p>Dit wordt alleen als geheugensteun getoond; de app voert geen bedrag automatisch in.</p><input id="riskSol" type="number" min="0.001" step="0.01" value="0.05"><div class="setBtns"><button id="saveRisk">Opslaan</button></div></div>
-    <div class="setting"><h3>Meldingen</h3><p>Bij actieve trades kan de app waarschuwen zolang de webapp actief is. Voor iPhone: eerst aan beginscherm toevoegen.</p><div class="setBtns"><button id="notifications">Meldingen inschakelen</button></div></div>
-    <div class="setting"><h3>Research</h3><p>Cupsey is nuttiger als referentie voor tempo en positionering dan om blind te kopiëren.</p><div class="setBtns"><button onclick="window.open('https://kolexplorer.com/kol/cupsey','_blank')">Cupsey on-chain</button><button onclick="window.open('https://x.com/Cupseyy','_blank')">Cupsey op X</button></div></div>
+    <div class="sheetHead"><h2>PEARL instellingen</h2><button class="close" id="closeSettings">✕</button></div>
+    <div class="setting"><h3>Tradingpot & sizing</h3><p>Alleen gebruikt om een maximale position size te adviseren. PEARL kan je Axiom-wallet niet leegtrekken of zelfstandig traden.</p><input id="potInput" type="number" min=".01" step=".1"><select id="riskInput" style="margin-top:7px"><option value=".5">0,5% per entry</option><option value="1">1% per entry</option><option value="1.5">1,5% per entry</option><option value="2">2% per entry</option></select><div class="setBtns"><button id="saveBudget">Opslaan</button></div></div>
+    <div class="setting"><h3>Ultra-early speed feed (optioneel)</h3><p>Met een PumpPortal API-key kan PEARL gratis token-creations en migraties via één WebSocket ontvangen. De app abonneert zich <b>niet</b> op de betaalde token-trade stream.</p><input id="pumpKey" type="password" placeholder="PumpPortal API key (optioneel)"><div class="setBtns"><button id="savePumpKey">Opslaan / verbinden</button><button id="clearPumpKey">Verwijderen</button></div><div id="pumpStatus" style="font-size:8px;color:#78879a;margin-top:7px"></div></div>
+    <div class="setting"><h3>Axiom</h3><p>PEARL gebruikt Axiom alleen als execution terminal. De knop opent direct het tokenadres in Axiom; jij bepaalt daar slippage, MEV-protectie en de uiteindelijke order.</p><div class="setBtns"><button onclick="window.open('https://axiom.trade/discover?chains=sol&discoverChains=sol&pulseChains=sol&trackerChains=sol','_blank')">Open Axiom Pulse</button></div></div>
+    <div class="setting"><h3>Reset self-audit</h3><p>Wis alleen PEARL's lokale signal-history. Dit verandert niets aan je wallet of Axiom.</p><div class="setBtns"><button id="resetAudit">Audit wissen</button></div></div>
   </div>
 </div>
 
-<div class="modalWrap" id="tradeModal">
-  <div class="modal">
-    <h3 id="modalTitle">Trade bevestigen</h3>
-    <p id="modalText"></p>
-    <div class="modalBtns" id="modalBtns"></div>
-  </div>
+<div class="modalOverlay" id="modalOverlay">
+  <div class="modal"><h3 id="modalTitle"></h3><p id="modalText"></p><div class="modalBtns" id="modalBtns"></div></div>
 </div>
 
 <script>
@@ -105,363 +126,421 @@ const WSOL='So11111111111111111111111111111111111111112';
 const GT='https://api.geckoterminal.com/api/v2';
 const DEX='https://api.dexscreener.com';
 const RUG='https://api.rugcheck.xyz/v1';
-const AI_BAL='https://aisenseapi.com/services/v1/solana/balance/';
-const JUP_QUOTE='https://lite-api.jup.ag/swap/v1/quote';
-const RPCS=['https://solana-rpc.publicnode.com','https://api.mainnet.solana.com','https://api.mainnet-beta.solana.com'];
-const CUPSEY='2fg5QD1eD7rzNNCsvnhmXFm5hqNgwTTG8p7kQ6f3rx6f';
 
 const $=q=>document.querySelector(q), $$=q=>[...document.querySelectorAll(q)];
-const n=v=>Number(v||0)||0, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const num=v=>Number(v||0)||0, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const short=s=>s?`${s.slice(0,4)}…${s.slice(-4)}`:'—';
-const money=v=>{v=n(v);if(v>=1e9)return '$'+(v/1e9).toFixed(1)+'B';if(v>=1e6)return '$'+(v/1e6).toFixed(1)+'M';if(v>=1e3)return '$'+(v/1e3).toFixed(v<1e5?1:0)+'K';return '$'+v.toFixed(0)};
-const pct=v=>(n(v)>=0?'+':'')+n(v).toFixed(Math.abs(n(v))<10?1:0)+'%';
-const price=v=>{v=n(v);if(!v)return '—';if(v>=1)return '$'+v.toFixed(3);if(v>=.01)return '$'+v.toFixed(5);if(v>=.0001)return '$'+v.toFixed(7);return '$'+v.toPrecision(3)};
+const money=v=>{v=num(v);if(v>=1e9)return '$'+(v/1e9).toFixed(1)+'B';if(v>=1e6)return '$'+(v/1e6).toFixed(1)+'M';if(v>=1e3)return '$'+(v/1e3).toFixed(v<1e5?1:0)+'K';return '$'+v.toFixed(0)};
+const pct=v=>(num(v)>=0?'+':'')+num(v).toFixed(Math.abs(num(v))<10?1:0)+'%';
+const price=v=>{v=num(v);if(!v)return '—';if(v>=1)return '$'+v.toFixed(3);if(v>=.01)return '$'+v.toFixed(5);if(v>=.0001)return '$'+v.toFixed(7);return '$'+v.toPrecision(3)};
 const age=m=>m<1?'<1m':m<60?Math.floor(m)+'m':(m/60).toFixed(1)+'u';
+const short=s=>s?`${s.slice(0,4)}…${s.slice(-4)}`:'—';
 const load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(e){return d}};
 const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const isAddress=s=>/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(String(s||'').trim());
 
 const state={
-  view:'alpha',tokens:[],known:new Map(),safety:load('alphaSafety',{}),intel:load('alphaIntel',{}),
-  wallet:load('alphaWallet',''),sol:null,balanceSource:'',riskSol:load('alphaRiskSol',0.05),routes:new Map(),
-  positions:load('alphaPositions',[]),history:load('alphaHistory',[]),
-  scanBusy:false,lastDiscover:0,lastEnrich:0,lastTradePoll:0,returnPrompt:false,errors:[]
+  view:'hunt', tokens:new Map(), order:[], scanBusy:false, marketBusy:false,
+  safety:load('pearlSafety',{}), intel:load('pearlIntel',{}),
+  pot:num(load('pearlPot',0)), riskPct:num(load('pearlRiskPct',1))||1,
+  pumpKey:load('pearlPumpKey',''), pumpSocket:null, pumpState:'off', reconnectTimer:null,
+  audits:load('pearlAudits',[]), positions:load('pearlPositions',[]), cooldownUntil:num(load('pearlCooldown',0)),
+  lastDiscover:0,lastMarket:0,lastRender:0,pending:null,errors:[]
 };
 
-function setView(v){
-  state.view=v;$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));
-  $('#hero').style.display=v==='alpha'?'':'none';render();
+async function getJSON(url,timeout=6000,options={}){
+  const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);
+  try{const r=await fetch(url,{cache:'no-store',signal:c.signal,...options});if(!r.ok)throw new Error(`HTTP ${r.status}`);return await r.json()}
+  finally{clearTimeout(timer)}
 }
 function includedMap(j){const m=new Map();for(const x of (j?.included||[]))m.set(x.id,x.attributes||{});return m}
 function stripNet(id){return String(id||'').replace(/^solana_/,'')}
+function now(){return Date.now()}
 
-async function fetchJSON(url,timeout=6500,options={}){
-  const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);
-  try{
-    const r=await fetch(url,{cache:'no-store',signal:c.signal,...options});
-    if(!r.ok)throw new Error(`HTTP ${r.status}`);
-    return await r.json();
-  }finally{clearTimeout(timer)}
-}
-async function fetchText(url,timeout=9000){
-  const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeout);
-  try{
-    const r=await fetch(url,{cache:'no-store',signal:c.signal,headers:{Accept:'text/plain'}});
-    if(!r.ok)throw new Error(`HTTP ${r.status}`);
-    return await r.text();
-  }finally{clearTimeout(timer)}
-}
-function gtPool(pool,j){
+function gtToken(pool,j){
   const rel=pool.relationships||{},bi=rel.base_token?.data?.id,qi=rel.quote_token?.data?.id,b=stripNet(bi),q=stripNet(qi);
   let mint,isBase;if(q===WSOL&&b&&b!==WSOL){mint=b;isBase=true}else if(b===WSOL&&q&&q!==WSOL){mint=q;isBase=false}else return null;
   const a=pool.attributes||{},inc=includedMap(j),meta=inc.get(isBase?bi:qi)||{},created=Date.parse(a.pool_created_at||0);
-  const tx5=a.transactions?.m5||{},tx1=a.transactions?.h1||{},buys5=n(tx5.buys),sells5=n(tx5.sells),buys1=n(tx1.buys),sells1=n(tx1.sells);
+  const tx5=a.transactions?.m5||{},tx1=a.transactions?.h1||{},buys5=num(tx5.buys),sells5=num(tx5.sells);
   return {
     mint,pair:stripNet(pool.id),name:meta.name||a.name?.split(' / ')[0]||'Unknown',symbol:meta.symbol||'?',
-    image:meta.image_url||'',created,age:created?Math.max(0,(Date.now()-created)/60000):99999,
-    liq:n(a.reserve_in_usd),mc:n(a.market_cap_usd)||n(a.fdv_usd),price:n(isBase?a.base_token_price_usd:a.quote_token_price_usd),
-    v5:n(a.volume_usd?.m5),v1:n(a.volume_usd?.h1),buys5,sells5,buys1,sells1,
-    flow:(buys5+sells5)?buys5/(buys5+sells5):(buys1+sells1)?buys1/(buys1+sells1):.5,
-    p5:n(a.price_change_percentage?.m5),p1:n(a.price_change_percentage?.h1),
-    url:`https://dexscreener.com/solana/${stripNet(pool.id)}`,boost:0,socials:[],websites:[],xUrl:''
-  };
+    image:meta.image_url||'',created,age:created?Math.max(0,(now()-created)/60000):99999,
+    price:num(isBase?a.base_token_price_usd:a.quote_token_price_usd),liq:num(a.reserve_in_usd),
+    mc:num(a.market_cap_usd)||num(a.fdv_usd),v5:num(a.volume_usd?.m5),v1:num(a.volume_usd?.h1),
+    buys5,sells5,buys1:num(tx1.buys),sells1:num(tx1.sells),
+    flow:(buys5+sells5)?buys5/(buys5+sells5):.5,p5:num(a.price_change_percentage?.m5),p1:num(a.price_change_percentage?.h1),
+    url:`https://dexscreener.com/solana/${stripNet(pool.id)}`,socials:[],xUrl:'',source:'gecko',seen:now()
+  }
 }
-function dexToToken(p,mint,old={}){
-  const token=p.baseToken?.address===mint?p.baseToken:p.quoteToken,t5=p.txns?.m5||{},t1=p.txns?.h1||{};
-  const buys5=n(t5.buys),sells5=n(t5.sells),created=n(p.pairCreatedAt)||old.created||0;
+function mergeDex(old,p){
+  const mint=old.mint,token=p.baseToken?.address===mint?p.baseToken:p.quoteToken,t5=p.txns?.m5||{},t1=p.txns?.h1||{},buys5=num(t5.buys),sells5=num(t5.sells);
   const socials=p.info?.socials||[],x=socials.find(x=>/twitter|x\.com/i.test((x.type||'')+' '+(x.url||'')));
-  return {...old,mint,pair:p.pairAddress,name:token?.name||old.name||'Unknown',symbol:token?.symbol||old.symbol||'?',
-    image:p.info?.imageUrl||old.image||'',created,age:created?Math.max(0,(Date.now()-created)/60000):old.age||99999,
-    liq:n(p.liquidity?.usd)||old.liq,mc:n(p.marketCap)||n(p.fdv)||old.mc,price:n(p.priceUsd)||old.price,
-    v5:n(p.volume?.m5),v1:n(p.volume?.h1),buys5,sells5,buys1:n(t1.buys),sells1:n(t1.sells),
-    flow:(buys5+sells5)?buys5/(buys5+sells5):old.flow||.5,p5:n(p.priceChange?.m5),p1:n(p.priceChange?.h1),
-    url:p.url||old.url,boost:n(p.boosts?.active)||old.boost||0,socials,websites:p.info?.websites||[],xUrl:x?.url||old.xUrl||''};
+  return {...old,pair:p.pairAddress||old.pair,name:token?.name||old.name,symbol:token?.symbol||old.symbol,image:p.info?.imageUrl||old.image,
+    created:num(p.pairCreatedAt)||old.created,age:(num(p.pairCreatedAt)||old.created)?Math.max(0,(now()-(num(p.pairCreatedAt)||old.created))/60000):old.age,
+    price:num(p.priceUsd)||old.price,liq:num(p.liquidity?.usd)||old.liq,mc:num(p.marketCap)||num(p.fdv)||old.mc,
+    v5:num(p.volume?.m5),v1:num(p.volume?.h1),buys5,sells5,buys1:num(t1.buys),sells1:num(t1.sells),
+    flow:(buys5+sells5)?buys5/(buys5+sells5):old.flow,p5:num(p.priceChange?.m5),p1:num(p.priceChange?.h1),
+    url:p.url||old.url,socials,xUrl:x?.url||old.xUrl||'',seen:now(),source:old.source==='pump'?'pump+dex':'dex'};
 }
-function score(t){
-  const tx=t.buys5+t.sells5,vr=t.liq?t.v5/t.liq:0,velocity=tx/Math.max(1,Math.min(5,t.age||5));
-  let s=15,runner=10,why=[];
-  if(t.age<1){s+=14;why.push('net gelanceerd')}else if(t.age<=8){s+=20;why.push('zeer vroeg')}else if(t.age<=25)s+=14;else if(t.age<=90)s+=7;else s-=5;
-  if(t.mc>0&&t.mc<=25000){s+=18;runner+=22;why.push('nano-cap')}else if(t.mc<=100000){s+=15;runner+=18}else if(t.mc<=350000){s+=8;runner+=10}else if(t.mc>1500000){s-=8;runner-=10}
-  if(t.liq>=5000&&t.liq<=100000)s+=13;else if(t.liq>=2500)s+=6;else{s-=22;why.push('zeer lage liquidity')}
-  if(t.flow>=.56&&t.flow<=.82){s+=13;runner+=7}else if(t.flow>.9){s-=10}else if(t.flow<.43){s-=18}
-  if(velocity>=5){s+=13;runner+=6;why.push('snelle instroom')}else if(velocity>=2)s+=8;else if(tx<4)s-=8;
-  if(vr>=.08&&vr<=1.5)s+=9;else if(vr>1.5&&vr<4)s+=4;else if(vr>6)s-=6;
-  if(t.p5>=0&&t.p5<=35){s+=9;runner+=4}else if(t.p5>35&&t.p5<=100){s+=2;runner+=4}else if(t.p5>150){s-=18;why.push('al verticaal')}else if(t.p5<-20)s-=15;
-  if(t.sells5===0&&t.buys5>10)s-=12;
-  if(t.xUrl){s+=5;runner+=7;why.push('X aanwezig')}if((t.socials||[]).length>1)runner+=4;if(t.boost>0){s+=2;runner+=4}
-  const safe=state.safety[t.mint];if(safe?.status==='ok'){s+=8;runner+=6}else if(safe?.status==='bad'){s-=50;runner-=40;why=['safety danger']}else if(safe?.status==='warn'){s-=7}
-  const intel=state.intel[t.mint]||{};if(intel.kolCount>=2){s+=8;runner+=12;why.push(`${intel.kolCount} KOL wallets`)}if(intel.cupsey){s+=8;runner+=10;why.push('Cupsey/KOL overlap')}if(intel.xHeat>=2){runner+=8;why.push('X pulse')}
-  s=Math.round(clamp(s,0,100));runner=Math.round(clamp(runner+s*.55,0,100));
-  const hard= safe?.status==='bad'||t.liq<1500||t.flow<.30||(t.mc&&t.liq&&t.mc/t.liq>180);
-  let tag='WATCH';if(!hard&&s>=72&&t.age<=35)tag='ALPHA';else if(!hard&&runner>=78&&s>=58)tag='RUNNER';
-  return {...t,alpha:s,runner,tag,hard,why:why.slice(0,3)};
-}
-
-function routeInfo(mint){return state.routes.get(mint)||{status:'unknown',ts:0}}
-async function checkRoute(t,force=false){
-  if(!t?.mint)return {status:'bad'};
-  const old=routeInfo(t.mint);
-  if(!force && old.ts && Date.now()-old.ts<15000)return old;
-  const checking={status:'checking',ts:Date.now()};state.routes.set(t.mint,checking);render();
-  try{
-    const testSol=Math.max(.003,Math.min(.05,n(state.riskSol)||.01));
-    const amount=Math.floor(testSol*1e9);
-    const u=`${JUP_QUOTE}?inputMint=${WSOL}&outputMint=${encodeURIComponent(t.mint)}&amount=${amount}&slippageBps=500&swapMode=ExactIn`;
-    const q=await fetchJSON(u,5000);
-    const ok=n(q?.outAmount)>0 && Array.isArray(q?.routePlan) && q.routePlan.length>0;
-    const impact=n(q?.priceImpactPct)*100;
-    const info=ok
-      ? {status:impact>18?'bad':'ok',ts:Date.now(),impact,routeCount:q.routePlan.length,outAmount:q.outAmount}
-      : {status:'bad',ts:Date.now(),impact:0,routeCount:0,error:q?.error||'Geen Jupiter-route'};
-    state.routes.set(t.mint,info);render();return info;
-  }catch(e){
-    const info={status:'error',ts:Date.now(),error:e?.message||'Routecheck mislukt'};
-    state.routes.set(t.mint,info);render();return info;
+function upsertToken(t){
+  if(!t?.mint)return;
+  const old=state.tokens.get(t.mint);
+  if(old){
+    const hist=old.hist||[],stages=old.stages||[];
+    state.tokens.set(t.mint,{...old,...t,hist,stages});
+  }else{
+    state.tokens.set(t.mint,{...t,hist:[],stages:[],safety:'unknown',stage:'DISCOVERY',pearl:0,entryReady:false,confirm:0});
   }
 }
-function jupiterUrl(mint){
-  return `https://jup.ag/swap?buy=${encodeURIComponent(mint)}&sell=${WSOL}`;
+function snap(t){
+  if(!t.price)return;
+  const h=t.hist||(t.hist=[]),last=h[h.length-1];
+  if(last&&now()-last.ts<1200)return;
+  h.push({ts:now(),price:t.price,liq:t.liq,mc:t.mc,flow:t.flow,buys:t.buys5,sells:t.sells5,tx:t.buys5+t.sells5,v5:t.v5});
+  while(h.length>100||h[0]?.ts<now()-4*60e3)h.shift();
 }
-function trustOpenDapp(url){
-  return `https://link.trustwallet.com/open_url?coin_id=501&url=${encodeURIComponent(url)}`;
+function pointAgo(h,ms){
+  if(!h.length)return null;const target=now()-ms;let best=h[0];
+  for(const p of h){if(p.ts<=target)best=p;else break}return best
 }
-function startJupiterBuy(mint){
-  const t=state.tokens.find(x=>x.mint===mint);if(!t)return;
-  const r=routeInfo(mint);
-  if(r.status!=='ok'){
-    checkRoute(t,true).then(x=>{
-      if(x.status==='ok')startJupiterBuy(mint);
-      else alert('Geen bruikbare Jupiter-route voor deze coin. Ik blokkeer de koop om te voorkomen dat je opnieuw in Trust Wallet op “No swap route” uitkomt.');
-    });
-    return;
-  }
-  let p=state.positions.find(x=>x.mint===mint&&x.status!=='closed');
-  if(!p){p={mint,symbol:t.symbol,name:t.name,pair:t.pair,url:t.url,status:'pending_buy',clicked:Date.now(),clickedPrice:t.price,entry:0,high:t.price,baseLiq:t.liq,lastPrice:t.price,signal:'PENDING',reason:'Wacht op koopbevestiging via Jupiter.'};state.positions.push(p)}
-  else{p.status='pending_buy';p.clicked=Date.now();p.clickedPrice=t.price}
-  savePositions();
-  window.location.href=trustOpenDapp(jupiterUrl(mint));
+function retFrom(t,ms){const h=t.hist||[],p=pointAgo(h,ms);return p?.price&&t.price?((t.price/p.price)-1)*100:0}
+function segment(h,from,to=0){const a=now()-from,b=now()-to;return h.filter(x=>x.ts>=a&&x.ts<=b)}
+function avg(a,key){if(!a.length)return 0;return a.reduce((s,x)=>s+num(x[key]),0)/a.length}
+function stageMetrics(t){
+  const h=t.hist||[],r6=retFrom(t,6000),r15=retFrom(t,15000),r30=retFrom(t,30000),r60=retFrom(t,60000);
+  const s30=segment(h,30000),s90=segment(h,90000),prev15=segment(h,30000,15000),cur15=segment(h,15000);
+  const peak=s90.length?Math.max(...s90.map(x=>x.price)):t.price,low=s90.length?Math.min(...s90.map(x=>x.price)):t.price;
+  const dd=peak?((peak-t.price)/peak)*100:0,bounce=low?((t.price-low)/low)*100:0,range30=s30.length&&Math.min(...s30.map(x=>x.price))?((Math.max(...s30.map(x=>x.price))/Math.min(...s30.map(x=>x.price)))-1)*100:0;
+  const recent=h.slice(-5),deltas=recent.slice(1).map((x,i)=>x.price-recent[i].price),green=deltas.filter(x=>x>0).length,red=deltas.filter(x=>x<0).length;
+  const prevLow=prev15.length?Math.min(...prev15.map(x=>x.price)):0,curLow=cur15.length?Math.min(...cur15.map(x=>x.price)):0;
+  const prevHigh=prev15.length?Math.max(...prev15.map(x=>x.price)):0,curHigh=cur15.length?Math.max(...cur15.map(x=>x.price)):0;
+  const higherLow=!!(prevLow&&curLow>prevLow*1.005),higherHigh=!!(prevHigh&&curHigh>prevHigh*1.005);
+  const flowNow=avg(cur15,'flow')||t.flow,flowPrev=avg(prev15,'flow')||t.flow,flowTrend=flowNow-flowPrev;
+  const txNow=avg(cur15,'tx'),txPrev=avg(prev15,'tx'),txTrend=txNow-txPrev;
+  const fallingKnife=(red>=3&&dd>=8&&r6<0)||(r15<=-10&&t.flow<.5)||(t.p5<-28&&r6<0);
+  return {r6,r15,r30,r60,peak,low,dd,bounce,range30,green,red,higherLow,higherHigh,flowNow,flowPrev,flowTrend,txNow,txPrev,txTrend,fallingKnife,points:h.length}
 }
+function classifyStage(t,m){
+  const prior=(t.stages||[]).slice(-6).map(x=>x.stage);
+  if(m.points<4)return 'DISCOVERY';
+  if(m.fallingKnife||m.r6<-8||(m.r15<-12&&m.red>=2))return 'DUMP';
+  if(m.dd>=8&&m.r6<0&&m.flowNow<.5&&(m.red>=2||m.flowTrend<-.04))return 'DISTRIBUTION';
+  if((m.r15>28||m.r30>48||t.p5>70)&&m.dd<10)return 'EUPHORIA';
+  const hadDamage=prior.some(x=>x==='DUMP'||x==='DISTRIBUTION');
+  if(hadDamage&&m.bounce>=5&&m.higherLow&&m.r6>0&&m.flowNow>=.55&&m.green>=2)return 'RECLAIM';
+  const hadBase=prior.some(x=>x==='ACCUMULATION'||x==='FORMING');
+  if(hadBase&&m.r6>=1&&m.r15>=2&&m.r15<=22&&m.higherHigh&&m.flowNow>=.54&&m.green>=2)return 'BREAKOUT';
+  if(m.points>=7&&m.range30<=11&&m.r30>=-6&&m.r30<=10&&m.flowNow>=.48&&m.flowNow<=.72)return 'ACCUMULATION';
+  return 'FORMING';
+}
+function hardRisk(t,m){
+  const safety=state.safety[t.mint]?.status||'unknown';
+  if(safety==='bad')return 'RugCheck danger';
+  if(t.liq&&t.liq<1800)return 'Liquidity te laag';
+  if(t.mc&&t.liq&&t.mc/t.liq>180)return 'Market cap / liquidity extreem';
+  if(t.sells5===0&&t.buys5>=14)return 'Onnatuurlijke buy-only flow';
+  if(t.flow<.30)return 'Sell-flow dominant';
+  if(m.fallingKnife)return 'Falling knife';
+  return '';
+}
+function lifecycleScore(t,m,stage){
+  let s=28;
+  if(stage==='BREAKOUT')s+=28;if(stage==='RECLAIM')s+=24;if(stage==='ACCUMULATION')s+=12;if(stage==='FORMING')s+=3;
+  if(stage==='EUPHORIA')s-=22;if(stage==='DISTRIBUTION')s-=38;if(stage==='DUMP')s-=52;
+  if(t.age<=1)s+=12;else if(t.age<=5)s+=10;else if(t.age<=15)s+=6;else if(t.age>90)s-=8;
+  if(t.mc>0&&t.mc<=25000)s+=14;else if(t.mc<=100000)s+=10;else if(t.mc<=350000)s+=5;else if(t.mc>1500000)s-=8;
+  if(t.liq>=3000&&t.liq<=150000)s+=8;else if(t.liq<1800)s-=18;
+  if(m.flowNow>=.54&&m.flowNow<=.78)s+=8;else if(m.flowNow>.9)s-=7;else if(m.flowNow<.44)s-=12;
+  if(m.flowTrend>.03)s+=5;if(m.higherLow)s+=7;if(m.higherHigh)s+=7;
+  if(m.r6>0&&m.r6<=8)s+=7;else if(m.r6>15)s-=5;else if(m.r6<0)s-=7;
+  const safety=state.safety[t.mint]?.status||'unknown';if(safety==='ok')s+=8;else if(safety==='warn')s-=7;else if(safety==='bad')s-=45;
+  const intel=state.intel[t.mint]||{};if(intel.kol>=2)s+=7;if(intel.kol>=5)s+=3;if(intel.xHeat>=2)s+=4;
+  const bad=hardRisk(t,m);if(bad)s-=45;
+  return Math.round(clamp(s,0,100));
+}
+function updateLifecycle(t){
+  snap(t);const m=stageMetrics(t),stage=classifyStage(t,m),last=t.stages?.[t.stages.length-1];
+  if(!last||last.stage!==stage||now()-last.ts>5000){t.stages=t.stages||[];t.stages.push({ts:now(),stage});t.stages=t.stages.slice(-20)}
+  t.stage=stage;t.metrics=m;t.pearl=lifecycleScore(t,m,stage);t.blockReason=hardRisk(t,m);
+  const eligible=(stage==='BREAKOUT'||stage==='RECLAIM')&&!t.blockReason&&t.pearl>=72;
+  t.confirm=eligible?Math.min(2,num(t.confirm)+1):0;
+  t.entryReady=eligible&&t.confirm>=2&&!circuitBlocked();
+  if(t.entryReady)registerAudit(t);
+  return t
+}
+function stageRank(s){return ({BREAKOUT:0,RECLAIM:1,ACCUMULATION:2,FORMING:3,DISCOVERY:4,EUPHORIA:5,DISTRIBUTION:6,DUMP:7}[s]??9)}
 
-async function safetyCheck(t){
-  const c=state.safety[t.mint];if(c&&Date.now()-n(c.ts)<10*60e3)return;
-  try{
-    const r=await fetchJSON(`${RUG}/tokens/${t.mint}/report/summary`,5000);
-    const risks=Array.isArray(r.risks)?r.risks:[],d=risks.filter(x=>/danger/i.test(x.level||'')).length,w=risks.filter(x=>/warn/i.test(x.level||'')).length;
-    state.safety[t.mint]={ts:Date.now(),status:d?'bad':w>1?'warn':'ok',dangers:d,warns:w};save('alphaSafety',state.safety);
-  }catch(e){state.safety[t.mint]={ts:Date.now(),status:'unknown',dangers:0,warns:0}}
-}
 async function discover(){
-  const urls=[`${GT}/networks/solana/new_pools?include=base_token,quote_token,dex&page=1`,`${GT}/networks/solana/trending_pools?include=base_token,quote_token,dex&page=1`];
-  const res=await Promise.allSettled(urls.map(u=>fetchJSON(u,6000))),map=new Map();
-  for(const r of res)if(r.status==='fulfilled')for(const p of r.value.data||[]){const t=gtPool(p,r.value);if(t&&!map.has(t.mint))map.set(t.mint,t)}
-  for(const [m,t] of state.known)if(Date.now()-n(t.seen)<20*60e3&&!map.has(m))map.set(m,t);
-  for(const [m,t] of map){t.seen=Date.now();state.known.set(m,t)}
-  return [...map.values()].sort((a,b)=>a.age-b.age).slice(0,45);
-}
-async function enrich(base){
-  const out=[],chunks=[];for(let i=0;i<base.length;i+=30)chunks.push(base.slice(i,i+30));
-  for(const c of chunks){
-    try{
-      const rows=await fetchJSON(`${DEX}/tokens/v1/solana/${c.map(x=>x.mint).join(',')}`,6000);
-      const grouped=new Map();
-      for(const p of rows||[]){let m=null;if(p.baseToken?.address!==WSOL&&p.quoteToken?.address===WSOL)m=p.baseToken?.address;else if(p.quoteToken?.address!==WSOL&&p.baseToken?.address===WSOL)m=p.quoteToken?.address;if(!m)continue;if(!grouped.has(m))grouped.set(m,[]);grouped.get(m).push(p)}
-      for(const x of c){const ps=grouped.get(x.mint)||[];ps.sort((a,b)=>n(b.liquidity?.usd)-n(a.liquidity?.usd));out.push(ps[0]?dexToToken(ps[0],x.mint,x):x)}
-    }catch(e){out.push(...c)}
-  }
-  return out.map(score);
-}
-async function scan(){
-  if(state.scanBusy)return;state.scanBusy=true;$('#liveState').textContent='SCANNING';
+  if(state.scanBusy)return;state.scanBusy=true;
   try{
-    const base=await discover(),en=await enrich(base);state.tokens=en;
-    const candidates=[...en].sort((a,b)=>b.alpha-a.alpha).slice(0,8);
-    await Promise.allSettled(candidates.map(safetyCheck));
-    state.tokens=en.map(score).sort((a,b)=>{const r={ALPHA:0,RUNNER:1,WATCH:2};return r[a.tag]-r[b.tag]||b.alpha-a.alpha});
-    $('#mPools').textContent=state.tokens.length;$('#mAlpha').textContent=state.tokens.filter(x=>x.tag==='ALPHA').length;$('#mScan').textContent=new Date().toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    kickIntel();render();
-  }catch(e){state.errors=[e.message];render()}
-  finally{state.scanBusy=false;$('#liveState').textContent='LIVE'}
+    const urls=[
+      `${GT}/networks/solana/new_pools?include=base_token,quote_token,dex&page=1`,
+      `${GT}/networks/solana/new_pools?include=base_token,quote_token,dex&page=2`,
+      `${GT}/networks/solana/trending_pools?include=base_token,quote_token,dex&page=1`
+    ];
+    const rs=await Promise.allSettled(urls.map(u=>getJSON(u,5500)));
+    for(const r of rs)if(r.status==='fulfilled')for(const p of (r.value.data||[])){const t=gtToken(p,r.value);if(t)upsertToken(t)}
+    state.lastDiscover=now();cleanupTokens();refreshMarket();
+  }catch(e){state.errors=[e.message]}
+  finally{state.scanBusy=false}
+}
+function cleanupTokens(){
+  for(const [mint,t] of state.tokens){
+    const important=state.positions.some(p=>p.mint===mint&&p.status==='active')||state.audits.some(a=>a.mint===mint&&!a.closed);
+    if(!important&&now()-num(t.seen)>20*60e3)state.tokens.delete(mint)
+  }
+}
+async function refreshMarket(){
+  if(state.marketBusy)return;state.marketBusy=true;
+  try{
+    const list=[...state.tokens.values()].filter(t=>t.mint).sort((a,b)=>stageRank(a.stage)-stageRank(b.stage)||a.age-b.age).slice(0,60);
+    for(let i=0;i<list.length;i+=30){
+      const chunk=list.slice(i,i+30);
+      try{
+        const rows=await getJSON(`${DEX}/tokens/v1/solana/${chunk.map(x=>x.mint).join(',')}`,3500),by=new Map();
+        for(const p of (rows||[])){
+          let m=null;if(p.baseToken?.address!==WSOL&&p.quoteToken?.address===WSOL)m=p.baseToken.address;else if(p.quoteToken?.address!==WSOL&&p.baseToken?.address===WSOL)m=p.quoteToken.address;
+          if(!m)continue;const arr=by.get(m)||[];arr.push(p);by.set(m,arr)
+        }
+        for(const old of chunk){const arr=by.get(old.mint)||[];arr.sort((a,b)=>num(b.liquidity?.usd)-num(a.liquidity?.usd));if(arr[0])upsertToken(mergeDex(old,arr[0]))}
+      }catch(e){}
+    }
+    for(const t of state.tokens.values())updateLifecycle(t);
+    state.lastMarket=now();kickSafety();kickIntel();updateAudits();updatePositions();evaluateCircuit();render();
+  }finally{state.marketBusy=false}
+}
+async function kickSafety(){
+  const list=[...state.tokens.values()].filter(t=>t.price&&t.pearl>=50&&(!state.safety[t.mint]||now()-num(state.safety[t.mint].ts)>30*60e3)).sort((a,b)=>b.pearl-a.pearl).slice(0,5);
+  await Promise.allSettled(list.map(async t=>{
+    try{
+      const r=await getJSON(`${RUG}/tokens/${t.mint}/report/summary`,5000),risks=Array.isArray(r.risks)?r.risks:[];
+      const d=risks.filter(x=>/danger/i.test(x.level||'')).length,w=risks.filter(x=>/warn/i.test(x.level||'')).length;
+      state.safety[t.mint]={ts:now(),status:d?'bad':w>1?'warn':'ok',dangers:d,warns:w};save('pearlSafety',state.safety);updateLifecycle(t)
+    }catch(e){}
+  }))
 }
 async function kickIntel(){
-  const top=state.tokens.filter(t=>!t.hard&&(t.tag==='ALPHA'||t.tag==='RUNNER')).slice(0,4);
-  for(const t of top){
-    checkRoute(t);
-    const old=state.intel[t.mint];if(old&&Date.now()-n(old.ts)<120000)continue;
-    state.intel[t.mint]={...(old||{}),ts:Date.now(),loading:true};save('alphaIntel',state.intel);
-    Promise.allSettled([kolIntel(t),xIntel(t)]).then(()=>{const cur=state.tokens.find(x=>x.mint===t.mint);if(cur)Object.assign(cur,score(cur));render()})
+  const list=[...state.tokens.values()].filter(t=>t.price&&t.pearl>=62&&(!state.intel[t.mint]||now()-num(state.intel[t.mint].ts)>2*60e3)).sort((a,b)=>b.pearl-a.pearl).slice(0,2);
+  for(const t of list){
+    state.intel[t.mint]={...(state.intel[t.mint]||{}),ts:now(),loading:true};
+    const kolUrl=`https://r.jina.ai/https://kolexplorer.com/token/${t.mint}`;
+    const xQuery=encodeURIComponent(`${t.mint} $${t.symbol}`);
+    const xUrl=`https://r.jina.ai/https://x.com/search?q=${xQuery}%26src=typed_query%26f=live`;
+    Promise.allSettled([
+      fetch(kolUrl,{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject()),
+      fetch(xUrl,{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject())
+    ]).then(([kolRes,xRes])=>{
+      const names=['Cupsey','Decu','Cented','Dv','Jason','Milito','Trunoest','Clown','Casino','Ozark'];
+      let hits=[],kol=0;
+      if(kolRes.status==='fulfilled'){
+        const txt=kolRes.value;
+        hits=names.filter(nm=>new RegExp(`\\b${nm}\\b`,'i').test(txt));
+        const walletCounts=[...txt.matchAll(/(\d+)\s*(?:KOLs?|wallets?)/gi)].map(m=>num(m[1]));
+        kol=walletCounts.length?Math.max(...walletCounts):hits.length;
+      }
+      let xHandles=0,xHeat=t.xUrl?1:0;
+      if(xRes.status==='fulfilled'){
+        const xt=xRes.value;
+        const handles=new Set((xt.match(/@[A-Za-z0-9_]{2,15}/g)||[]).map(x=>x.toLowerCase()));
+        xHandles=handles.size;
+        if(xHandles>=8)xHeat=3;else if(xHandles>=3)xHeat=2;else if(xHandles>=1)xHeat=Math.max(xHeat,1);
+      }
+      state.intel[t.mint]={ts:now(),loading:false,kol,xHeat,xHandles,names:hits.slice(0,4)};
+      save('pearlIntel',state.intel);updateLifecycle(t);render()
+    })
   }
 }
-async function kolIntel(t){
-  try{
-    const txt=await fetchText(`https://r.jina.ai/https://kolexplorer.com/token/${t.mint}`,9000);
-    const wallets=[...txt.matchAll(/(\d+)\s*wallets?/gi)].map(m=>n(m[1])),kolCount=wallets.length?Math.max(...wallets):0;
-    const cupsey=/\bCupsey\b/i.test(txt);
-    state.intel[t.mint]={...(state.intel[t.mint]||{}),ts:Date.now(),loading:false,kolCount,cupsey,kolOk:true};save('alphaIntel',state.intel);
-  }catch(e){state.intel[t.mint]={...(state.intel[t.mint]||{}),ts:Date.now(),loading:false,kolOk:false};save('alphaIntel',state.intel)}
+
+function auditKey(t){return t.mint+'-'+Math.floor(now()/30000)}
+function registerAudit(t){
+  if(state.audits.some(a=>a.mint===t.mint&&!a.closed))return;
+  const recent=state.audits.find(a=>a.mint===t.mint&&now()-a.started<10*60e3);if(recent)return;
+  state.audits.push({id:auditKey(t),mint:t.mint,symbol:t.symbol,started:now(),entry:t.price,pearl:t.pearl,stage:t.stage,high:t.price,low:t.price,r30:null,r120:null,r300:null,closed:false});
+  state.audits=state.audits.slice(-80);save('pearlAudits',state.audits)
 }
-async function xIntel(t){
-  try{
-    const q=encodeURIComponent(`"${t.mint}" OR "$${t.symbol}"`);
-    const txt=await fetchText(`https://r.jina.ai/https://x.com/search?q=${q}%26src=typed_query%26f=live`,9000);
-    const handles=new Set((txt.match(/@[A-Za-z0-9_]{2,15}/g)||[]).map(x=>x.toLowerCase()));
-    let heat=handles.size>=8?3:handles.size>=3?2:handles.size>=1?1:0;
-    if(/sign in|log in to x/i.test(txt)&&handles.size===0)heat=0;
-    state.intel[t.mint]={...(state.intel[t.mint]||{}),ts:Date.now(),loading:false,xHeat:heat,xHandles:handles.size,xOk:true};save('alphaIntel',state.intel);
-  }catch(e){state.intel[t.mint]={...(state.intel[t.mint]||{}),ts:Date.now(),loading:false,xOk:false};save('alphaIntel',state.intel)}
+function updateAudits(){
+  for(const a of state.audits.filter(x=>!x.closed)){
+    const t=state.tokens.get(a.mint);if(!t?.price)continue;
+    a.high=Math.max(num(a.high),t.price);a.low=a.low?Math.min(num(a.low),t.price):t.price;
+    const elapsed=now()-a.started,ret=((t.price/a.entry)-1)*100;
+    if(elapsed>=30000&&a.r30==null)a.r30=ret;
+    if(elapsed>=120000&&a.r120==null)a.r120=ret;
+    if(elapsed>=300000){a.r300=ret;a.closed=true;a.mfe=((a.high/a.entry)-1)*100;a.mae=((a.low/a.entry)-1)*100}
+  }
+  save('pearlAudits',state.audits)
 }
-function intelLabel(t){
-  const i=state.intel[t.mint]||{};
-  return {x:i.loading?'scan…':i.xOk?(i.xHeat>=3?'HOT':i.xHeat===2?'warming':i.xHeat===1?'mentions':'quiet'):(t.xUrl?'linked':'—'),
-          kol:i.loading?'scan…':i.kolOk?(i.kolCount?`${i.kolCount} wallets`:'none'):'—'};
+function circuitBlocked(){return now()<state.cooldownUntil}
+function evaluateCircuit(){
+  if(circuitBlocked())return;
+  const done=state.audits.filter(a=>a.closed&&a.r120!=null).slice(-5);if(done.length<5)return;
+  const avg2=done.reduce((s,a)=>s+num(a.r120),0)/done.length,wins=done.filter(a=>num(a.r120)>0).length;
+  const hardFails=done.filter(a=>num(a.mae)<=-12).length;
+  if(avg2<=-5||wins<=1||hardFails>=3){state.cooldownUntil=now()+30*60e3;save('pearlCooldown',state.cooldownUntil)}
 }
+function regime(){
+  const list=[...state.tokens.values()].filter(t=>t.price&&t.metrics?.points>=4).slice(0,30);if(!list.length)return {name:'LEARNING',cls:'caution'};
+  const bad=list.filter(t=>t.stage==='DUMP'||t.stage==='DISTRIBUTION').length/list.length,good=list.filter(t=>t.stage==='BREAKOUT'||t.stage==='RECLAIM'||t.stage==='ACCUMULATION').length/list.length;
+  if(circuitBlocked())return {name:'COOLDOWN',cls:'stop'};
+  if(bad>=.55)return {name:'HOSTILE',cls:'stop'};
+  if(bad>=.35||good<.25)return {name:'CAUTION',cls:'caution'};
+  return {name:'GO',cls:'go'}
+}
+function suggestedSize(t){
+  const max=state.pot*(state.riskPct/100),quality=clamp((t.pearl-70)/25,.45,1);
+  return Math.max(0,Math.min(max,max*quality))
+}
+function axiomUrl(mint){return `https://axiom.trade/t/${encodeURIComponent(mint)}`}
 function xSearch(t){return `https://x.com/search?q=${encodeURIComponent(t.mint+' $'+t.symbol)}&src=typed_query&f=live`}
-function card(t){
-  const i=intelLabel(t),safe=state.safety[t.mint]||{},route=routeInfo(t.mint),tag=t.tag==='ALPHA'?'alpha':t.tag==='RUNNER'?'runner':'watch';
-  const img=t.image?`<img class="coin" src="${esc(t.image)}" onerror="this.outerHTML='<div class=&quot;coin fallback&quot;>${esc(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${esc(t.symbol.slice(0,2))}</div>`;
-  const signalEligible=(t.tag==='ALPHA'||t.tag==='RUNNER')&&!t.hard&&safe.status!=='bad';
-  const buy=signalEligible&&route.status==='ok';
-  const checking=signalEligible&&(route.status==='unknown'||route.status==='checking');
-  const routeBadge=route.status==='ok'
-    ? `<span class="badge routeok">JUPITER ROUTE ✓${route.impact?` · ${route.impact.toFixed(1)}% impact`:''}</span>`
-    : checking?`<span class="badge routewait">ROUTE CHECK…</span>`
-    : signalEligible?`<span class="badge routebad">GEEN ROUTE</span>`:'';
-  const mult100=t.mc?money(t.mc*100):'—';
-  let action='';
-  if(buy){
-    action=`<button class="action" onclick="startJupiterBuy('${t.mint}')">Koop via Jupiter in Trust Wallet</button>`;
-  }else if(checking){
-    action=`<button class="action secondary" onclick="checkRoute(state.tokens.find(x=>x.mint==='${t.mint}'),true)">Route controleren…</button>`;
-  }else if(signalEligible){
-    action=`<button class="action secondary" disabled>Niet koopbaar · geen swaproute</button>`;
-  }else{
-    action=`<button class="action secondary" disabled>Nog geen entry</button>`;
-  }
+function stageLabel(s){return ({DISCOVERY:'Discovery',FORMING:'Forming',ACCUMULATION:'Accumulation',BREAKOUT:'Breakout',RECLAIM:'Reclaim',EUPHORIA:'Euphoria',DISTRIBUTION:'Distribution',DUMP:'Dump'}[s]||s)}
+function stageReason(t){
+  const m=t.metrics||{};if(t.blockReason)return `<b>Geblokkeerd:</b> ${esc(t.blockReason)}.`;
+  if(t.stage==='BREAKOUT')return '<b>Breakout bevestigd:</b> hogere high + positieve korte trend + gezonde buy-flow.';
+  if(t.stage==='RECLAIM')return '<b>Reclaim bevestigd:</b> na zwakte is een hogere low gevormd en draait de korte trend weer omhoog.';
+  if(t.stage==='ACCUMULATION')return 'Prijs consolideert terwijl de flow relatief gezond blijft. PEARL wacht op een echte uitbraak.';
+  if(t.stage==='EUPHORIA')return '<b>Niet najagen:</b> de prijs is al te verticaal gegaan. Eerst nieuwe basisvorming.';
+  if(t.stage==='DISTRIBUTION')return '<b>Geen entry:</b> koers valt vanaf de piek terwijl orderflow verzwakt.';
+  if(t.stage==='DUMP')return '<b>Falling-knife guard:</b> neerwaartse microstructuur. PEARL wacht op bodem + reclaim.';
+  return 'Nog te weinig bevestigde microstructuur voor een entry.';
+}
+function sparkSvg(t){
+  const h=(t.hist||[]).slice(-35);if(h.length<2)return '';
+  const vals=h.map(x=>x.price),lo=Math.min(...vals),hi=Math.max(...vals),range=hi-lo||1;
+  const pts=vals.map((v,i)=>`${(i/(vals.length-1)*100).toFixed(1)},${(40-(v-lo)/range*36).toFixed(1)}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 100 44" preserveAspectRatio="none" aria-label="microtrend"><polyline class="base" points="0,40 100,40"></polyline><polyline points="${pts}"></polyline></svg>`
+}
+function tokenCard(t){
+  const m=t.metrics||stageMetrics(t),intel=state.intel[t.mint]||{},safe=state.safety[t.mint]?.status||'unknown',ready=t.entryReady,reg=regime();
+  const img=t.image?`<img class="coin" src="${esc(t.image)}" alt="" onerror="this.outerHTML='<div class=&quot;coin fallback&quot;>${esc(t.symbol.slice(0,2))}</div>'">`:`<div class="coin fallback">${esc(t.symbol.slice(0,2))}</div>`;
+  const size=suggestedSize(t),blocked=!!t.blockReason||t.stage==='EUPHORIA'||t.stage==='DISTRIBUTION'||t.stage==='DUMP'||reg.name==='COOLDOWN'||reg.name==='HOSTILE';
+  const canOpen=ready&&!blocked;
+  const names=(intel.names||[]).join(', ');
   return `<article class="card">
-    <div class="row">${img}<div class="name"><h3>${esc(t.name)}</h3><div class="sub"><b>${esc(t.symbol)}</b> · ${age(t.age)} · MC ${money(t.mc)}</div></div><div class="score">${t.alpha}</div></div>
-    <div class="badges"><span class="badge ${tag}">${t.tag}</span><span class="badge">Runner ${t.runner}</span>${routeBadge}${t.xUrl?'<span class="badge x">𝕏 linked</span>':''}${(state.intel[t.mint]?.kolCount||0)>0?`<span class="badge kol">${state.intel[t.mint].kolCount} KOL</span>`:''}${safe.status==='bad'?'<span class="badge danger">SAFETY DANGER</span>':''}</div>
-    <div class="stats">
-      <div class="stat"><small>Liquidity</small><b>${money(t.liq)}</b></div>
-      <div class="stat"><small>5 min</small><b class="${t.p5>=0?'pos':'neg'}">${pct(t.p5)}</b></div>
-      <div class="stat"><small>Buy flow</small><b>${Math.round(t.flow*100)}%</b></div>
-      <div class="stat"><small>5m tx</small><b>${t.buys5+t.sells5}</b></div>
-    </div>
-    <div class="intel"><div class="intelBox"><small>X pulse</small><div>${i.x}</div></div><div class="intelBox"><small>KOL / smart money</small><div>${i.kol}</div></div></div>
-    <div class="reason">${t.why.length?esc(t.why.join(' · ')):'Nog geen sterke edge.'} ${t.mc?`100× zou circa <b>${mult100}</b> market cap vereisen.`:''}</div>
-    ${action}
-    <details class="details"><summary>Research / details</summary><div class="links"><a href="${esc(t.url)}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Zoek live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a><a href="${jupiterUrl(t.mint)}" target="_blank">Jupiter</a></div></details>
-  </article>`;
+    <div class="head">${img}<div class="name"><h3>${esc(t.name)}</h3><div class="sub"><b>${esc(t.symbol)}</b> · ${age(t.age)} · MC ${money(t.mc)}</div></div><div class="pearl ${canOpen?'ready':blocked?'blocked':''}">${t.pearl}</div></div>
+    <div class="badges"><span class="badge ${t.stage.toLowerCase()}">${stageLabel(t.stage)}</span>${safe==='ok'?'<span class="badge">Safety ✓</span>':safe==='warn'?'<span class="badge euphoria">Safety warn</span>':safe==='bad'?'<span class="badge dump">Safety danger</span>':''}${intel.kol?`<span class="badge kol">${intel.kol} KOL</span>`:''}${intel.xHeat>=3?'<span class="badge x">𝕏 HOT</span>':intel.xHeat===2?'<span class="badge x">𝕏 warming</span>':t.xUrl?'<span class="badge x">𝕏 linked</span>':''}</div>
+    <div class="stats"><div class="stat"><small>6 sec</small><b class="${m.r6>=0?'pos':'neg'}">${pct(m.r6)}</b></div><div class="stat"><small>15 sec</small><b class="${m.r15>=0?'pos':'neg'}">${pct(m.r15)}</b></div><div class="stat"><small>Buy flow</small><b>${Math.round(m.flowNow*100)}%</b></div><div class="stat"><small>Peak DD</small><b class="${m.dd>10?'neg':''}">-${m.dd.toFixed(1)}%</b></div></div>
+    <div class="micro"><div class="microTop"><span>Microstructure</span><b>${m.higherLow?'HL ✓':'HL —'} · ${m.higherHigh?'HH ✓':'HH —'} · ${m.green}/4 green</b></div>${sparkSvg(t)}</div>
+    <div class="reason">${stageReason(t)}${names?`<br>KOL overlap: <b>${esc(names)}</b>.`:''}</div>
+    <div class="guard ${canOpen?'ok':'no'}">${canOpen?`ENTRY READY · twee opeenvolgende lifecycle-confirmaties · max ${size.toFixed(4)} SOL`:`Geen live entry · ${t.confirm||0}/2 bevestigingen · PEARL wacht.`}</div>
+    <div class="entryRow"><button class="entryBtn" ${canOpen?'':'disabled'} onclick="${canOpen?`openAxiom('${t.mint}')`:''}">${canOpen?'Open in Axiom':'Entry geblokkeerd'}</button><button class="watchBtn" onclick="window.open('${axiomUrl(t.mint)}','_blank')">Chart</button></div>
+    <div class="sizing">Survival sizing: <b>${state.riskPct.toFixed(1)}%</b> van ${state.pot.toFixed(2)} SOL · PEARL kan deze limiet niet overschrijven.</div>
+    <details class="details"><summary>Research</summary><div class="detailLinks"><a href="${esc(t.url||'https://dexscreener.com')}" target="_blank">DexScreener</a><a href="${xSearch(t)}" target="_blank">Live op X</a><a href="https://kolexplorer.com/token/${t.mint}" target="_blank">KOL Explorer</a><a href="https://rugcheck.xyz/tokens/${t.mint}" target="_blank">RugCheck</a></div></details>
+  </article>`
 }
-function renderAlpha(){
-  const picks=state.tokens.filter(t=>!t.hard&&(t.tag==='ALPHA'||t.tag==='RUNNER'||(t.tag==='WATCH'&&t.alpha>=55))).slice(0,4);
-  if(!picks.length){$('#feed').innerHTML=`<div class="empty"><b>Nog geen alpha</b>De scanner blijft elke paar seconden zoeken. ${state.errors[0]?'<br><br>'+esc(state.errors[0]):''}</div>`;return}
-  $('#feed').innerHTML=picks.map(card).join('');
+function sortedTokens(){
+  return [...state.tokens.values()].filter(t=>t.price).sort((a,b)=>{
+    if(a.entryReady!==b.entryReady)return a.entryReady?-1:1;
+    const ar=stageRank(a.stage),br=stageRank(b.stage);if(ar!==br)return ar-br;
+    return b.pearl-a.pearl
+  }).slice(0,5)
 }
-function activePositions(){return state.positions.filter(p=>p.status==='active'||p.status==='pending_buy'||p.status==='pending_sell')}
-function savePositions(){save('alphaPositions',state.positions)}
-function trustBuy(m){return `https://link.trustwallet.com/swap?from=c501&to=c501_t${encodeURIComponent(m)}`}
-function trustSell(m){return `https://link.trustwallet.com/swap?from=c501_t${encodeURIComponent(m)}&to=c501`}
-function startBuy(mint){startJupiterBuy(mint)}
-function showReturnPrompt(){
-  if(state.returnPrompt)return;
-  const p=activePositions().find(x=>x.status==='pending_buy'||x.status==='pending_sell');if(!p)return;
-  state.returnPrompt=true;$('#tradeModal').classList.add('show');$('#modalTitle').textContent=p.status==='pending_buy'?`${p.symbol} gekocht?`:`${p.symbol} verkocht?`;
-  $('#modalText').innerHTML=p.status==='pending_buy'?'Trust Wallet geeft aan een gewone website geen betrouwbare swap-confirmatie terug. Bevestig alleen als de swap echt gelukt is. De actuele koers wordt als geschatte entry genomen.':'Bevestig alleen als de swap naar SOL werkelijk is uitgevoerd.';
-  $('#modalBtns').innerHTML=p.status==='pending_buy'
-    ? `<button onclick="confirmBuy('${p.mint}',true)">Ja, gekocht</button><button onclick="confirmBuy('${p.mint}',false)">Nee</button>`
-    : `<button onclick="confirmSell('${p.mint}',true)">Ja, verkocht</button><button onclick="confirmSell('${p.mint}',false)">Nee</button>`;
+function renderHunt(){
+  const arr=sortedTokens();
+  if(!arr.length){$('#feed').innerHTML='<div class="empty"><b>Nog geen bruikbare marktdata</b>PEARL houdt nieuwe Solana-pools in de gaten. Als de bron tijdelijk blokkeert, probeert de scanner automatisch opnieuw.</div>';return}
+  $('#feed').innerHTML=arr.map(tokenCard).join('')
 }
-function confirmBuy(mint,ok){
-  const p=state.positions.find(x=>x.mint===mint&&x.status==='pending_buy');if(!p)return;
-  if(!ok)p.status='cancelled';else{const t=state.tokens.find(x=>x.mint===mint);p.status='active';p.entry=t?.price||p.clickedPrice;p.lastPrice=p.entry;p.high=p.entry;p.baseLiq=t?.liq||p.baseLiq;p.started=Date.now();p.signal='HOLD';p.reason='Runner-plan actief.'}
-  state.returnPrompt=false;$('#tradeModal').classList.remove('show');savePositions();setView(ok?'trades':'alpha');
+function openAxiom(mint){
+  const t=state.tokens.get(mint);if(!t?.entryReady||circuitBlocked())return;
+  state.pending={mint,opened:now()};save('pearlPending',state.pending);
+  window.open(axiomUrl(mint),'_blank');
 }
-function beginSell(mint){
-  const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;
-  p.status='pending_sell';savePositions();
-  const u=`https://jup.ag/swap?buy=${WSOL}&sell=${encodeURIComponent(mint)}`;
-  window.location.href=trustOpenDapp(u);
+function returnPrompt(){
+  const p=state.pending||load('pearlPending',null);if(!p||now()-num(p.opened)>10*60e3)return;
+  const t=state.tokens.get(p.mint);if(!t)return;
+  $('#modalTitle').textContent=`${t.symbol} gekocht in Axiom?`;
+  $('#modalText').innerHTML=`Bevestig alleen als je de order werkelijk hebt uitgevoerd. PEARL gebruikt de actuele koers als geschatte entry en bewaakt daarna de lifecycle iedere ~2 seconden.<br><br>Aanbevolen maximale size was <b>${suggestedSize(t).toFixed(4)} SOL</b>.`;
+  $('#modalBtns').innerHTML=`<button id="yesBought">Ja, gekocht</button><button id="noBought">Nee</button>`;
+  $('#modalOverlay').classList.add('show');
+  $('#yesBought').onclick=()=>confirmBought(t,true);$('#noBought').onclick=()=>confirmBought(t,false)
 }
-function confirmSell(mint,ok){
-  const p=state.positions.find(x=>x.mint===mint&&x.status==='pending_sell');if(!p)return;
-  if(ok){p.status='closed';p.exit=p.lastPrice;p.closed=Date.now();const ret=p.entry?((p.exit/p.entry)-1)*100:0;state.history.push({...p,returnPct:ret});save('alphaHistory',state.history)}else p.status='active';
-  state.returnPrompt=false;$('#tradeModal').classList.remove('show');savePositions();render();
-}
-function tradeSignal(p,t){
-  const pnl=p.entry?((t.price/p.entry)-1)*100:0;p.high=Math.max(n(p.high),t.price);const dd=p.high?((p.high-t.price)/p.high)*100:0,liqDrop=p.baseLiq?Math.max(0,(1-t.liq/p.baseLiq)*100):0;
-  let sig='HOLD',reason='Momentum heeft nog ruimte.';
-  if(liqDrop>=28||(t.flow<.38&&dd>=9)||pnl<=-18){sig='EXIT';reason='Liquiditeit/orderflow breekt hard; kapitaalbescherming.'}
-  else if(pnl>=100&&!p.principalFlag){sig='PROFIT';reason='2× bereikt: overweeg ongeveer je oorspronkelijke inleg terug te halen en een runner-bag te laten lopen.';p.principalFlag=true}
-  else if(pnl>=200&&t.flow>=.52&&t.p5>-10){sig='HOLD';reason='Runner actief: winst laten lopen met ruimere trailing exit.'}
-  else if(pnl>=50&&dd>=15&&t.p5<0){sig='PROTECT';reason='Sterke winst maar duidelijke terugval vanaf de piek; overweeg trimmen.'}
-  else if(pnl>0&&dd>=22){sig='EXIT';reason='Runner trailing stop geraakt vanaf de hoogste koers.'}
-  p.lastPrice=t.price;p.pnl=pnl;p.dd=dd;p.liqDrop=liqDrop;p.signal=sig;p.reason=reason;return p
-}
-async function pollTrades(){
-  const act=state.positions.filter(p=>p.status==='active');if(!act.length)return;
-  try{
-    const rows=await fetchJSON(`${DEX}/tokens/v1/solana/${act.map(x=>x.mint).slice(0,30).join(',')}`,3500),by=new Map();
-    for(const p of rows||[]){const b=p.baseToken?.address,q=p.quoteToken?.address,m=b!==WSOL&&q===WSOL?b:q!==WSOL&&b===WSOL?q:null;if(m&&!by.has(m))by.set(m,p)}
-    for(const pos of act){const r=by.get(pos.mint);if(!r)continue;const t=dexToToken(r,pos.mint,{});tradeSignal(pos,t)}
-    savePositions();if(state.view==='trades')renderTrades();
-  }catch(e){}
-}
-function signalClass(s){return s==='EXIT'?'exit':s==='PROFIT'?'profit':s==='PROTECT'?'protect':'hold'}
-function signalText(s){return s==='EXIT'?'EXIT NOW':s==='PROFIT'?'DE-RISK':s==='PROTECT'?'PROTECT':'HOLD'}
-function renderTrades(){
-  const a=activePositions();
-  if(!a.length){$('#feed').innerHTML='<div class="empty"><b>Geen actieve trades</b>Bij een Alpha/Runner-signaal kun je vanuit de app naar Trust Wallet gaan.</div>';return}
-  $('#feed').innerHTML=a.map(p=>{
-    if(p.status!=='active')return `<div class="tradeCard"><div class="tradeHead"><h3>${esc(p.symbol)}</h3><span class="signal protect">PENDING</span></div><div class="tradeReason">Wacht op bevestiging na Trust Wallet.</div></div>`;
-    return `<div class="tradeCard"><div class="tradeHead"><div><h3>${esc(p.symbol)}</h3><div class="sub">${price(p.entry)} → ${price(p.lastPrice)}</div></div><span class="signal ${signalClass(p.signal)}">${signalText(p.signal)}</span></div>
-    <div class="tradeStats"><div class="stat"><small>P/L</small><b class="${p.pnl>=0?'pos':'neg'}">${pct(p.pnl)}</b></div><div class="stat"><small>Vanaf piek</small><b>-${n(p.dd).toFixed(1)}%</b></div><div class="stat"><small>Risk SOL</small><b>${n(state.riskSol).toFixed(2)}</b></div><div class="stat"><small>Update</small><b>~2s</b></div></div>
-    <div class="tradeReason">${esc(p.reason)}</div><button class="sell" onclick="beginSell('${p.mint}')">Verkoop → SOL in Trust Wallet</button></div>`;
-  }).join('');
-}
-function renderHistory(){
-  if(!state.history.length){$('#feed').innerHTML='<div class="empty"><b>Nog geen historie</b>Gesloten trades verschijnen hier.</div>';return}
-  $('#feed').innerHTML=`<div class="card">${[...state.history].reverse().map(x=>`<div class="historyRow"><b>${esc(x.symbol)}</b><span class="${n(x.returnPct)>=0?'pos':'neg'}">${pct(x.returnPct)}</span><span>${x.closed?new Date(x.closed).toLocaleDateString('nl-NL'):''}</span></div>`).join('')}</div>`;
-}
-function render(){if(state.view==='alpha')renderAlpha();else if(state.view==='trades')renderTrades();else renderHistory();updateWalletUI()}
-async function walletBalance(){
-  if(!state.wallet)return;
-  try{
-    const j=await fetchJSON(AI_BAL+encodeURIComponent(state.wallet),4500);
-    const b=n(j.balance_sol);if(Number.isFinite(b)){state.sol=b;state.balanceSource='balance API';updateWalletUI();return}
-  }catch(e){}
-  for(const url of RPCS){
-    try{
-      const j=await fetchJSON(url,4000,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance',params:[state.wallet,{commitment:'confirmed'}]})});
-      state.sol=n(j?.result?.value)/1e9;state.balanceSource='RPC';updateWalletUI();return;
-    }catch(e){}
+function confirmBought(t,yes){
+  $('#modalOverlay').classList.remove('show');state.pending=null;save('pearlPending',null);
+  if(!yes)return;
+  if(!state.positions.some(p=>p.mint===t.mint&&p.status==='active')){
+    state.positions.push({mint:t.mint,symbol:t.symbol,name:t.name,status:'active',started:now(),entry:t.price,last:t.price,high:t.price,baseLiq:t.liq,maxPnl:0,signal:'HOLD',reason:'Thesis intact.'});
+    save('pearlPositions',state.positions)
   }
-  state.sol=null;state.balanceSource='unavailable';updateWalletUI();
+  setView('trades')
 }
-function updateWalletUI(){
-  $('#walletText').textContent=state.wallet?(state.sol!=null?`${state.sol.toFixed(state.sol<1?3:2)} SOL`:`${short(state.wallet)}`):'wallet';
-  $('#mSol').textContent=state.sol!=null?state.sol.toFixed(2):'—';
+function updatePositions(){
+  for(const p of state.positions.filter(x=>x.status==='active')){
+    const t=state.tokens.get(p.mint);if(!t?.price)continue;
+    p.last=t.price;p.high=Math.max(num(p.high),t.price);p.pnl=((t.price/p.entry)-1)*100;p.maxPnl=Math.max(num(p.maxPnl),p.pnl);
+    p.dd=p.high?((p.high-t.price)/p.high)*100:0;p.liqDrop=p.baseLiq?Math.max(0,(1-t.liq/p.baseLiq)*100):0;
+    const stage=t.stage;
+    if(p.liqDrop>=30||stage==='DUMP'&&(p.pnl<0||p.dd>10)){p.signal='EXIT';p.reason='Thesis kapot: dump/liquidity-risk. Snel opnieuw beoordelen in Axiom.'}
+    else if(p.pnl>=100&&!p.principalAlerted){p.signal='DERISK';p.reason='2× bereikt: overweeg je oorspronkelijke inleg terug te halen en alleen een runner-bag te laten lopen.';p.principalAlerted=true}
+    else if(p.principalAlerted&&p.pnl>=100){p.signal='RUNNER';p.reason='Runner-bag: geef de winnaar meer ruimte. Exit vooral bij distributie/dump of ernstige liquiditeitsuitstroom.'}
+    else if(p.pnl>=35&&p.dd>=14&&stage!=='BREAKOUT'){p.signal='DERISK';p.reason='Sterke winst, maar momentum verzwakt. Overweeg een deel winst veilig te stellen.'}
+    else if(p.pnl<0&&stage==='DISTRIBUTION'){p.signal='EXIT';p.reason='Entry-thesis faalt: distributie vlak na entry.'}
+    else{p.signal='HOLD';p.reason=stage==='BREAKOUT'||stage==='RECLAIM'?'Lifecycle blijft constructief.':'Geen harde exit-trigger; blijf stage volgen.'}
+  }
+  save('pearlPositions',state.positions)
 }
-function openSettings(){$('#settingsWallet').value=state.wallet||'';$('#riskSol').value=state.riskSol;$('#settingsWrap').classList.add('show')}
-async function saveWalletFromSettings(){const v=$('#settingsWallet').value.trim();if(!isAddress(v)){alert('Ongeldig Solana-adres');return}state.wallet=v;save('alphaWallet',v);state.sol=null;updateWalletUI();await walletBalance()}
-async function enableNotifications(){if(!('Notification'in window)){alert('Op iPhone: voeg de site eerst toe aan het beginscherm.');return}try{await Notification.requestPermission()}catch(e){}}
-function showOnboard(){if(!state.wallet)$('#onboard').classList.add('show')}
-async function pasteWallet(){try{$('#walletInput').value=(await navigator.clipboard.readText()).trim()}catch(e){$('#walletErr').textContent='Houd het veld ingedrukt en kies Plak.'}}
-async function saveFirstWallet(){const v=$('#walletInput').value.trim();if(!isAddress(v)){$('#walletErr').textContent='Dit lijkt geen geldig Solana-adres.';return}state.wallet=v;save('alphaWallet',v);$('#onboard').classList.remove('show');updateWalletUI();walletBalance();scan()}
-function checkReturn(){if(document.visibilityState==='visible'){pollTrades();setTimeout(showReturnPrompt,500)}}
+function signalClass(s){return s==='EXIT'?'exit':s==='DERISK'?'derisk':s==='RUNNER'?'runner':'hold'}
+function renderTrades(){
+  const a=state.positions.filter(p=>p.status==='active');
+  if(!a.length){$('#feed').innerHTML='<div class="empty"><b>Geen actieve trades</b>Een positie verschijnt hier pas nadat jij bevestigt dat je de Axiom-order echt hebt uitgevoerd.</div>';return}
+  $('#feed').innerHTML=a.map(p=>{const t=state.tokens.get(p.mint),stage=t?.stage||'—';return `<article class="trade"><div class="tradeHead"><div><h3>${esc(p.symbol)}</h3><div class="sub">${price(p.entry)} → ${price(p.last)} · ${stageLabel(stage)}</div></div><span class="signal ${signalClass(p.signal)}">${p.signal}</span></div><div class="tradeGrid"><div class="stat"><small>P/L</small><b class="${p.pnl>=0?'pos':'neg'}">${pct(p.pnl)}</b></div><div class="stat"><small>Max winst</small><b class="pos">${pct(p.maxPnl)}</b></div><div class="stat"><small>Vanaf piek</small><b>-${num(p.dd).toFixed(1)}%</b></div><div class="stat"><small>Liq Δ</small><b class="${p.liqDrop>15?'neg':''}">-${num(p.liqDrop).toFixed(0)}%</b></div></div><div class="tradeReason">${esc(p.reason)}</div><button class="axiomBtn" onclick="window.open('${axiomUrl(p.mint)}','_blank')">Open positie in Axiom</button><button class="axiomBtn" onclick="closePosition('${p.mint}')">Markeer als verkocht</button></article>`}).join('')
+}
+function closePosition(mint){
+  const p=state.positions.find(x=>x.mint===mint&&x.status==='active');if(!p)return;
+  p.status='closed';p.closed=now();p.result=num(p.pnl);save('pearlPositions',state.positions);render()
+}
+function auditSummary(){
+  const a=state.audits.filter(x=>x.closed);if(!a.length)return {n:0,win:0,avg:0,mfe:0};
+  return {n:a.length,win:a.filter(x=>num(x.r120)>0).length/a.length*100,avg:a.reduce((s,x)=>s+num(x.r120),0)/a.length,mfe:a.reduce((s,x)=>s+num(x.mfe),0)/a.length}
+}
+function renderAudit(){
+  const a=[...state.audits].reverse().slice(0,30),s=auditSummary();
+  $('#feed').innerHTML=`<section class="audit"><div class="auditTop"><div><h3>PEARL self-audit</h3><div class="sub">Iedere ENTRY READY wordt gemeten, ook als jij niet koopt.</div></div><span class="badge">${circuitBlocked()?'COOLDOWN':'ACTIVE'}</span></div><div class="auditSummary"><div class="auditBox"><small>5m samples</small><b>${s.n}</b></div><div class="auditBox"><small>2m winrate</small><b>${s.n?s.win.toFixed(0)+'%':'—'}</b></div><div class="auditBox"><small>Avg 2m</small><b class="${s.avg>=0?'pos':'neg'}">${s.n?pct(s.avg):'—'}</b></div><div class="auditBox"><small>Avg MFE</small><b>${s.n?pct(s.mfe):'—'}</b></div></div>${a.length?a.map(x=>`<div class="auditRow"><b>${esc(x.symbol)}</b><span>${x.r30==null?'30s —':pct(x.r30)}</span><span class="${num(x.r120)>=0?'pos':'neg'}">${x.r120==null?'2m —':pct(x.r120)}</span><span>${x.closed?'5m '+pct(x.r300):'live'}</span></div>`).join(''):'<div class="empty" style="margin-top:10px"><b>Nog geen signals</b>De audit begint zodra de eerste lifecycle-entry wordt bevestigd.</div>'}</section>`
+}
+function render(){
+  const reg=regime(),chip=$('#modeChip');chip.textContent=reg.name;chip.className='modeChip '+reg.cls;
+  $('#regimeText').textContent=reg.name==='COOLDOWN'?`30m circuit breaker actief`:reg.name==='HOSTILE'?'veel dumps/distributie in tracked markt':reg.name==='CAUTION'?'gemengde microstructuur':reg.name==='GO'?'constructieve microstructuur':'voldoende data verzamelen';
+  const all=[...state.tokens.values()].filter(t=>t.price),bad=all.filter(t=>t.stage==='DUMP'||t.stage==='DISTRIBUTION').length;
+  $('#mTracked').textContent=all.length;$('#mReady').textContent=all.filter(t=>t.entryReady).length;$('#mBad').textContent=bad;$('#mRefresh').textContent=state.lastMarket?new Date(state.lastMarket).toLocaleTimeString('nl-NL',{minute:'2-digit',second:'2-digit'}):'—';
+  $('#hero').style.display=state.view==='hunt'?'':'none';
+  if(state.view==='hunt')renderHunt();else if(state.view==='trades')renderTrades();else renderAudit();
+}
+function setView(v){state.view=v;$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));render()}
+
+function connectPumpPortal(){
+  if(state.pumpSocket){try{state.pumpSocket.close()}catch(e){}state.pumpSocket=null}
+  clearTimeout(state.reconnectTimer);state.reconnectTimer=null;
+  if(!state.pumpKey){state.pumpState='off';updatePumpStatus();return}
+  state.pumpState='connecting';updatePumpStatus();
+  try{
+    const ws=new WebSocket(`wss://pumpportal.fun/api/data?api-key=${encodeURIComponent(state.pumpKey)}`);state.pumpSocket=ws;
+    ws.onopen=()=>{state.pumpState='connected';updatePumpStatus();ws.send(JSON.stringify({method:'subscribeNewToken'}));ws.send(JSON.stringify({method:'subscribeMigration'}))}
+    ws.onmessage=e=>{try{
+      const d=JSON.parse(e.data),mint=d.mint||d.tokenMint||d.address;if(!mint)return;
+      const t={mint,name:d.name||'New launch',symbol:d.symbol||'?',image:'',created:now(),age:0,price:0,liq:0,mc:num(d.marketCap)||0,v5:0,v1:0,buys5:0,sells5:0,buys1:0,sells1:0,flow:.5,p5:0,p1:0,url:`https://pump.fun/coin/${mint}`,socials:[],xUrl:'',source:'pump',seen:now()};
+      upsertToken(t)
+    }catch(err){}}
+    ws.onerror=()=>{state.pumpState='error';updatePumpStatus()}
+    ws.onclose=()=>{state.pumpSocket=null;if(state.pumpKey){state.pumpState='reconnecting';updatePumpStatus();state.reconnectTimer=setTimeout(connectPumpPortal,5000)}}
+  }catch(e){state.pumpState='error';updatePumpStatus()}
+}
+function updatePumpStatus(){const el=$('#pumpStatus');if(el)el.textContent=`Speed feed: ${state.pumpState}`}
+
+function openSettings(){$('#potInput').value=state.pot;$('#riskInput').value=String(state.riskPct);$('#pumpKey').value=state.pumpKey;updatePumpStatus();$('#settings').classList.add('show')}
+function saveBudget(){state.pot=Math.max(.01,num($('#potInput').value)||1);state.riskPct=clamp(num($('#riskInput').value)||1,.5,2);save('pearlPot',state.pot);save('pearlRiskPct',state.riskPct);$('#settings').classList.remove('show');render()}
+function initialSetup(){if(state.pot>0)return;$('#onboard').classList.add('show')}
+function finishSetup(){state.pot=Math.max(.01,num($('#onPot').value)||1);state.riskPct=clamp(num($('#onRisk').value)||1,.5,2);save('pearlPot',state.pot);save('pearlRiskPct',state.riskPct);$('#onboard').classList.remove('show');render()}
+function resetAudit(){if(confirm('PEARL self-audit wissen?')){state.audits=[];state.cooldownUntil=0;save('pearlAudits',[]);save('pearlCooldown',0);render()}}
 
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
-$('#gear').onclick=openSettings;$('#walletChip').onclick=openSettings;$('#closeSettings').onclick=()=>$('#settingsWrap').classList.remove('show');
-$('#settingsWrap').onclick=e=>{if(e.target.id==='settingsWrap')$('#settingsWrap').classList.remove('show')};
-$('#pasteBtn').onclick=pasteWallet;$('#saveWallet').onclick=saveFirstWallet;$('#walletInput').onkeydown=e=>{if(e.key==='Enter')saveFirstWallet()};
-$('#updateWallet').onclick=saveWalletFromSettings;$('#saveRisk').onclick=()=>{state.riskSol=Math.max(.001,n($('#riskSol').value)||.05);save('alphaRiskSol',state.riskSol);alert('Opgeslagen')};
-$('#notifications').onclick=enableNotifications;
-$('#tradeModal').onclick=e=>{if(e.target.id==='tradeModal'){state.returnPrompt=false;$('#tradeModal').classList.remove('show')}};
-document.addEventListener('visibilitychange',checkReturn);window.addEventListener('pageshow',checkReturn);
+$('#gear').onclick=openSettings;$('#closeSettings').onclick=()=>$('#settings').classList.remove('show');$('#settings').onclick=e=>{if(e.target.id==='settings')$('#settings').classList.remove('show')};
+$('#saveBudget').onclick=saveBudget;$('#startBtn').onclick=finishSetup;$('#resetAudit').onclick=resetAudit;
+$('#savePumpKey').onclick=()=>{state.pumpKey=$('#pumpKey').value.trim();save('pearlPumpKey',state.pumpKey);connectPumpPortal()};
+$('#clearPumpKey').onclick=()=>{state.pumpKey='';save('pearlPumpKey','');$('#pumpKey').value='';connectPumpPortal()};
+$('#modalOverlay').onclick=e=>{if(e.target.id==='modalOverlay')$('#modalOverlay').classList.remove('show')};
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){refreshMarket();setTimeout(returnPrompt,650)}});
+window.addEventListener('pageshow',()=>{refreshMarket();setTimeout(returnPrompt,800)});
 
-showOnboard();updateWalletUI();if(state.wallet){walletBalance();scan()}
-setInterval(()=>{if(document.visibilityState==='visible'&&state.view==='alpha')scan()},8000);
-setInterval(()=>{if(document.visibilityState==='visible')pollTrades()},2000);
-setInterval(()=>{if(document.visibilityState==='visible'&&state.wallet)walletBalance()},60000);
+initialSetup();connectPumpPortal();discover();render();
+setInterval(()=>{if(document.visibilityState==='visible')refreshMarket()},2000);
+setInterval(()=>{if(document.visibilityState==='visible')discover()},7000);
+setInterval(()=>{if(document.visibilityState==='visible')returnPrompt()},2500);
 try{if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{})}catch(e){}
 </script>
 </body>

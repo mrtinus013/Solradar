@@ -1,10 +1,10 @@
 {
-  "name": "SOL Alpha Radar v6.1",
-  "short_name": "Alpha Radar",
+  "name": "PEARL · Solana Alpha Engine v7",
+  "short_name": "PEARL",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#07090d",
-  "theme_color": "#07090d",
-  "description": "Ultra-early Solana memecoin radar met Jupiter route-check, social/KOL intel en runner management."
+  "background_color": "#06080b",
+  "theme_color": "#06080b",
+  "description": "Lifecycle-first Solana memecoin radar with Axiom execution, survival sizing and self-auditing signals."
 }
